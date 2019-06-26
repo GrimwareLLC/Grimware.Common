@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <TargetFrameworks>net46</TargetFrameworks>
+  </PropertyGroup>
+
+  <!-- .NET Full Framework compilation flags and build options -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net46'">
+    <DefineConstants>NET46;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+  <!-- .NET Full Framework references -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+</Project>

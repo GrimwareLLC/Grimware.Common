@@ -1,0 +1,34 @@
+<Project>
+  <PropertyGroup>
+    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <!-- .NET Standard 2.0 compilation flags and build options -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <!-- .NET Standard 2.0 references -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <!--<PackageReference Include="System.Data.SqlClient" Version="4.6.1" />-->
+  </ItemGroup>
+
+  <!-- .NET Full Framework compilation flags and build options -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net46'">
+    <DefineConstants>NET46;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+  <!-- .NET Full Framework references -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+</Project>

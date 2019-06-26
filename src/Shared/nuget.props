@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <AssemblyName Condition=" '$(AssemblyName)' == '' ">$(MSBuildProjectName)</AssemblyName>
+    <AssemblyTitle Condition=" '$(AssemblyTitle)' == '' ">$(MSBuildProjectName)</AssemblyTitle>
+    <Product Condition=" '$(Product)' == '' ">$(MSBuildProjectName)</Product>
+    <PackageId Condition=" '$(PackageId)' == '' ">$(MSBuildProjectName)</PackageId>
+    <Authors Condition="'$(Authors)' == ''">Toby Herring</Authors>
+    <Company Condition=" '$(Company)' == '' ">N/A</Company>
+    <Copyright Condition=" '$(Copyright)' == '' ">© 2007-2019, Toby Herring. All rights reserved.</Copyright>
+
+    <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/GrimGadget/Grimware.Common</PackageProjectUrl>
+    <PackageLicenseUrl Condition=" '$(PackageLicenseUrl)' == '' ">https://github.com/GrimGadget/Grimware.Common/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageDescription Condition=" '$(PackageDescription)' == '' " >$(Product)</PackageDescription>
+  </PropertyGroup>
+
+</Project>

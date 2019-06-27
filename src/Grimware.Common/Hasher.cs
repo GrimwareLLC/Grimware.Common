@@ -1,34 +1,36 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Grimware
 {
-    [Guid("C1329C5A-2715-4E49-8B71-69B0AAE9D714")]
     public static class Hasher
     {
         private const int HashMixer = 0xBF;
 
-        private static readonly ConcurrentDictionary<Type, int> TypeHashCodes = new ConcurrentDictionary<Type, int>(32, 16);
-
-        public static int Hash(Type type)
+        public static int Hash(IEnumerable<string> args)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            return TypeHashCodes.GetOrAdd(type, t => Hash(t.GUID.ToByteArray()));
+            return
+                args != null
+                    ? Hash(args as string[] ?? args.ToArray())
+                    : 0;
         }
 
-        public static int Hash(params object[] args)
+        public static int Hash(params string[] args)
         {
-            return args != null ? Hash(args.Select(o => o?.GetHashCode() ?? 0)) : 0;
+            return
+                args != null
+                    ? Hash(args.Select(Hash))
+                    : 0;
         }
 
         public static int Hash(IEnumerable<int> args)
         {
-            return args != null ? Hash(args.ToArray()) : 0;
+            return
+                args != null
+                    ? Hash(args as int[] ?? args.ToArray())
+                    : 0;
         }
 
         public static int Hash(params int[] args)
@@ -46,7 +48,10 @@ namespace Grimware
 
         public static int Hash(IEnumerable<long> args)
         {
-            return args != null ? Hash(args.ToArray()) : 0;
+            return
+                args != null
+                    ? Hash(args as long[] ?? args.ToArray())
+                    : 0;
         }
 
         public static int Hash(params long[] args)
@@ -67,7 +72,10 @@ namespace Grimware
             if (values == null)
                 return 0;
 
-            return values.Length > 4 ? CalculateLongHash(values) : CalculateShortHash(values);
+            return
+                values.Length > 4
+                    ? CalculateLongHash(values)
+                    : CalculateShortHash(values);
         }
 
         private static int CalculateLongHash(byte[] values)
@@ -113,6 +121,14 @@ namespace Grimware
         private static int Hash(int i, long n)
         {
             return Hash(i, Fold(n));
+        }
+
+        private static int Hash(string arg)
+        {
+            return
+                arg != null
+                    ? Hash(Encoding.Unicode.GetBytes(arg))
+                    : 0;
         }
     }
 }

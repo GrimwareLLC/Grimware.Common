@@ -59,5 +59,59 @@ namespace Grimware.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begin Trace ({0}): {1}.
+        /// </summary>
+        internal static string BeginPerformanceTraceFormat {
+            get {
+                return ResourceManager.GetString("BeginPerformanceTraceFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Trace ({0}){1}: &apos;{2}&apos;  {3}.
+        /// </summary>
+        internal static string EndPerformanceTraceFormat {
+            get {
+                return ResourceManager.GetString("EndPerformanceTraceFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [{1}] {0} --&gt; {2}.
+        /// </summary>
+        internal static string EventLogEntryFormat {
+            get {
+                return ResourceManager.GetString("EventLogEntryFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entering: &apos;{0}&apos;.
+        /// </summary>
+        internal static string MethodBeginFormat {
+            get {
+                return ResourceManager.GetString("MethodBeginFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exiting: &apos;{0}&apos;.
+        /// </summary>
+        internal static string MethodEndFormat {
+            get {
+                return ResourceManager.GetString("MethodEndFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unhandled exception occurred in a log subscriber component..
+        /// </summary>
+        internal static string UnhandledSubscriberException {
+            get {
+                return ResourceManager.GetString("UnhandledSubscriberException", resourceCulture);
+            }
+        }
     }
 }

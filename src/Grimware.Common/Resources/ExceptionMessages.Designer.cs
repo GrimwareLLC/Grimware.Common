@@ -59,5 +59,140 @@ namespace Grimware.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aliases must be unique and cannot duplicate argument names..
+        /// </summary>
+        internal static string AliasesMustBeUnique {
+            get {
+                return ResourceManager.GetString("AliasesMustBeUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Argument definitions must be provided..
+        /// </summary>
+        internal static string ArgumentDefinitionsRequired {
+            get {
+                return ResourceManager.GetString("ArgumentDefinitionsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Argument name must be provided..
+        /// </summary>
+        internal static string ArgumentNameRequired {
+            get {
+                return ResourceManager.GetString("ArgumentNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The provided argument is not switched..
+        /// </summary>
+        internal static string ArgumentNotSwitched {
+            get {
+                return ResourceManager.GetString("ArgumentNotSwitched", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &apos;{0}&apos; argument requires a value, but no value was supplied..
+        /// </summary>
+        internal static string ArgumentRequiresValueFormat {
+            get {
+                return ResourceManager.GetString("ArgumentRequiresValueFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arguments must have unique names..
+        /// </summary>
+        internal static string ArgumentsMustHaveUniqueNames {
+            get {
+                return ResourceManager.GetString("ArgumentsMustHaveUniqueNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value could not be appended to the &apos;{0}&apos; enumeration..
+        /// </summary>
+        internal static string EnumValueNotAddedFormat {
+            get {
+                return ResourceManager.GetString("EnumValueNotAddedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value could not be removed from the &apos;{0}&apos; enumeration..
+        /// </summary>
+        internal static string EnumValueNotRemovedFormat {
+            get {
+                return ResourceManager.GetString("EnumValueNotRemovedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error opening registry key: {0}\{1}.
+        /// </summary>
+        internal static string ErrorOpeningRegistryKeyFormat {
+            get {
+                return ResourceManager.GetString("ErrorOpeningRegistryKeyFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading registry value: {0},{1}.
+        /// </summary>
+        internal static string ErrorReadingRegistryValueFormat {
+            get {
+                return ResourceManager.GetString("ErrorReadingRegistryValueFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not an enumeration type..
+        /// </summary>
+        internal static string NotAnEnumTypeFormat {
+            get {
+                return ResourceManager.GetString("NotAnEnumTypeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The hive name is unknown.  Valid hive names are: &apos;HKCR&apos;, &apos;HKCU&apos;, &apos;HKLM&apos;, &apos;HKU&apos;, and &apos;HKCC&apos;..
+        /// </summary>
+        internal static string RegistryHiveUnknown {
+            get {
+                return ResourceManager.GetString("RegistryHiveUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The registry value at {0},{1} is not a Binary value..
+        /// </summary>
+        internal static string RegistryValueIsNotBinaryFormat {
+            get {
+                return ResourceManager.GetString("RegistryValueIsNotBinaryFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The registry value location must be in the form &apos;[registry:]&lt;hive root&gt;\&lt;key path&gt;,&lt;value name&gt;&apos;.  For example: &apos;registry:HKLM\Software\CompanyName\AppName\ASPNET_SETREG,userName&apos;..
+        /// </summary>
+        internal static string RegistryValueLocationMalformed {
+            get {
+                return ResourceManager.GetString("RegistryValueLocationMalformed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; has at least one accessible constructor, singleton behavior cannot be enforced..
+        /// </summary>
+        internal static string SingletonCantBeEnforcedFormat {
+            get {
+                return ResourceManager.GetString("SingletonCantBeEnforcedFormat", resourceCulture);
+            }
+        }
     }
 }

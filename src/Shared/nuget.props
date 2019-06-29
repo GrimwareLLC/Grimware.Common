@@ -9,7 +9,7 @@
     <Copyright Condition=" '$(Copyright)' == '' ">© 2007-2019, Toby Herring. All rights reserved.</Copyright>
 
     <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/GrimGadget/Grimware.Common</PackageProjectUrl>
-    <PackageLicenseUrl Condition=" '$(PackageLicenseUrl)' == '' ">https://github.com/GrimGadget/Grimware.Common/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageDescription Condition=" '$(PackageDescription)' == '' " >$(Product)</PackageDescription>
   </PropertyGroup>

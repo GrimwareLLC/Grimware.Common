@@ -16,9 +16,7 @@
     <Copyright>© 2007-2019, Grimware, LLC</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageLicenseUrl />
-    <PackageLicenseFile></PackageLicenseFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.0.1-RC1</Version>
   </PropertyGroup>
 
   <!-- common NuGet package references that affect all target frameworks -->

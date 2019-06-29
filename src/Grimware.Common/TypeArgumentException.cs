@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace KodeKraft
+namespace Grimware
 {
     /// <summary>
     ///     Exception thrown to indicate that an inappropriate type argument was used for

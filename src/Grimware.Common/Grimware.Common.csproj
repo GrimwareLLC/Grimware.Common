@@ -17,10 +17,6 @@
   </PropertyGroup>
 
   <!-- common NuGet package references that affect all target frameworks -->
-  <ItemGroup><!--<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />-->
-  
-    <Folder Include="Extensions\" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\ExceptionMessages.Designer.cs">
       <DesignTime>True</DesignTime>

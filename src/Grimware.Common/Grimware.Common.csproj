@@ -19,7 +19,7 @@
     <Version>1.0.1-RC1</Version>
   </PropertyGroup>
 
-  <!-- common NuGet package references that affect all target frameworks -->
+
   <ItemGroup>
     <Compile Update="Resources\ExceptionMessages.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -41,6 +41,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LogMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <!-- File Nesting -->
+  <ItemGroup>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
+  </ItemGroup>
+
+  <!-- common NuGet package references that affect all target frameworks -->
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 
   <!-- Common configuration properties for projects in this solution-->

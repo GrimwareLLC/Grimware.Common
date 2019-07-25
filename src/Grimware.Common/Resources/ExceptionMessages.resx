@@ -135,6 +135,9 @@
   <data name="ArgumentsMustHaveUniqueNames" xml:space="preserve">
     <value>Arguments must have unique names.</value>
   </data>
+  <data name="DictionaryIsReadOnly" xml:space="preserve">
+    <value>This dictionary is read-only.</value>
+  </data>
   <data name="EnumValueNotAddedFormat" xml:space="preserve">
     <value>The value could not be appended to the '{0}' enumeration.</value>
   </data>

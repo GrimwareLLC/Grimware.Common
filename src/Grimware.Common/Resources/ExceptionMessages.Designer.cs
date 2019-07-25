@@ -115,6 +115,15 @@ namespace Grimware.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This dictionary is read-only..
+        /// </summary>
+        internal static string DictionaryIsReadOnly {
+            get {
+                return ResourceManager.GetString("DictionaryIsReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value could not be appended to the &apos;{0}&apos; enumeration..
         /// </summary>
         internal static string EnumValueNotAddedFormat {

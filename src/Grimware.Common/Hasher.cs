@@ -7,7 +7,7 @@ namespace Grimware
 {
     public static class Hasher
     {
-        private const int HashMixer = 0xBF;
+        private const int _HashMixer = 0xBF;
 
         public static int Hash(IEnumerable<string> args)
         {
@@ -114,7 +114,7 @@ namespace Grimware
         {
             unchecked
             {
-                return (i1 * HashMixer) ^ i2;
+                return (i1 * _HashMixer) ^ i2;
             }
         }
 

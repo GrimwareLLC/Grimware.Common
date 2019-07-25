@@ -13,32 +13,35 @@ namespace Grimware
     {
         // ReSharper disable StaticFieldInGenericType
 
-        private static readonly object InitLock = new object();
-        private static T _instance;
+        private static readonly object _InitLock = new object();
+        private static T _Instance;
 
         // ReSharper restore StaticFieldInGenericType
 
-        public static T Instance => _instance ?? CreateInstance();
+        public static T Instance => GetInstance();
+
+        private static T GetInstance()
+        {
+            lock (_InitLock)
+            {
+                return _Instance ?? (_Instance = CreateInstance());
+            }
+        }
 
         private static T CreateInstance()
         {
-            lock (InitLock)
+            lock (_InitLock)
             {
-                if (_instance == null)
+                var t = typeof(T);
+                var constructors = t.GetConstructors();
+
+                if (constructors.Length > 0)
                 {
-                    var t = typeof(T);
-                    var constructors = t.GetConstructors();
-
-                    if (constructors.Length > 0)
-                    {
-                        throw new InvalidOperationException(
-                            String.Format(ExceptionMessages.SingletonCantBeEnforcedFormat, t.Name));
-                    }
-
-                    _instance = Activator.CreateInstance(t, true) as T;
+                    throw new InvalidOperationException(
+                        String.Format(ExceptionMessages.SingletonCantBeEnforcedFormat, t.Name));
                 }
 
-                return _instance;
+                return Activator.CreateInstance(t, true) as T;
             }
         }
     }

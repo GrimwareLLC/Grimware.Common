@@ -15,7 +15,7 @@
 
   <!-- .NET Full Framework compilation flags and build options -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net461'">
-    <DefineConstants>NET46;NETFULL</DefineConstants>
+    <DefineConstants>NET46;NET461;NETFULL</DefineConstants>
   </PropertyGroup>
 
   <!-- .NET Full Framework references -->

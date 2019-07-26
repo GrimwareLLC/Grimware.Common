@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
-using Grimware.Resources;
 
 namespace Grimware.Extensions
 {
@@ -19,8 +18,6 @@ namespace Grimware.Extensions
             + @"|\{[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\}"
             + @"|\([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\)"
             + @")\Z";
-
-        private static readonly IFormatProvider _InvariantCulture = CultureInfo.InvariantCulture;
 
         private static readonly Regex _NonAlphaNumericRegex =
             new Regex("(?i)[^a-z0-9]", _StandardRegexOptions | RegexOptions.IgnoreCase);
@@ -234,11 +231,9 @@ namespace Grimware.Extensions
         }
 
         public static TEnum? ToEnum<TEnum>(this string value, bool ignoreCase = false)
-            where TEnum : struct, IComparable, IFormattable, IConvertible
+            where TEnum : struct, Enum
         {
-            ThrowIfNotEnum<TEnum>();
-
-            return Enum.TryParse(value, ignoreCase, out TEnum result) ? (TEnum?)result : null;
+            return Enum.TryParse(value, ignoreCase, out TEnum result) ? result : (TEnum?)null;
         }
 
         public static Guid? ToGuid(this string source)
@@ -330,15 +325,6 @@ namespace Grimware.Extensions
         private static string NullIfIn(this string source, StringComparison comparison, params string[] values)
         {
             return source?.NullIf(s => s.In(comparison, values));
-        }
-
-        private static void ThrowIfNotEnum<TEnum>()
-            where TEnum : struct, IComparable, IFormattable, IConvertible
-        {
-            if (!typeof(TEnum).IsEnum)
-                throw new InvalidOperationException(
-                    String.Format(_InvariantCulture, ExceptionMessages.NotAnEnumTypeFormat, typeof(TEnum))
-                );
         }
     }
 }

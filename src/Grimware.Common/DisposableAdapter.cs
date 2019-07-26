@@ -7,14 +7,10 @@ namespace Grimware
     {
         private readonly Action _disposer;
 
-        #region Constructors & Destructor
-
         public DisposableAdapter(Action disposer)
         {
             _disposer = disposer;
         }
-
-        #endregion
 
         protected override void Dispose(bool disposing)
         {

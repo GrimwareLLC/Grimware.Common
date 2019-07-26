@@ -93,7 +93,7 @@ namespace Grimware.Extensions
             return
                 member != null
                     && !String.IsNullOrEmpty(name)
-                    && member.Name.Equals(name);
+                    && member.Name.Equals(name, StringComparison.Ordinal);
         }
     }
 }

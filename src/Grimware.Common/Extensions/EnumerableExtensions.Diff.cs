@@ -85,12 +85,8 @@ namespace Grimware.Extensions
                 select kv.Value;
         }
 
-        #region Nested types
-
         private class DiffContext<T, TKey>
         {
-            #region Constructors & Destructor
-
             public DiffContext(
                 IEnumerable<T> previous,
                 IEnumerable<T> current,
@@ -100,11 +96,9 @@ namespace Grimware.Extensions
                 if (keySelector == null)
                     throw new ArgumentNullException(nameof(keySelector));
 
-                Previous = (previous ?? new T[0]).ToDictionary(keySelector);
-                Current = (current ?? new T[0]).ToDictionary(keySelector);
+                Previous = (previous ?? Array.Empty<T>()).ToDictionary(keySelector);
+                Current = (current ?? Array.Empty<T>()).ToDictionary(keySelector);
             }
-
-            #endregion
 
             public Dictionary<TKey, T> Current { get; }
 
@@ -147,8 +141,6 @@ namespace Grimware.Extensions
         private struct DiffResult<T>
             : IDiffResult<T>
         {
-            #region IDiffResult<T> Members
-
             public IEnumerable<T> Added { get; set; }
 
             public IEnumerable<T> Modified { get; set; }
@@ -157,9 +149,7 @@ namespace Grimware.Extensions
 
             public IEnumerable<T> Unmodified { get; set; }
 
-            #endregion
         }
 
-        #endregion
     }
 }

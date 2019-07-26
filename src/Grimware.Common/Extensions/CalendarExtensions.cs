@@ -9,12 +9,7 @@ namespace Grimware.Extensions
             this Calendar calendar,
             DateTime time,
             CalendarWeekRule rule = CalendarWeekRule.FirstDay,
-            DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
-        {
-            if (calendar == null)
-                throw new ArgumentNullException(nameof(calendar));
-
-            return calendar.GetWeekOfYear(time, rule, firstDayOfWeek);
-        }
+            DayOfWeek firstDayOfWeek = DayOfWeek.Sunday) =>
+            calendar?.GetWeekOfYear(time, rule, firstDayOfWeek) ?? throw new ArgumentNullException(nameof(calendar));
     }
 }

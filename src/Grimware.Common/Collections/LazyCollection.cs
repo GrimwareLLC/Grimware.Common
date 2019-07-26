@@ -66,40 +66,18 @@ namespace Grimware.Collections
 
         public bool IsReadOnly => _lazyCollection.Value.IsReadOnly;
 
-        public void Add(T item)
-        {
-            _lazyCollection.Value.Add(item);
-        }
+        public void Add(T item) => _lazyCollection.Value.Add(item);
 
-        public void Clear()
-        {
-            _lazyCollection.Value.Clear();
-        }
+        public void Clear() => _lazyCollection.Value.Clear();
 
-        public bool Contains(T item)
-        {
-            return _lazyCollection.Value.Contains(item);
-        }
+        public bool Contains(T item) => _lazyCollection.Value.Contains(item);
 
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            _lazyCollection.Value.CopyTo(array, arrayIndex);
-        }
+        public void CopyTo(T[] array, int arrayIndex) => _lazyCollection.Value.CopyTo(array, arrayIndex);
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _lazyCollection.Value.GetEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => _lazyCollection.Value.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public bool Remove(T item)
-        {
-            return _lazyCollection.Value.Remove(item);
-        }
-
+        public bool Remove(T item) => _lazyCollection.Value.Remove(item);
     }
 }

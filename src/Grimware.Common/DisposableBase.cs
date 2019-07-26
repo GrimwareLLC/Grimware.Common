@@ -32,8 +32,7 @@ namespace Grimware
         /// </summary>
         public event EventHandler Disposing;
 
-        #region Constructors & Destructor
-
+#pragma warning disable CA1063 // Implement IDisposable Correctly
         /// <summary>
         ///     Releases unmanaged resources and performs other cleanup operations
         ///     before the <see cref="DisposableBase" /> is reclaimed by garbage
@@ -45,8 +44,7 @@ namespace Grimware
 
             RaiseDisposedEvent();
         }
-
-        #endregion
+#pragma warning restore CA1063 // Implement IDisposable Correctly
 
         /// <summary>
         ///     Gets a value indicating whether this instance is disposed.
@@ -101,6 +99,7 @@ namespace Grimware
             }
         }
 
+#pragma warning disable CA1030 // Use events where appropriate
         /// <summary>
         ///     Raises a generic event with safety testing for <see langword="null" />.
         /// </summary>
@@ -130,7 +129,9 @@ namespace Grimware
 
             @event?.Invoke(this, e);
         }
+#pragma warning restore CA1030 // Use events where appropriate
 
+#pragma warning disable CA1030 // Use events where appropriate
         /// <summary>
         ///     Raises an event with safety testing for <see langword="null" />.
         /// </summary>
@@ -155,6 +156,7 @@ namespace Grimware
 
             @event?.Invoke(this, e);
         }
+#pragma warning restore CA1030 // Use events where appropriate
 
         /// <summary>
         ///     Raises the Disposed event if any event handlers are attached.
@@ -172,8 +174,7 @@ namespace Grimware
             RaiseEvent(Disposing, new EventArgs());
         }
 
-        #region IDisposable Members
-
+#pragma warning disable CA1063 // Implement IDisposable Correctly
         /// <summary>
         ///     Performs application-defined tasks associated with freeing,
         ///     releasing, or resetting unmanaged resources.
@@ -197,7 +198,6 @@ namespace Grimware
 
             RaiseDisposedEvent();
         }
-
-        #endregion
+#pragma warning restore CA1063 // Implement IDisposable Correctly
     }
 }

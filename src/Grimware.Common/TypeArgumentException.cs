@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -11,6 +12,7 @@ namespace Grimware
     /// </summary>
     [Serializable]
     [ComVisible(true)]
+    [ExcludeFromCodeCoverage]
     public class TypeArgumentException
         : Exception
     {

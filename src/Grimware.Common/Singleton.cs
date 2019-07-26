@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Grimware.Resources;
 
 namespace Grimware
@@ -12,18 +13,21 @@ namespace Grimware
         where T : Singleton<T>, new()
     {
         // ReSharper disable StaticFieldInGenericType
+#pragma warning disable CA1000 // Do not declare static members on generic types
 
         private static readonly object _InitLock = new object();
         private static T _Instance;
 
-        // ReSharper restore StaticFieldInGenericType
-
         public static T Instance => GetInstance();
+
+#pragma warning restore CA1000 // Do not declare static members on generic types
+        // ReSharper restore StaticFieldInGenericType
 
         private static T GetInstance()
         {
             lock (_InitLock)
             {
+                // ReSharper disable once ConvertToNullCoalescingCompoundAssignment
                 return _Instance ?? (_Instance = CreateInstance());
             }
         }
@@ -38,7 +42,7 @@ namespace Grimware
                 if (constructors.Length > 0)
                 {
                     throw new InvalidOperationException(
-                        String.Format(ExceptionMessages.SingletonCantBeEnforcedFormat, t.Name));
+                        String.Format(CultureInfo.InvariantCulture, ExceptionMessages.SingletonCantBeEnforcedFormat, t.Name));
                 }
 
                 return Activator.CreateInstance(t, true) as T;

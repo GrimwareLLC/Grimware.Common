@@ -5,8 +5,6 @@ namespace Grimware
     public class CancelEventArgs<TState>
         : CancelEventArgs
     {
-        #region Constructors & Destructor
-
         public CancelEventArgs(TState state)
             : this(state, false)
         {
@@ -17,8 +15,6 @@ namespace Grimware
         {
             State = state;
         }
-
-        #endregion
 
         public TState State { get; }
     }

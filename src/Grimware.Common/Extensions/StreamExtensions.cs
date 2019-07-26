@@ -5,11 +5,7 @@ namespace Grimware.Extensions
 {
     public static class StreamExtensions
     {
-        #region Constants & Pseudo-Constants
-
         private const int _BufferSize = 0x1000;
-
-        #endregion
 
         public static Stream Copy(this Stream source)
         {

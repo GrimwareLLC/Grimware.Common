@@ -9,40 +9,41 @@ namespace Grimware.Extensions
     {
         public static Attribute GetSingleAttributeOfTypeIfExists(this PropertyInfo property, Type attributeType)
         {
-            return property.TryGetSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault());
+            if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
+            return property?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault());
         }
 
         public static bool HasAttributeOfType(this PropertyInfo property, Type attributeType, bool inherit = false)
         {
-            return property.GetCustomAttributes(attributeType, inherit).Any();
+            if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
+            return property?.GetCustomAttributes(attributeType, inherit).Any() ?? false;
         }
 
         public static bool HasAttributesOfTypes(this PropertyInfo property, IEnumerable<Type> attributeTypes, bool inherit = false)
         {
+            if (attributeTypes == null) throw new ArgumentNullException(nameof(attributeTypes));
+
             var attTypeArray = attributeTypes as Type[] ?? attributeTypes.ToArray();
 
             return
                 attTypeArray
-                    .Except(
-                        attTypeArray
-                            .Where(
-                                attType =>
-                                    property.GetCustomAttributes(inherit)
-                                        .Any(attType.IsInstanceOfType)))
+                    .Except(attTypeArray.Where(attType => property?.GetCustomAttributes(inherit).Any(attType.IsInstanceOfType) ?? false))
                     .Any();
         }
 
-        public static bool HasName(this PropertyInfo property, string name, bool ignoreCase = false)
-        {
-            return
-                ignoreCase
-                    ? property.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
-                    : property.Name.Equals(name, StringComparison.Ordinal);
-        }
+        public static bool HasName(this PropertyInfo property, string name, bool ignoreCase = false) =>
+            ignoreCase
+                ? property?.Name.Equals(name, StringComparison.OrdinalIgnoreCase) ?? false
+                : property?.Name.Equals(name, StringComparison.Ordinal) ?? false;
 
-        public static Attribute TryGetSingleAttributeOfType(this PropertyInfo property, Type attributeType, Func<IEnumerable<Attribute>, Attribute> selector)
+        public static Attribute TryGetSingleAttributeOfType(
+            this PropertyInfo property,
+            Type attributeType,
+            Func<IEnumerable<Attribute>, Attribute> selector)
         {
-            return selector(property.GetCustomAttributes(attributeType, true).Cast<Attribute>());
+            if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
+            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            return selector(property?.GetCustomAttributes(attributeType, true).Cast<Attribute>());
         }
     }
 }

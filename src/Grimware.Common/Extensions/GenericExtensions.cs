@@ -29,8 +29,14 @@ namespace Grimware.Extensions
             NullIf(source, t => source != null && source.Value.Equals(value));
 
         public static T? NullIf<T>(this T? source, Predicate<T> condition)
-            where T : struct =>
-            source != null ? condition(source.Value) ? null : source : null;
+            where T : struct
+        {
+            return condition != null
+                ? source != null
+                    ? condition(source.Value) ? null : source
+                    : null
+                : throw new ArgumentNullException(nameof(condition));
+        }
 
         public static T NullIf<T>(this T source, Predicate<T> condition)
             where T : class =>
@@ -74,47 +80,36 @@ namespace Grimware.Extensions
 
         public static int TryGetHashCode<T>(this T source) => source == null ? 0 : source.GetHashCode();
 
-        public static string TrySerializeAsXml<T>(this T obj)
+        public static string TrySerializeAsXml<T>(this T source)
         {
-            if (obj == null)
+            if (source == null)
                 return null;
 
-            var settings = new XmlWriterSettings
-            {
-                Encoding = Encoding.UTF8,
-                Indent = true,
-            };
-
             var sb = new StringBuilder(0x1000);
-            var textWriter = new StringWriter(sb);
-            var xmlWriter = XmlWriter.Create(textWriter, settings);
+            using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true}))
+            {
 
-            var serializer = new XmlSerializer(obj.GetType());
-            serializer.Serialize(xmlWriter, obj);
-            xmlWriter.Flush();
+                var serializer = new XmlSerializer(source.GetType());
+                serializer.Serialize(xmlWriter, source);
+                xmlWriter.Flush();
+            }
 
             return sb.ToString();
         }
 
-        public static void TrySerializeAsXml<T>(this T obj, Stream target)
+        public static void TrySerializeAsXml<T>(this T source, Stream target)
         {
-            if (obj == null)
+            if (source == null)
                 return;
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            var settings = new XmlWriterSettings
-            {
-                Encoding = Encoding.UTF8,
-                Indent = true,
-            };
-
-            var textWriter = new StreamWriter(target);
-            var xmlWriter = XmlWriter.Create(textWriter, settings);
-
-            var serializer = new XmlSerializer(obj.GetType());
-            serializer.Serialize(xmlWriter, obj);
+#pragma warning disable CA2000 // Dispose objects before losing scope
+            var xmlWriter = XmlWriter.Create(new StreamWriter(target), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true});
+            var serializer = new XmlSerializer(source.GetType());
+            serializer.Serialize(xmlWriter, source);
             xmlWriter.Flush();
+#pragma warning restore CA2000 // Dispose objects before losing scope
         }
     }
 }

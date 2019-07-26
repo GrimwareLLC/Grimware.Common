@@ -6,27 +6,18 @@ namespace Grimware.Extensions
 {
     public static class EnumExtensions
     {
-        #region Constants & Pseudo-Constants
-
-        private static readonly CultureInfo _CI = CultureInfo.CurrentCulture;
-
-        #endregion
+        private static readonly CultureInfo _CultureInfo = CultureInfo.CurrentCulture;
 
         public static TEnumOut? Translate<TEnumIn, TEnumOut>(this TEnumIn source, bool ignoreCase = false)
-            where TEnumIn : struct, IComparable, IFormattable, IConvertible
-            where TEnumOut : struct, IComparable, IFormattable, IConvertible
+            where TEnumIn : struct, Enum
+            where TEnumOut : struct, Enum
         {
-            ThrowIfNotEnum<TEnumIn>();
-            ThrowIfNotEnum<TEnumOut>();
-
-            return source.ToString(CultureInfo.InvariantCulture).ToEnum<TEnumOut>(ignoreCase);
+            return source.ToString().ToEnum<TEnumOut>(ignoreCase);
         }
 
         public static TEnum Add<TEnum>(this Enum source, TEnum value)
-            where TEnum : struct, IComparable, IFormattable, IConvertible
+            where TEnum : struct, Enum
         {
-            ThrowIfNotEnum<TEnum>();
-
             if (source == null)
                 return value;
 
@@ -37,11 +28,11 @@ namespace Grimware.Extensions
             }
 
             throw new InvalidOperationException(
-                String.Format(_CI, ExceptionMessages.EnumValueNotAddedFormat, source.GetType().Name));
+                String.Format(_CultureInfo, ExceptionMessages.EnumValueNotAddedFormat, source.GetType().Name));
         }
 
         public static bool Has<TEnum>(this Enum source, TEnum value)
-            where TEnum : struct, IComparable, IFormattable, IConvertible
+            where TEnum : struct, Enum
         {
             return
                 source != null
@@ -52,7 +43,7 @@ namespace Grimware.Extensions
         }
 
         public static bool Is<TEnum>(this Enum source, TEnum value)
-            where TEnum : struct, IComparable, IFormattable, IConvertible
+            where TEnum : struct, Enum
         {
             return
                 source != null
@@ -63,10 +54,8 @@ namespace Grimware.Extensions
         }
 
         public static TEnum Remove<TEnum>(this Enum source, TEnum value)
-            where TEnum : struct, IComparable, IFormattable, IConvertible
+            where TEnum : struct, Enum
         {
-            ThrowIfNotEnum<TEnum>();
-
             if (source == null)
                 return default;
 
@@ -77,22 +66,12 @@ namespace Grimware.Extensions
             }
 
             throw new InvalidOperationException(
-                String.Format(_CI, ExceptionMessages.EnumValueNotRemovedFormat, source.GetType().Name));
+                String.Format(_CultureInfo, ExceptionMessages.EnumValueNotRemovedFormat, source.GetType().Name));
         }
 
         public static string ToDescription(this Enum source)
         {
             return source?.ToString().ToPhrase();
-        }
-
-        private static void ThrowIfNotEnum<TEnum>()
-            where TEnum : struct, IComparable, IFormattable, IConvertible
-        {
-            if (!typeof(TEnum).IsEnum)
-            {
-                throw new InvalidOperationException(
-                    String.Format(_CI, ExceptionMessages.NotAnEnumTypeFormat, typeof(TEnum)));
-            }
         }
     }
 }

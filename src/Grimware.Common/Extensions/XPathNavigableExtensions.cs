@@ -18,15 +18,14 @@ namespace Grimware.Extensions
                     : null;
         }
 
-        public static XmlDocument ToXmlDocument(this IXPathNavigable source)
+        public static XmlDocument ToXmlDocument(this IXPathNavigable source, XmlResolver xmlResolver = null)
         {
-            if (source == null)
-                return null;
+            var nav = source?.CreateNavigator();
 
-            var nav = source.CreateNavigator();
-            var doc = new XmlDocument();
-            if (nav != null)
-                doc.Load(nav.ReadSubtree());
+            if (nav == null) return null;
+
+            var doc = new XmlDocument(nav.NameTable) {XmlResolver = xmlResolver};
+            doc.Load(nav.ReadSubtree());
 
             return doc;
         }
@@ -39,7 +38,7 @@ namespace Grimware.Extensions
             MemoryStream ms = null;
             try
             {
-                ms = new MemoryStream(1024);
+                ms = new MemoryStream(1024 * 16);
                 WriteToStream(source, ms);
 
                 ms.Seek(0, SeekOrigin.Begin);
@@ -59,17 +58,15 @@ namespace Grimware.Extensions
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
+#pragma warning disable CA2000 // Dispose objects before losing scope
             var textWriter = new StreamWriter(stream);
-            var xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings
-            {
-                Indent = true,
-                Encoding = Encoding.UTF8
-            });
+            var xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings {Indent = true, Encoding = Encoding.UTF8});
 
             var nav = source.CreateNavigator();
             nav?.WriteSubtree(xmlWriter);
 
             xmlWriter.Flush();
+#pragma warning restore CA2000 // Dispose objects before losing scope
         }
     }
 }

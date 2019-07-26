@@ -6,8 +6,10 @@ using System.Threading;
 
 namespace Grimware.Collections
 {
+#pragma warning disable CA1710 // Identifiers should have correct suffix
     public class LazyList<T>
         : IList<T>
+#pragma warning restore CA1710 // Identifiers should have correct suffix
     {
         private readonly Lazy<IList<T>> _lazyList;
 
@@ -73,54 +75,24 @@ namespace Grimware.Collections
 
         public bool IsReadOnly => _lazyList.Value.IsReadOnly;
 
-        public void Add(T item)
-        {
-            _lazyList.Value.Add(item);
-        }
+        public void Add(T item) => _lazyList.Value.Add(item);
 
-        public void Clear()
-        {
-            _lazyList.Value.Clear();
-        }
+        public void Clear() => _lazyList.Value.Clear();
 
-        public bool Contains(T item)
-        {
-            return _lazyList.Value.Contains(item);
-        }
+        public bool Contains(T item) => _lazyList.Value.Contains(item);
 
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            _lazyList.Value.CopyTo(array, arrayIndex);
-        }
+        public void CopyTo(T[] array, int arrayIndex) => _lazyList.Value.CopyTo(array, arrayIndex);
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _lazyList.Value.GetEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => _lazyList.Value.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int IndexOf(T item)
-        {
-            return _lazyList.Value.IndexOf(item);
-        }
+        public int IndexOf(T item) => _lazyList.Value.IndexOf(item);
 
-        public void Insert(int index, T item)
-        {
-            _lazyList.Value.Insert(index, item);
-        }
+        public void Insert(int index, T item) => _lazyList.Value.Insert(index, item);
 
-        public bool Remove(T item)
-        {
-            return _lazyList.Value.Remove(item);
-        }
+        public bool Remove(T item) => _lazyList.Value.Remove(item);
 
-        public void RemoveAt(int index)
-        {
-            _lazyList.Value.RemoveAt(index);
-        }
+        public void RemoveAt(int index) => _lazyList.Value.RemoveAt(index);
     }
 }

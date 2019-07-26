@@ -77,13 +77,10 @@ namespace Grimware.Extensions
             return SelectValues(diffContext.Previous, diffContext.SelectRemoved());
         }
 
-        private static IEnumerable<T> SelectValues<T, TKey>(Dictionary<TKey, T> dictionary, IEnumerable<TKey> keys)
-        {
-            return
-                from kv in dictionary
-                where keys.Contains(kv.Key)
-                select kv.Value;
-        }
+        private static IEnumerable<T> SelectValues<T, TKey>(Dictionary<TKey, T> dictionary, IEnumerable<TKey> keys) =>
+            from kv in dictionary
+            where keys.Contains(kv.Key)
+            select kv.Value;
 
         private class DiffContext<T, TKey>
         {
@@ -104,15 +101,9 @@ namespace Grimware.Extensions
 
             public Dictionary<TKey, T> Previous { get; }
 
-            public IEnumerable<TKey> SelectAdded()
-            {
-                return Current.Keys.Except(Previous.Keys);
-            }
+            public IEnumerable<TKey> SelectAdded() => Current.Keys.Except(Previous.Keys);
 
-            public IEnumerable<TKey> SelectIntersecting()
-            {
-                return Current.Keys.Intersect(Previous.Keys);
-            }
+            public IEnumerable<TKey> SelectIntersecting() => Current.Keys.Intersect(Previous.Keys);
 
             public IEnumerable<TKey> SelectModified<TData>(Func<T, TData> dataSelector)
             {
@@ -132,10 +123,7 @@ namespace Grimware.Extensions
                     select a.Key;
             }
 
-            public IEnumerable<TKey> SelectRemoved()
-            {
-                return Previous.Keys.Except(Current.Keys);
-            }
+            public IEnumerable<TKey> SelectRemoved() => Previous.Keys.Except(Current.Keys);
         }
 
         private struct DiffResult<T>

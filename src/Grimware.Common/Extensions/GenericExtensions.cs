@@ -14,7 +14,8 @@ namespace Grimware.Extensions
             where TDerived : class, TBase, new() =>
             source?.TransferTo(new TDerived());
 
-        public static bool In<T>(this T source, params T[] values) => source == null ? values.Any(t => t == null) : values.Any(t => source.Equals(t));
+        public static bool In<T>(this T source, params T[] values) =>
+            source == null ? values.Any(t => t == null) : values.Any(t => source.Equals(t));
 
         public static bool IsNullOrDefault<T>(this T? source)
             where T : struct =>
@@ -29,14 +30,12 @@ namespace Grimware.Extensions
             NullIf(source, t => source != null && source.Value.Equals(value));
 
         public static T? NullIf<T>(this T? source, Predicate<T> condition)
-            where T : struct
-        {
-            return condition != null
+            where T : struct =>
+            condition != null
                 ? source != null
                     ? condition(source.Value) ? null : source
                     : null
                 : throw new ArgumentNullException(nameof(condition));
-        }
 
         public static T NullIf<T>(this T source, Predicate<T> condition)
             where T : class =>

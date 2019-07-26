@@ -5,14 +5,14 @@ namespace Grimware.Extensions
 {
     public static class StreamExtensions
     {
-        private const int _BufferSize = 0x1000;
+        private const int _BufferSize = 1024 * 16;
 
         public static Stream Copy(this Stream source)
         {
             if (source == null)
                 return null;
 
-            long originalPosition = -1;
+            var originalPosition = -1L;
 
             if (source.CanSeek)
                 originalPosition = source.Position;
@@ -47,20 +47,20 @@ namespace Grimware.Extensions
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            var originalSourcePosition = -1L;
+            var originalPosition = -1L;
             var buffer = new byte[_BufferSize];
 
             if (source.CanSeek)
             {
-                originalSourcePosition = source.Position;
+                originalPosition = source.Position;
                 source.Seek(0, SeekOrigin.Begin);
             }
 
             while ((count = source.Read(buffer, 0, buffer.Length)) > 0)
                 target.Write(buffer, 0, count);
 
-            if (originalSourcePosition > -1)
-                source.Seek(originalSourcePosition, SeekOrigin.Begin);
+            if (originalPosition > -1)
+                source.Seek(originalPosition, SeekOrigin.Begin);
         }
     }
 }

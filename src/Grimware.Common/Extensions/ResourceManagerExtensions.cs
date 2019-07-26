@@ -8,10 +8,8 @@ namespace Grimware.Extensions
 {
     public static class ResourceManagerExtensions
     {
-        public static Icon TryGetIcon(this ResourceManager resourceManager, string name)
-        {
-            return TryGetIcon(resourceManager, name, CultureInfo.CurrentCulture);
-        }
+        public static Icon TryGetIcon(this ResourceManager resourceManager, string name) =>
+            TryGetIcon(resourceManager, name, CultureInfo.CurrentCulture);
 
         public static Icon TryGetIcon(this ResourceManager resourceManager, string name, CultureInfo culture)
         {
@@ -21,10 +19,8 @@ namespace Grimware.Extensions
                 : null;
         }
 
-        public static Image TryGetImage(this ResourceManager resourceManager, string name)
-        {
-            return TryGetImage(resourceManager, name, CultureInfo.CurrentCulture);
-        }
+        public static Image TryGetImage(this ResourceManager resourceManager, string name) =>
+            TryGetImage(resourceManager, name, CultureInfo.CurrentCulture);
 
         public static Image TryGetImage(this ResourceManager resourceManager, string name, CultureInfo culture)
         {
@@ -34,10 +30,8 @@ namespace Grimware.Extensions
                 : null;
         }
 
-        public static Stream TryGetStream(this ResourceManager resourceManager, string name)
-        {
-            return TryGetStream(resourceManager, name, CultureInfo.CurrentCulture);
-        }
+        public static Stream TryGetStream(this ResourceManager resourceManager, string name) =>
+            TryGetStream(resourceManager, name, CultureInfo.CurrentCulture);
 
         public static Stream TryGetStream(this ResourceManager resourceManager, string name, CultureInfo culture)
         {
@@ -47,10 +41,8 @@ namespace Grimware.Extensions
                 : null;
         }
 
-        public static string TryGetString(this ResourceManager resourceManager, string name)
-        {
-            return TryGetString(resourceManager, name, CultureInfo.CurrentCulture);
-        }
+        public static string TryGetString(this ResourceManager resourceManager, string name) =>
+            TryGetString(resourceManager, name, CultureInfo.CurrentCulture);
 
         public static string TryGetString(this ResourceManager resourceManager, string name, CultureInfo culture)
         {

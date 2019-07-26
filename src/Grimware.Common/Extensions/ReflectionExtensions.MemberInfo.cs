@@ -8,92 +8,65 @@ namespace Grimware.Extensions
     partial class ReflectionExtensions
     {
         public static IEnumerable<T> FindAttributesOfType<T>(this MemberInfo member)
-            where T : Attribute
-        {
-            return
-                member == null
-                    ? Array.Empty<T>()
-                    : member.GetCustomAttributes(typeof(T), true)
-                        .Cast<T>();
-        }
+            where T : Attribute =>
+            member != null
+                ? member.GetCustomAttributes(typeof(T), true)
+                    .Cast<T>()
+                : Array.Empty<T>();
 
         public static IEnumerable<Attribute> FindAttributesOfType(this MemberInfo member, Type attributeType)
         {
+            if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
             return
-                member == null || attributeType == null
-                    ? Array.Empty<Attribute>()
-                    : member.GetCustomAttributes(attributeType, true)
-                        .Cast<Attribute>();
+                member != null
+                    ? member.GetCustomAttributes(attributeType, true)
+                        .Cast<Attribute>()
+                    : Array.Empty<Attribute>();
         }
 
         public static T FindSingleAttributeOfType<T>(this MemberInfo member)
-            where T : Attribute
-        {
-            return
-                member == null
-                    ? default
-                    : member.FindSingleAttributeOfType<T>(attributes => attributes.SingleOrDefault());
-        }
+            where T : Attribute =>
+            member != null
+                ? member.FindSingleAttributeOfType<T>(attributes => attributes.SingleOrDefault())
+                : default;
 
-        public static Attribute FindSingleAttributeOfType(this MemberInfo member, Type attributeType)
-        {
-            return
-                member == null || attributeType == null
-                    ? null
-                    : member.FindSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault());
-        }
+        public static Attribute FindSingleAttributeOfType(this MemberInfo member, Type attributeType) =>
+            attributeType != null
+                ? member?.FindSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault())
+                : throw new ArgumentNullException(nameof(attributeType));
 
         public static T FindSingleAttributeOfType<T>(this MemberInfo member, Func<IEnumerable<T>, T> selector)
-            where T : Attribute
-        {
-            if (selector == null)
-                throw new ArgumentNullException(nameof(selector));
-
-            return
-                member == null
+            where T : Attribute =>
+            selector != null
+                ? member == null
                     ? default
-                    : selector(member.FindAttributesOfType<T>());
-        }
+                    : selector(member.FindAttributesOfType<T>())
+                : throw new ArgumentNullException(nameof(selector));
 
         public static Attribute FindSingleAttributeOfType(
             this MemberInfo member,
             Type attributeType,
-            Func<IEnumerable<Attribute>, Attribute> selector
-            )
-        {
-            if (selector == null)
-                throw new ArgumentNullException(nameof(selector));
+            Func<IEnumerable<Attribute>, Attribute> selector) =>
+            attributeType != null
+                ? selector != null
+                    ? member == null
+                        ? null
+                        : selector(member.FindAttributesOfType(attributeType))
+                    : throw new ArgumentNullException(nameof(selector))
+                : throw new ArgumentNullException(nameof(attributeType));
 
-            return
-                member == null || attributeType == null
-                    ? null
-                    : selector(member.FindAttributesOfType(attributeType));
+        public static bool HasAttributeOfType<T>(this MemberInfo member, bool inherit = false)
+            where T : Attribute =>
+            member?.GetCustomAttributes(typeof(T), inherit).Any() ?? false;
+
+        public static bool HasAttributeOfType(this MemberInfo member, Type attributeType, bool inherit = false)
+        {
+            if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
+            return member?.GetCustomAttributes(attributeType, inherit).Any() ?? false;
         }
 
-        public static bool HasAttributeOfType<T>(this MemberInfo member, bool inherit)
-            where T : Attribute
-        {
-            return
-                member != null
-                    && member.GetCustomAttributes(typeof(T), inherit)
-                        .Any();
-        }
-
-        public static bool HasAttributeOfType(this MemberInfo member, Type attributeType, bool inherit)
-        {
-            return
-                member != null
-                    && attributeType != null
-                    && member.GetCustomAttributes(attributeType, inherit)
-                        .Any();
-        }
-
-        public static bool IsNamed(this MemberInfo member, string name)
-        {
-            return
-                member != null
-                    && !String.IsNullOrEmpty(name)
-                    && member.Name.Equals(name, StringComparison.Ordinal);
-        }
+        public static bool IsNamed(this MemberInfo member, string name) =>
+            !String.IsNullOrEmpty(name)
+            && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
     }
 }

@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,10 +8,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Grimware.Common.UnitTests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class HasherTests
     {
-        private readonly IEnumerable<string> _testStrings = new[] {"This", " ", "is", " ", "a", " ", "test", "."};
-        private readonly IEnumerable<byte> _testBytes = new byte[] {0, 25, 66, 99, 101, 123};
+        private readonly IEnumerable<string> _testStrings = new[] { "This", " ", "is", " ", "a", " ", "test", "." };
+        private readonly IEnumerable<byte> _testBytes = new byte[] { 0, 25, 66, 99, 101, 123 };
 
         private readonly IEnumerable<int> _testIntegers =
             new[]
@@ -28,7 +30,7 @@ namespace Grimware.Common.UnitTests
             };
 
         [TestMethod]
-        public void HashBytes_Test()
+        public void Hash_Bytes()
         {
             // Act
             Hasher.Hash((byte[])null).Should().Be(0);
@@ -37,7 +39,7 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
-        public void HashIntegers_Test()
+        public void Hash_Integers()
         {
             // Act
             Hasher.Hash((IEnumerable<int>)null).Should().Be(0);
@@ -51,7 +53,7 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
-        public void HashLongs_Test()
+        public void Hash_Longs()
         {
             // Act
             Hasher.Hash((IEnumerable<long>)null).Should().Be(0);
@@ -70,7 +72,7 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
-        public void HashStrings_Test()
+        public void Hash_Strings()
         {
             Hasher.Hash((IEnumerable<string>)null).Should().Be(0);
             Hasher.Hash((string[])null).Should().Be(0);

@@ -15,7 +15,7 @@ namespace Grimware
         // ReSharper disable StaticFieldInGenericType
 #pragma warning disable CA1000 // Do not declare static members on generic types
 
-        private static readonly object _InitLock = new object();
+        private static readonly T[] _InitLock = Array.Empty<T>();
         private static T _Instance;
 
         public static T Instance => GetInstance();
@@ -27,7 +27,6 @@ namespace Grimware
         {
             lock (_InitLock)
             {
-                // ReSharper disable once ConvertToNullCoalescingCompoundAssignment
                 return _Instance ?? (_Instance = CreateInstance());
             }
         }

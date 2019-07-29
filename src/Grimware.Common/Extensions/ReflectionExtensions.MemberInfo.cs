@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
     partial class ReflectionExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> FindAttributesOfType<T>(this MemberInfo member)
             where T : Attribute =>
             member != null
@@ -24,17 +26,20 @@ namespace Grimware.Extensions
                     : Array.Empty<Attribute>();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T FindSingleAttributeOfType<T>(this MemberInfo member)
             where T : Attribute =>
             member != null
                 ? member.FindSingleAttributeOfType<T>(attributes => attributes.SingleOrDefault())
                 : default;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Attribute FindSingleAttributeOfType(this MemberInfo member, Type attributeType) =>
             attributeType != null
                 ? member?.FindSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault())
                 : throw new ArgumentNullException(nameof(attributeType));
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T FindSingleAttributeOfType<T>(this MemberInfo member, Func<IEnumerable<T>, T> selector)
             where T : Attribute =>
             selector != null
@@ -43,6 +48,7 @@ namespace Grimware.Extensions
                     : selector(member.FindAttributesOfType<T>())
                 : throw new ArgumentNullException(nameof(selector));
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Attribute FindSingleAttributeOfType(
             this MemberInfo member,
             Type attributeType,
@@ -55,6 +61,7 @@ namespace Grimware.Extensions
                     : throw new ArgumentNullException(nameof(selector))
                 : throw new ArgumentNullException(nameof(attributeType));
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeOfType<T>(this MemberInfo member, bool inherit = false)
             where T : Attribute =>
             member?.GetCustomAttributes(typeof(T), inherit).Any() ?? false;
@@ -65,6 +72,7 @@ namespace Grimware.Extensions
             return member?.GetCustomAttributes(attributeType, inherit).Any() ?? false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNamed(this MemberInfo member, string name) =>
             !String.IsNullOrEmpty(name)
             && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace Grimware
 {
@@ -82,10 +83,8 @@ namespace Grimware
         ///     managed and unmanaged resources; <see langword="false" /> to release
         ///     only unmanaged resources.
         /// </param>
-        protected virtual void Dispose(bool disposing)
-        {
-            IsDisposed = true;
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected virtual void Dispose(bool disposing) => IsDisposed = true;
 
         /// <summary>
         ///     Checks whether this instance has been disposed, and throws an
@@ -161,18 +160,14 @@ namespace Grimware
         /// <summary>
         ///     Raises the Disposed event if any event handlers are attached.
         /// </summary>
-        private void RaiseDisposedEvent()
-        {
-            RaiseEvent(Disposed, new EventArgs());
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void RaiseDisposedEvent() => RaiseEvent(Disposed, new EventArgs());
 
         /// <summary>
         ///     Raises the Disposing event if any event handlers are attached.
         /// </summary>
-        private void RaiseDisposingEvent()
-        {
-            RaiseEvent(Disposing, new EventArgs());
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void RaiseDisposingEvent() => RaiseEvent(Disposing, new EventArgs());
 
 #pragma warning disable CA1063 // Implement IDisposable Correctly
         /// <summary>

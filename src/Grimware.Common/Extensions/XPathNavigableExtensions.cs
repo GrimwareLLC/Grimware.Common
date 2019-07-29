@@ -38,7 +38,7 @@ namespace Grimware.Extensions
             MemoryStream ms = null;
             try
             {
-                ms = new MemoryStream(1024 * 16);
+                ms = new MemoryStream(1024 * 4);
                 WriteToStream(source, ms);
 
                 ms.Seek(0, SeekOrigin.Begin);

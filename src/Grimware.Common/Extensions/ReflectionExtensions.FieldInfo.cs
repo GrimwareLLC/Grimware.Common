@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
@@ -13,6 +14,7 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.First());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetFirstAttributeOfType<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute =>
             (TAttribute)field?.GetFirstAttributeOfType(typeof(TAttribute));
@@ -23,6 +25,7 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.FirstOrDefault());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetFirstAttributeOfTypeIfExists<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute =>
             (TAttribute)field?.GetFirstAttributeOfTypeIfExists(typeof(TAttribute));
@@ -33,6 +36,7 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.Single());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetSingleAttributeOfType<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute =>
             (TAttribute)field?.GetSingleAttributeOfType(typeof(TAttribute));
@@ -43,6 +47,7 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetSingleAttributeOfTypeIfExists<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute =>
             (TAttribute)field?.GetSingleAttributeOfTypeIfExists(typeof(TAttribute));
@@ -53,6 +58,7 @@ namespace Grimware.Extensions
             return field?.GetCustomAttributes(attributeType, inherit).Any() ?? false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasName(this FieldInfo field, string name, bool ignoreCase) =>
             ignoreCase
                 ? field?.Name.Equals(name, StringComparison.OrdinalIgnoreCase) ?? false

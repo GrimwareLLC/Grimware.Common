@@ -3,11 +3,13 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Resources;
+using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
     public static class ResourceManagerExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Icon TryGetIcon(this ResourceManager resourceManager, string name) =>
             TryGetIcon(resourceManager, name, CultureInfo.CurrentCulture);
 
@@ -19,6 +21,7 @@ namespace Grimware.Extensions
                 : null;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Image TryGetImage(this ResourceManager resourceManager, string name) =>
             TryGetImage(resourceManager, name, CultureInfo.CurrentCulture);
 
@@ -30,6 +33,7 @@ namespace Grimware.Extensions
                 : null;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Stream TryGetStream(this ResourceManager resourceManager, string name) =>
             TryGetStream(resourceManager, name, CultureInfo.CurrentCulture);
 
@@ -41,6 +45,7 @@ namespace Grimware.Extensions
                 : null;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string TryGetString(this ResourceManager resourceManager, string name) =>
             TryGetString(resourceManager, name, CultureInfo.CurrentCulture);
 

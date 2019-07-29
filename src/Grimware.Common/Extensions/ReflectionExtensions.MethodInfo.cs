@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
     partial class ReflectionExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasReturnType<T>(this MethodInfo method)
             where T : Attribute =>
             method?.ReturnType == typeof(T);

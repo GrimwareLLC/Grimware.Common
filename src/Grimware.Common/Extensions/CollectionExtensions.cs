@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
@@ -20,6 +21,7 @@ namespace Grimware.Extensions
                 collection.Add(item);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void AddIfNotExists<T>(this ICollection<T> collection, T item) => collection?.AddIf(item, !collection.Contains(item));
 
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
@@ -52,6 +54,7 @@ namespace Grimware.Extensions
                 collection.Remove(item);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RemoveIfExists<T>(this ICollection<T> collection, T item) => collection?.RemoveIf(item, collection.Contains(item));
 
         public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> items)

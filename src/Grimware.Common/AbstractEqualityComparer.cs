@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Grimware
 {
@@ -22,15 +23,10 @@ namespace Grimware
             _hashFunction = hashFunction ?? throw new ArgumentNullException(nameof(hashFunction));
         }
 
-        public override bool Equals(T x, T y)
-        {
-            return _equalityComparison(x, y);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(T x, T y) => _equalityComparison(x, y);
 
-        public override int GetHashCode(T obj)
-        {
-            return _hashFunction(obj);
-        }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode(T obj) => _hashFunction(obj);
     }
 }

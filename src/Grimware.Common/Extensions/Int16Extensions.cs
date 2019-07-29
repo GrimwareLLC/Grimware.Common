@@ -1,12 +1,13 @@
-﻿namespace Grimware.Extensions
+﻿using System.Runtime.CompilerServices;
+
+namespace Grimware.Extensions
 {
     public static class Int16Extensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int? CountOnBits(this short? value) =>
             value != null
-                ? value != 0
-                    ? 1 + (value & (value - 1)).CountOnBits()
-                    : 0
+                ? ((int?)value.Value).CountOnBits()
                 : null;
     }
 }

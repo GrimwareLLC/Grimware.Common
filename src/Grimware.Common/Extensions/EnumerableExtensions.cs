@@ -1,47 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
     public static partial class EnumerableExtensions
     {
-        public static IEnumerable<T> Action<T>(this IEnumerable<T> source, Action<T> action)
-        {
-            if (source == null)
-                yield break;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
+            source
+                .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
+                .Where(a => a.IsMatch)
+                .Select(a => a.Index);
 
-            foreach (var t in source)
-            {
-                action(t);
-                yield return t;
-            }
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item) =>
+            source == null ? Enumerable.Repeat(item, 1) : source.Concat(Enumerable.Repeat(item, 1));
 
-        public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
-        {
-            return
-                source
-                    .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
-                    .Where(a => a.IsMatch)
-                    .Select(a => a.Index);
-        }
-
-        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
-        {
-            return source == null ? Enumerable.Repeat(item, 1) : source.Concat(Enumerable.Repeat(item, 1));
-        }
-
-        public static IEnumerable<TResult> Convert<T, TResult>(
-            this IEnumerable<T> input,
-            Converter<T, TResult> converter)
-        {
-            return input.Select(t => converter(t));
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<TResult> Convert<T, TResult>(this IEnumerable<T> input, Converter<T, TResult> converter) =>
+            input.Select(t => converter(t));
 
         /// <summary>
         ///     Returns distinct elements from a sequence by using the specified <paramref name="equalityComparison" />
-        ///     and <paramref name="hashCodeGenerator" /> to compare items.
+        ///     and <paramref name="hashGenerator" /> to compare items.
         /// </summary>
         /// <typeparam name="T">
         ///     The type of the elements of <paramref name="source" />.
@@ -50,7 +33,7 @@ namespace Grimware.Extensions
         /// <param name="equalityComparison">
         ///     A <see cref="Func&lt;T, T, Boolean&gt;" /> to evaluate the equality of items from the sequence.
         /// </param>
-        /// <param name="hashCodeGenerator">
+        /// <param name="hashGenerator">
         ///     A <see cref="Func&lt;T, Int32&gt;" /> to generate hash codes for an item.
         /// </param>
         /// <returns>
@@ -59,17 +42,17 @@ namespace Grimware.Extensions
         public static IEnumerable<T> Distinct<T>(
             this IEnumerable<T> source,
             Func<T, T, bool> equalityComparison,
-            Func<T, int> hashCodeGenerator
+            Func<T, int> hashGenerator
             )
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
             if (equalityComparison == null)
                 throw new ArgumentNullException(nameof(equalityComparison));
-            if (hashCodeGenerator == null)
-                throw new ArgumentNullException(nameof(hashCodeGenerator));
+            if (hashGenerator == null)
+                throw new ArgumentNullException(nameof(hashGenerator));
 
-            return source.Distinct(EqualityComparer.Create(equalityComparison, hashCodeGenerator));
+            return source.Distinct(EqualityComparer.Create(equalityComparison, hashGenerator));
         }
 
         /// <summary>
@@ -100,10 +83,8 @@ namespace Grimware.Extensions
             return source.Distinct(EqualityComparer.Create(keySelector));
         }
 
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item)
-        {
-            return source.Except(Enumerable.Repeat(item, 1));
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item) => source.Except(Enumerable.Repeat(item, 1));
 
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
@@ -116,28 +97,18 @@ namespace Grimware.Extensions
                 action(t);
         }
 
-        public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
-        {
-            return
-                source
-                    .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
-                    .FirstOrDefault(a => a.IsMatch)
-                    ?.Index;
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
+            source.AllIndexesWhere(predicate).FirstOrDefault();
 
-        public static IEnumerable<T> Last<T>(this IEnumerable<T> source, int count)
-        {
-            return source.Reverse().Take(count).Reverse();
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<T> Last<T>(this IEnumerable<T> source, int count) =>
+            source.Reverse().Take(count).Reverse();
 
-        public static bool None<T>(this IEnumerable<T> source)
-        {
-            return !source.Any();
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool None<T>(this IEnumerable<T> source) => !source.Any();
 
-        public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate)
-        {
-            return !source.Any(predicate);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
     }
 }

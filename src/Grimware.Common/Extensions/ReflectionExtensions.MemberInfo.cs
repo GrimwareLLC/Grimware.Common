@@ -13,7 +13,7 @@ namespace Grimware.Extensions
             where T : Attribute =>
             member != null
                 ? member.GetCustomAttributes(typeof(T), true)
-                    .Cast<T>()
+                        .Cast<T>()
                 : Array.Empty<T>();
 
         public static IEnumerable<Attribute> FindAttributesOfType(this MemberInfo member, Type attributeType)
@@ -22,7 +22,7 @@ namespace Grimware.Extensions
             return
                 member != null
                     ? member.GetCustomAttributes(attributeType, true)
-                        .Cast<Attribute>()
+                            .Cast<Attribute>()
                     : Array.Empty<Attribute>();
         }
 
@@ -44,21 +44,21 @@ namespace Grimware.Extensions
             where T : Attribute =>
             selector != null
                 ? member == null
-                    ? default
-                    : selector(member.FindAttributesOfType<T>())
+                      ? default
+                      : selector(member.FindAttributesOfType<T>())
                 : throw new ArgumentNullException(nameof(selector));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Attribute FindSingleAttributeOfType(
-            this MemberInfo member,
-            Type attributeType,
+            this MemberInfo                         member,
+            Type                                    attributeType,
             Func<IEnumerable<Attribute>, Attribute> selector) =>
             attributeType != null
                 ? selector != null
-                    ? member == null
-                        ? null
-                        : selector(member.FindAttributesOfType(attributeType))
-                    : throw new ArgumentNullException(nameof(selector))
+                      ? member == null
+                            ? null
+                            : selector(member.FindAttributesOfType(attributeType))
+                      : throw new ArgumentNullException(nameof(selector))
                 : throw new ArgumentNullException(nameof(attributeType));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -75,6 +75,6 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNamed(this MemberInfo member, string name) =>
             !String.IsNullOrEmpty(name)
-            && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
+         && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
     }
 }

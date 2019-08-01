@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -38,6 +39,7 @@ namespace Grimware
         ///     before the <see cref="DisposableBase" /> is reclaimed by garbage
         ///     collection.
         /// </summary>
+        [ExcludeFromCodeCoverage] // Finalizers can't be tested properly in netcore
         ~DisposableBase()
         {
             Dispose(false);
@@ -95,6 +97,7 @@ namespace Grimware
                 CultureInfo.InvariantCulture,
                 "{0}::{1}",
                 GetType().FullName,
+
                 // Call ToString on the Int32 to prevent boxing
                 GetHashCode().ToString(CultureInfo.InvariantCulture));
 

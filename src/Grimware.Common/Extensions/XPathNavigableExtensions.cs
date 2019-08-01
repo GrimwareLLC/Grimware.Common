@@ -14,7 +14,7 @@ namespace Grimware.Extensions
 
             if (nav == null) return null;
 
-            var doc = new XmlDocument(nav.NameTable) {XmlResolver = xmlResolver};
+            var doc = new XmlDocument(nav.NameTable) { XmlResolver = xmlResolver };
             doc.Load(nav.ReadSubtree());
 
             return doc;
@@ -55,12 +55,13 @@ namespace Grimware.Extensions
         {
             if (source == null)
                 return;
+
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
 #pragma warning disable CA2000 // Dispose objects before losing scope
             var textWriter = new StreamWriter(stream);
-            var xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings {Indent = true, Encoding = Encoding.UTF8});
+            var xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings { Indent = true, Encoding = Encoding.UTF8 });
 
             var nav = source.CreateNavigator();
             nav?.WriteSubtree(xmlWriter);

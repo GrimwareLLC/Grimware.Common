@@ -17,8 +17,8 @@ namespace Grimware.Extensions
         {
             if (culture == null) throw new ArgumentNullException(nameof(culture));
             return resourceManager != null && name != null
-                ? resourceManager.GetObject(name, culture) as Icon
-                : null;
+                       ? resourceManager.GetObject(name, culture) as Icon
+                       : null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -29,8 +29,8 @@ namespace Grimware.Extensions
         {
             if (culture == null) throw new ArgumentNullException(nameof(culture));
             return resourceManager != null && name != null
-                ? resourceManager.GetObject(name, culture) as Image
-                : null;
+                       ? resourceManager.GetObject(name, culture) as Image
+                       : null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -41,8 +41,8 @@ namespace Grimware.Extensions
         {
             if (culture == null) throw new ArgumentNullException(nameof(culture));
             return resourceManager != null && name != null
-                ? resourceManager.GetObject(name, culture) as Stream
-                : null;
+                       ? resourceManager.GetObject(name, culture) as Stream
+                       : null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -53,8 +53,8 @@ namespace Grimware.Extensions
         {
             if (culture == null) throw new ArgumentNullException(nameof(culture));
             return resourceManager != null && name != null
-                ? resourceManager.GetObject(name, culture) as string
-                : null;
+                       ? resourceManager.GetObject(name, culture) as string
+                       : null;
         }
     }
 }

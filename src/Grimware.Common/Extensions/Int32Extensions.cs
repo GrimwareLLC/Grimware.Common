@@ -7,7 +7,9 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int? CountOnBits(this int? value) =>
             value != null
-                ? value != 0 ? 1 + CountOnBits(value & (value - 1)) : 0
+                ? value != 0
+                      ? 1 + CountOnBits(value & (value - 1))
+                      : 0
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -62,11 +62,11 @@ namespace Grimware.Extensions
         public static bool HasName(this FieldInfo field, string name, bool ignoreCase) =>
             ignoreCase
                 ? field?.Name.Equals(name, StringComparison.OrdinalIgnoreCase) ?? false
-                : field?.Name.Equals(name, StringComparison.Ordinal) ?? false;
+                : field?.Name.Equals(name, StringComparison.Ordinal)           ?? false;
 
         public static Attribute TryGetSingleAttributeOfType(
-            this FieldInfo field,
-            Type attributeType,
+            this FieldInfo                          field,
+            Type                                    attributeType,
             Func<IEnumerable<Attribute>, Attribute> selector)
         {
             if (selector == null) throw new ArgumentNullException(nameof(selector));

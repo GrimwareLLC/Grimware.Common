@@ -203,5 +203,32 @@ namespace Grimware.Resources {
                 return ResourceManager.GetString("SingletonCantBeEnforcedFormat", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Singleton must be referenced through the static &apos;Instance&apos; property..
+        /// </summary>
+        internal static string SingletonMustBeAccessedThroughInstanceProperty {
+            get {
+                return ResourceManager.GetString("SingletonMustBeAccessedThroughInstanceProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; must be a sealed class to be used as Singleton&lt;&gt;..
+        /// </summary>
+        internal static string SingletonMustBeSealedFormat {
+            get {
+                return ResourceManager.GetString("SingletonMustBeSealedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; must have a private parameterless constructor to be used as Singleton&lt;&gt;..
+        /// </summary>
+        internal static string SingletonMustHavePrivateDefaultConstructorFormat {
+            get {
+                return ResourceManager.GetString("SingletonMustHavePrivateDefaultConstructorFormat", resourceCulture);
+            }
+        }
     }
 }

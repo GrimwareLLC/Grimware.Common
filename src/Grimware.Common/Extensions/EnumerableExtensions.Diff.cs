@@ -138,6 +138,5 @@ namespace Grimware.Extensions
             public IEnumerable<T> Unmodified { get; set; }
 
         }
-
     }
 }

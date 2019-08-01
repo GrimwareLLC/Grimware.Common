@@ -26,11 +26,6 @@ namespace Grimware.Extensions
             source.NullIfDefault() == null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T? NullIfDefault<T>(this T? source)
-            where T : struct =>
-            source.NullIf(default(T));
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIf<T>(this T? source, T value)
             where T : struct =>
             NullIf(source, t => source != null && source.Value.Equals(value));
@@ -52,6 +47,11 @@ namespace Grimware.Extensions
                     ? !condition(source) ? source : null
                     : null
                 : throw new ArgumentNullException(nameof(condition));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T? NullIfDefault<T>(this T? source)
+            where T : struct =>
+            source.NullIf(default(T));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfIn<T>(this T? source, params T[] values)

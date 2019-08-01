@@ -69,18 +69,6 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string NullIfWhitespace(this string source) => source.NullIf(String.IsNullOrWhiteSpace);
 
-        public static unsafe SecureString ToSecuredString(this string source)
-        {
-            if (source == null)
-                return null;
-
-            fixed (char* pChars = source.ToCharArray())
-            {
-                var secured = new SecureString(pChars, source.Length);
-                return secured;
-            }
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string[] Split(this string source, string separator, StringSplitOptions options = StringSplitOptions.None) =>
             source == null
@@ -244,6 +232,18 @@ namespace Grimware.Extensions
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToPhrase(this string source) => source != null ? _ToPhraseRegex.Replace(source, "$1 ").Trim() : null;
+
+        public static unsafe SecureString ToSecuredString(this string source)
+        {
+            if (source == null)
+                return null;
+
+            fixed (char* pChars = source.ToCharArray())
+            {
+                var secured = new SecureString(pChars, source.Length);
+                return secured;
+            }
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float? ToSingle(this string source) => source != null ? Single.TryParse(source, out var result) ? (float?)result : null : null;

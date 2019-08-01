@@ -7,9 +7,9 @@ namespace Grimware.Extensions
     public static class ExceptionExtensions
     {
         private const string _AppIdKey = ".appId";
+        private const string _EndOfInnerExceptionStackTrace = " End of InnerException Stack Trace";
         private const string _VerboseExceptionFormat = "{1}: {2}{0}{3}{4}";
         private const string _VerboseInnerExceptionFormat = "{0} ---> {1}{0}   {2}";
-        private const string _EndOfInnerExceptionStackTrace = " End of InnerException Stack Trace";
 
         public static string ToStringVerbose(this Exception exception)
         {

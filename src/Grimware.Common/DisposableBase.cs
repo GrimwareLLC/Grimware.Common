@@ -24,14 +24,13 @@ namespace Grimware
         : IDisposable
     {
         /// <summary>
-        ///     Raised after this instance has been disposed or finalized.
+        ///     Gets a value indicating whether this instance is disposed.
         /// </summary>
-        public event EventHandler Disposed;
-
-        /// <summary>
-        ///     Raised before this instance is disposed.
-        /// </summary>
-        public event EventHandler Disposing;
+        /// <value>
+        ///     <see langword="true" /> if this instance is disposed; otherwise,
+        ///     <see langword="false" />.
+        /// </value>
+        public bool IsDisposed { get; private set; }
 
 #pragma warning disable CA1063 // Implement IDisposable Correctly
         /// <summary>
@@ -45,16 +44,43 @@ namespace Grimware
 
             RaiseDisposedEvent();
         }
+
 #pragma warning restore CA1063 // Implement IDisposable Correctly
+        /// <summary>
+        ///     Raised after this instance has been disposed or finalized.
+        /// </summary>
+        public event EventHandler Disposed;
 
         /// <summary>
-        ///     Gets a value indicating whether this instance is disposed.
+        ///     Raised before this instance is disposed.
         /// </summary>
-        /// <value>
-        ///     <see langword="true" /> if this instance is disposed; otherwise,
-        ///     <see langword="false" />.
-        /// </value>
-        public bool IsDisposed { get; private set; }
+        public event EventHandler Disposing;
+
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing,
+        ///     releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <remarks>
+        ///     Raises the <see cref="Disposing" /> event before the resources are
+        ///     disposed, and the <see cref="Disposed" /> event once disposal is
+        ///     completed.
+        /// </remarks>
+        public void Dispose()
+        {
+            try
+            {
+                RaiseDisposingEvent();
+            }
+            finally
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            RaiseDisposedEvent();
+        }
+#pragma warning restore CA1063 // Implement IDisposable Correctly
 
         /// <summary>
         ///     When overridden in a derived class, builds an
@@ -168,31 +194,5 @@ namespace Grimware
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void RaiseDisposingEvent() => RaiseEvent(Disposing, new EventArgs());
-
-#pragma warning disable CA1063 // Implement IDisposable Correctly
-        /// <summary>
-        ///     Performs application-defined tasks associated with freeing,
-        ///     releasing, or resetting unmanaged resources.
-        /// </summary>
-        /// <remarks>
-        ///     Raises the <see cref="Disposing" /> event before the resources are
-        ///     disposed, and the <see cref="Disposed" /> event once disposal is
-        ///     completed.
-        /// </remarks>
-        public void Dispose()
-        {
-            try
-            {
-                RaiseDisposingEvent();
-            }
-            finally
-            {
-                Dispose(true);
-                GC.SuppressFinalize(this);
-            }
-
-            RaiseDisposedEvent();
-        }
-#pragma warning restore CA1063 // Implement IDisposable Correctly
     }
 }

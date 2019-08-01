@@ -26,6 +26,10 @@ namespace Grimware.Extensions
                 set => throw ReadOnlyException();
             }
 
+            // ReSharper disable once UnusedMember.Local
+            public static ReadOnlyDictionary<TKey, TValue> Empty { get; } =
+                new ReadOnlyDictionary<TKey, TValue>(new Dictionary<TKey, TValue>());
+
             public int Count => _dictionary.Count;
 
             public bool IsReadOnly => true;
@@ -34,11 +38,8 @@ namespace Grimware.Extensions
 
             public ICollection<TValue> Values => _dictionary.Values;
 
-            void IDictionary<TKey, TValue>.Add(TKey key, TValue value) => throw ReadOnlyException();
-
-            void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item) => throw ReadOnlyException();
-
-            void ICollection<KeyValuePair<TKey, TValue>>.Clear() => throw ReadOnlyException();
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private static Exception ReadOnlyException() => new NotSupportedException(ExceptionMessages.DictionaryIsReadOnly);
 
             public bool Contains(KeyValuePair<TKey, TValue> item) => _dictionary.Contains(item);
 
@@ -48,21 +49,19 @@ namespace Grimware.Extensions
 
             public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => _dictionary.GetEnumerator();
 
+            public bool TryGetValue(TKey key, out TValue value) => _dictionary.TryGetValue(key, out value);
+
+            void IDictionary<TKey, TValue>.Add(TKey key, TValue value) => throw ReadOnlyException();
+
+            void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item) => throw ReadOnlyException();
+
+            void ICollection<KeyValuePair<TKey, TValue>>.Clear() => throw ReadOnlyException();
+
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
             bool IDictionary<TKey, TValue>.Remove(TKey key) => throw ReadOnlyException();
 
             bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item) => throw ReadOnlyException();
-
-            public bool TryGetValue(TKey key, out TValue value) => _dictionary.TryGetValue(key, out value);
-
-            // ReSharper disable once UnusedMember.Local
-            public static ReadOnlyDictionary<TKey, TValue> Empty { get; } =
-                new ReadOnlyDictionary<TKey, TValue>(new Dictionary<TKey, TValue>());
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static Exception ReadOnlyException() => new NotSupportedException(ExceptionMessages.DictionaryIsReadOnly);
         }
-
     }
 }

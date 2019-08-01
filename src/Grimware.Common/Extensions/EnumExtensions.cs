@@ -10,12 +10,6 @@ namespace Grimware.Extensions
         private static readonly CultureInfo _CultureInfo = CultureInfo.CurrentCulture;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TEnumOut? Translate<TEnumIn, TEnumOut>(this TEnumIn source, bool ignoreCase = false)
-            where TEnumIn : struct, Enum
-            where TEnumOut : struct, Enum =>
-            source.ToString().ToEnum<TEnumOut>(ignoreCase);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TEnum Add<TEnum>(this TEnum source, TEnum value)
             where TEnum : struct, Enum =>
             typeof(TEnum).HasAttributeOfType<FlagsAttribute>()
@@ -47,5 +41,11 @@ namespace Grimware.Extensions
         public static string ToDescription<TEnum>(this TEnum? source)
             where TEnum : struct, Enum =>
             source?.ToString().ToPhrase();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TEnumOut? Translate<TEnumIn, TEnumOut>(this TEnumIn source, bool ignoreCase = false)
+            where TEnumIn : struct, Enum
+            where TEnumOut : struct, Enum =>
+            source.ToString().ToEnum<TEnumOut>(ignoreCase);
     }
 }

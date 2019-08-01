@@ -8,16 +8,6 @@ namespace Grimware.Extensions
 {
     public static class XPathNavigableExtensions
     {
-        public static XPathDocument ToXPathDocument(this IXPathNavigable source)
-        {
-            var nav = source?.CreateNavigator();
-
-            return
-                nav != null
-                    ? new XPathDocument(nav.ReadSubtree())
-                    : null;
-        }
-
         public static XmlDocument ToXmlDocument(this IXPathNavigable source, XmlResolver xmlResolver = null)
         {
             var nav = source?.CreateNavigator();
@@ -28,6 +18,16 @@ namespace Grimware.Extensions
             doc.Load(nav.ReadSubtree());
 
             return doc;
+        }
+
+        public static XPathDocument ToXPathDocument(this IXPathNavigable source)
+        {
+            var nav = source?.CreateNavigator();
+
+            return
+                nav != null
+                    ? new XPathDocument(nav.ReadSubtree())
+                    : null;
         }
 
         public static Stream WriteToStream(this IXPathNavigable source)

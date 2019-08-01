@@ -85,8 +85,6 @@ namespace Grimware.Collections
 
         public IEnumerator<T> GetEnumerator() => _lazyList.Value.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
         public int IndexOf(T item) => _lazyList.Value.IndexOf(item);
 
         public void Insert(int index, T item) => _lazyList.Value.Insert(index, item);
@@ -94,5 +92,7 @@ namespace Grimware.Collections
         public bool Remove(T item) => _lazyList.Value.Remove(item);
 
         public void RemoveAt(int index) => _lazyList.Value.RemoveAt(index);
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

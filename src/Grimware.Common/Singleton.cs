@@ -12,25 +12,6 @@ namespace Grimware
     public abstract class Singleton<T>
         where T : Singleton<T>, new()
     {
-        // ReSharper disable StaticFieldInGenericType
-#pragma warning disable CA1000 // Do not declare static members on generic types
-
-        private static readonly T[] _InitLock = Array.Empty<T>();
-        private static T _Instance;
-
-        public static T Instance => GetInstance();
-
-#pragma warning restore CA1000 // Do not declare static members on generic types
-        // ReSharper restore StaticFieldInGenericType
-
-        private static T GetInstance()
-        {
-            lock (_InitLock)
-            {
-                return _Instance ?? (_Instance = CreateInstance());
-            }
-        }
-
         private static T CreateInstance()
         {
             lock (_InitLock)
@@ -47,5 +28,25 @@ namespace Grimware
                 return Activator.CreateInstance(t, true) as T;
             }
         }
+
+        private static T GetInstance()
+        {
+            lock (_InitLock)
+            {
+                return _Instance ?? (_Instance = CreateInstance());
+            }
+        }
+
+        // ReSharper disable StaticFieldInGenericType
+#pragma warning disable CA1000 // Do not declare static members on generic types
+
+        private static readonly T[] _InitLock = Array.Empty<T>();
+        private static T _Instance;
+
+        public static T Instance => GetInstance();
+
+#pragma warning restore CA1000 // Do not declare static members on generic types
+
+        // ReSharper restore StaticFieldInGenericType
     }
 }

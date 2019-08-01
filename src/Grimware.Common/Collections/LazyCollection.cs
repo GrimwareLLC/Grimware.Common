@@ -76,8 +76,8 @@ namespace Grimware.Collections
 
         public IEnumerator<T> GetEnumerator() => _lazyCollection.Value.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
         public bool Remove(T item) => _lazyCollection.Value.Remove(item);
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

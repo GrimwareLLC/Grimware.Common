@@ -1,4 +1,4 @@
 ﻿namespace Grimware.Extensions
 {
-    public static partial class ReflectionExtensions { }
+    public static partial class ReflectionExtensions {}
 }

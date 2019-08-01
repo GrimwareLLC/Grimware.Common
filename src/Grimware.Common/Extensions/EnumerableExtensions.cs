@@ -86,6 +86,10 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item) => source.Except(Enumerable.Repeat(item, 1));
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
+            source.AllIndexesWhere(predicate).FirstOrDefault();
+
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
             if (source == null)
@@ -96,10 +100,6 @@ namespace Grimware.Extensions
             foreach (var t in source)
                 action(t);
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
-            source.AllIndexesWhere(predicate).FirstOrDefault();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Last<T>(this IEnumerable<T> source, int count) =>

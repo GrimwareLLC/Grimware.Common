@@ -94,25 +94,18 @@ namespace Grimware.Extensions
         }
 
         public static IEnumerable<PropertyInfo> FindPropertiesWithAttributeOfType(
-            this Type type,
-            Type attributeType,
-            bool inherit,
-            BindingFlags bindingAttributes
-            )
-        {
-            if (type == null || attributeType == null)
-                return Array.Empty<PropertyInfo>();
-
-            return type.GetProperties(bindingAttributes)
-                .Where(property => property.HasAttributeOfType(attributeType, inherit));
-        }
+            this Type    type,
+            Type         attributeType,
+            bool         inherit,
+            BindingFlags bindingAttributes) =>
+            type != null && attributeType != null
+                ? type.GetProperties(bindingAttributes)
+                      .Where(property => property.HasAttributeOfType(attributeType, inherit))
+                : Array.Empty<PropertyInfo>();
 
         public static bool IsSubclassOf<T>(this Type type)
         {
-            if (type == null)
-                return false;
-
-            return type.IsSubclassOf(typeof(T));
+            return type != null && type.IsSubclassOf(typeof(T));
         }
 
         public static bool TryConvertFromString(this Type type, string value, out object returnValue)

@@ -36,6 +36,5 @@ namespace Grimware
         {
             base.GetObjectData(info, context);
         }
-
     }
 }

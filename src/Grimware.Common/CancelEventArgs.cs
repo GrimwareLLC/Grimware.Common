@@ -5,12 +5,7 @@ namespace Grimware
     public class CancelEventArgs<TState>
         : CancelEventArgs
     {
-        public CancelEventArgs(TState state)
-            : this(state, false)
-        {
-        }
-
-        public CancelEventArgs(TState state, bool cancel)
+        public CancelEventArgs(TState state, bool cancel = false)
             : base(cancel)
         {
             State = state;

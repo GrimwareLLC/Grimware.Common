@@ -39,7 +39,9 @@ namespace Grimware
         ///     before the <see cref="DisposableBase" /> is reclaimed by garbage
         ///     collection.
         /// </summary>
+#if NETCORE
         [ExcludeFromCodeCoverage] // Finalizers can't be tested properly in netcore
+#endif
         ~DisposableBase()
         {
             Dispose(false);

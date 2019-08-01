@@ -26,6 +26,18 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
+        public void Dispose_Finalizer_Test()
+        {
+            var foo = new DisposableFoo();
+            foo.Should().NotBeNull();
+            foo.IsDisposed.Should().BeFalse();
+            foo.Check();
+
+            foo = null;
+            GC.WaitForPendingFinalizers();
+        }
+
+        [TestMethod]
         public void Raise_Test()
         {
             var testState = Int32.MinValue;

@@ -35,8 +35,10 @@ namespace Grimware.Extensions
             where T : struct =>
             condition != null
                 ? source != null
-                    ? condition(source.Value) ? null : source
-                    : null
+                      ? condition(source.Value)
+                            ? null
+                            : source
+                      : null
                 : throw new ArgumentNullException(nameof(condition));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -44,8 +46,10 @@ namespace Grimware.Extensions
             where T : class =>
             condition != null
                 ? source != null
-                    ? !condition(source) ? source : null
-                    : null
+                      ? !condition(source)
+                            ? source
+                            : null
+                      : null
                 : throw new ArgumentNullException(nameof(condition));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -69,6 +73,7 @@ namespace Grimware.Extensions
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
+
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
@@ -76,13 +81,13 @@ namespace Grimware.Extensions
             var baseType = typeof(TBase);
 
             baseType.GetFields()
-                .Intersect(derivedType.GetFields())
-                .ForEach(f => f.SetValue(target, f.GetValue(source)));
+                    .Intersect(derivedType.GetFields())
+                    .ForEach(f => f.SetValue(target, f.GetValue(source)));
 
             baseType.GetProperties()
-                .Intersect(derivedType.GetProperties())
-                .Where(p => p.CanRead && p.CanWrite)
-                .ForEach(p => p.SetValue(target, p.GetValue(source, null), null));
+                    .Intersect(derivedType.GetProperties())
+                    .Where(p => p.CanRead && p.CanWrite)
+                    .ForEach(p => p.SetValue(target, p.GetValue(source, null), null));
 
             return target;
         }
@@ -96,9 +101,8 @@ namespace Grimware.Extensions
                 return null;
 
             var sb = new StringBuilder(1024 * 4);
-            using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true}))
+            using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true }))
             {
-
                 var serializer = new XmlSerializer(source.GetType());
                 serializer.Serialize(xmlWriter, source);
                 xmlWriter.Flush();
@@ -111,12 +115,14 @@ namespace Grimware.Extensions
         {
             if (source == null)
                 return;
+
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
 #pragma warning disable CA2000 // Dispose objects before losing scope
+
             // If we dispose the XmlWriter, it would dispose the underlying stream, which we don't want.
-            var xmlWriter = XmlWriter.Create(new StreamWriter(target), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true});
+            var xmlWriter = XmlWriter.Create(new StreamWriter(target), new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true });
             var serializer = new XmlSerializer(source.GetType());
             serializer.Serialize(xmlWriter, source);
             xmlWriter.Flush();

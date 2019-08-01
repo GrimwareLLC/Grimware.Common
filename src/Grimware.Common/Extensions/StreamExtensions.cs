@@ -44,6 +44,7 @@ namespace Grimware.Extensions
 
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
+
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
 

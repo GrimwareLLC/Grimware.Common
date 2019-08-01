@@ -2,8 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 
+// ReSharper disable AccessToDisposedClosure
 namespace Grimware.Common.UnitTests
 {
     [TestClass]
@@ -23,18 +23,6 @@ namespace Grimware.Common.UnitTests
 
             foo.Should().NotBeNull();
             foo.IsDisposed.Should().BeTrue();
-        }
-
-        [TestMethod]
-        public void Dispose_Finalizer_Test()
-        {
-            var foo = new DisposableFoo();
-            foo.Should().NotBeNull();
-            foo.IsDisposed.Should().BeFalse();
-            foo.Check();
-
-            foo = null;
-            GC.WaitForPendingFinalizers();
         }
 
         [TestMethod]
@@ -61,6 +49,7 @@ namespace Grimware.Common.UnitTests
             {
                 foo.Should().NotBeNull();
                 foo.Bar += (f, e) => e.State.Should().Be(testState);
+                foo.Baz += (f, e) => { };
                 foo.IsDisposed.Should().BeFalse();
 
                 Action throwBar = () => foo.ThrowBar();

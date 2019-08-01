@@ -30,17 +30,17 @@ namespace Grimware.Extensions
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetWeekOfYear(
-            this DateTime time,
-            CalendarWeekRule rule = CalendarWeekRule.FirstDay,
-            DayOfWeek firstDayOfWeek = DayOfWeek.Sunday) =>
+            this DateTime    time,
+            CalendarWeekRule rule           = CalendarWeekRule.FirstDay,
+            DayOfWeek        firstDayOfWeek = DayOfWeek.Sunday) =>
             GetWeekOfYear(time, DefaultCalendar, rule, firstDayOfWeek);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetWeekOfYear(
-            this DateTime time,
-            Calendar calendar,
-            CalendarWeekRule rule = CalendarWeekRule.FirstDay,
-            DayOfWeek firstDayOfWeek = DayOfWeek.Sunday) =>
+            this DateTime    time,
+            Calendar         calendar,
+            CalendarWeekRule rule           = CalendarWeekRule.FirstDay,
+            DayOfWeek        firstDayOfWeek = DayOfWeek.Sunday) =>
             calendar?.GetWeekOfYear(time, rule, firstDayOfWeek) ?? throw new ArgumentNullException(nameof(calendar));
     }
 }

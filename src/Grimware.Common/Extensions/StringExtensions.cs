@@ -14,11 +14,11 @@ namespace Grimware.Extensions
 
         private const string _ValidGuidExpression =
             @"\A(?i)(?:"
-            + @"[\da-f]{32}"
-            + @"|[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}"
-            + @"|\{[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\}"
-            + @"|\([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\)"
-            + @")\Z";
+          + @"[\da-f]{32}"
+          + @"|[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}"
+          + @"|\{[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\}"
+          + @"|\([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\)"
+          + @")\Z";
 
         private static readonly Regex _NonAlphaNumericRegex =
             new Regex("(?i)[^a-z0-9]", _StandardRegexOptions | RegexOptions.IgnoreCase);
@@ -93,19 +93,21 @@ namespace Grimware.Extensions
 
             var parsedTrue =
                 "true".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "yes".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "t".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "y".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "1".Equals(source, StringComparison.OrdinalIgnoreCase);
+             || "yes".Equals(source, StringComparison.OrdinalIgnoreCase)
+             || "t".Equals(source, StringComparison.OrdinalIgnoreCase)
+             || "y".Equals(source, StringComparison.OrdinalIgnoreCase)
+             || "1".Equals(source, StringComparison.OrdinalIgnoreCase);
+
             if (parsedTrue)
                 return true;
 
             var parsedFalse =
                 "false".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "no".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "f".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "n".Equals(source, StringComparison.OrdinalIgnoreCase)
-                || "0".Equals(source, StringComparison.OrdinalIgnoreCase);
+             || "no".Equals(source, StringComparison.OrdinalIgnoreCase)
+             || "f".Equals(source, StringComparison.OrdinalIgnoreCase)
+             || "n".Equals(source, StringComparison.OrdinalIgnoreCase)
+             || "0".Equals(source, StringComparison.OrdinalIgnoreCase);
+
             if (parsedFalse)
                 return false;
 
@@ -122,8 +124,8 @@ namespace Grimware.Extensions
         public static DateTime? ToDateTime(this string source, IFormatProvider provider, DateTimeStyles styles) =>
             source != null
                 ? DateTime.TryParse(source, provider, styles, out var result)
-                    ? (DateTime?)result
-                    : null
+                      ? (DateTime?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -135,21 +137,21 @@ namespace Grimware.Extensions
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime? ToDateTime(
-            this string source,
-            string format,
+            this string     source,
+            string          format,
             IFormatProvider provider,
-            DateTimeStyles style,
-            bool adjustCentury = false) =>
+            DateTimeStyles  style,
+            bool            adjustCentury = false) =>
             format != null
                 ? ToDateTime(source, new[] { format }, provider, style, adjustCentury)
                 : throw new ArgumentNullException(nameof(format));
 
         public static DateTime? ToDateTime(
-            this string source,
-            string[] formats,
+            this string     source,
+            string[]        formats,
             IFormatProvider provider,
-            DateTimeStyles style,
-            bool adjustCentury = false)
+            DateTimeStyles  style,
+            bool            adjustCentury = false)
         {
             if (formats == null)
                 throw new ArgumentNullException(nameof(formats));
@@ -171,25 +173,33 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal? ToDecimal(this string source) =>
             source != null
-                ? Decimal.TryParse(source, out var result) ? (decimal?)result : null
+                ? Decimal.TryParse(source, out var result)
+                      ? (decimal?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal? ToDecimal(this string source, NumberStyles style, IFormatProvider provider) =>
             source != null
-                ? Decimal.TryParse(source, style, provider, out var result) ? (decimal?)result : null
+                ? Decimal.TryParse(source, style, provider, out var result)
+                      ? (decimal?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double? ToDouble(this string source) =>
             source != null
-                ? Double.TryParse(source, out var result) ? (double?)result : null
+                ? Double.TryParse(source, out var result)
+                      ? (double?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double? ToDouble(this string source, NumberStyles style, IFormatProvider provider) =>
             source != null
-                ? Double.TryParse(source, style, provider, out var result) ? (double?)result : null
+                ? Double.TryParse(source, style, provider, out var result)
+                      ? (double?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -200,34 +210,54 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Guid? ToGuid(this string source) =>
             source != null
-                ? _ValidGuidRegex.IsMatch(source) ? (Guid?)new Guid(source) : null
+                ? _ValidGuidRegex.IsMatch(source)
+                      ? (Guid?)new Guid(source)
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static short? ToInt16(this string source) => source != null ? Int16.TryParse(source, out var result) ? (short?)result : null : null;
+        public static short? ToInt16(this string source) => source != null
+                                                                ? Int16.TryParse(source, out var result)
+                                                                      ? (short?)result
+                                                                      : null
+                                                                : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static short? ToInt16(this string source, NumberStyles style, IFormatProvider provider) =>
             source != null
-                ? Int16.TryParse(source, style, provider, out var result) ? (short?)result : null
+                ? Int16.TryParse(source, style, provider, out var result)
+                      ? (short?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int? ToInt32(this string source) => source != null ? Int32.TryParse(source, out var result) ? (int?)result : null : null;
+        public static int? ToInt32(this string source) => source != null
+                                                              ? Int32.TryParse(source, out var result)
+                                                                    ? (int?)result
+                                                                    : null
+                                                              : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int? ToInt32(this string source, NumberStyles style, IFormatProvider provider) =>
             source != null
-                ? Int32.TryParse(source, style, provider, out var result) ? (int?)result : null
+                ? Int32.TryParse(source, style, provider, out var result)
+                      ? (int?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long? ToInt64(this string source) => source != null ? Int64.TryParse(source, out var result) ? (long?)result : null : null;
+        public static long? ToInt64(this string source) => source != null
+                                                               ? Int64.TryParse(source, out var result)
+                                                                     ? (long?)result
+                                                                     : null
+                                                               : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long? ToInt64(this string source, NumberStyles style, IFormatProvider provider) =>
             source != null
-                ? Int64.TryParse(source, style, provider, out var result) ? (long?)result : null
+                ? Int64.TryParse(source, style, provider, out var result)
+                      ? (long?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -246,17 +276,27 @@ namespace Grimware.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float? ToSingle(this string source) => source != null ? Single.TryParse(source, out var result) ? (float?)result : null : null;
+        public static float? ToSingle(this string source) => source != null
+                                                                 ? Single.TryParse(source, out var result)
+                                                                       ? (float?)result
+                                                                       : null
+                                                                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float? ToSingle(this string source, NumberStyles style, IFormatProvider provider) =>
             source != null
-                ? Single.TryParse(source, style, provider, out var result) ? (float?)result : null
+                ? Single.TryParse(source, style, provider, out var result)
+                      ? (float?)result
+                      : null
                 : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TimeSpan? ToTimeSpan(this string source) =>
-            source != null ? TimeSpan.TryParse(source, out var result) ? (TimeSpan?)result : null : null;
+            source != null
+                ? TimeSpan.TryParse(source, out var result)
+                      ? (TimeSpan?)result
+                      : null
+                : null;
 
         public static string Translate(string source, string from, string to)
         {
@@ -267,7 +307,7 @@ namespace Grimware.Extensions
 
             var sb = new StringBuilder(source);
 
-            for (var i = 0; i < sb.Length; i++)
+            for (var i = 0 ; i < sb.Length ; i++)
             {
                 var j = from.IndexOf(sb[i]);
                 if (j >= 0 && j < to.Length)

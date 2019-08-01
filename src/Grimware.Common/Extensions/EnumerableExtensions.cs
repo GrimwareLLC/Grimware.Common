@@ -10,9 +10,9 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
             source
-                .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
-                .Where(a => a.IsMatch)
-                .Select(a => a.Index);
+               .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
+               .Where(a => a.IsMatch)
+               .Select(a => a.Index);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item) =>
@@ -41,14 +41,16 @@ namespace Grimware.Extensions
         /// </returns>
         public static IEnumerable<T> Distinct<T>(
             this IEnumerable<T> source,
-            Func<T, T, bool> equalityComparison,
-            Func<T, int> hashGenerator
-            )
+            Func<T, T, bool>    equalityComparison,
+            Func<T, int>        hashGenerator
+        )
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
+
             if (equalityComparison == null)
                 throw new ArgumentNullException(nameof(equalityComparison));
+
             if (hashGenerator == null)
                 throw new ArgumentNullException(nameof(hashGenerator));
 
@@ -77,6 +79,7 @@ namespace Grimware.Extensions
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
+
             if (keySelector == null)
                 throw new ArgumentNullException(nameof(keySelector));
 
@@ -94,6 +97,7 @@ namespace Grimware.Extensions
         {
             if (source == null)
                 return;
+
             if (action == null)
                 return;
 

@@ -13,7 +13,7 @@ namespace Grimware.Extensions
 
         public static bool HasReturnType(this MethodInfo method, Type returnType)
         {
-            if (returnType == null) throw new ArgumentNullException(nameof(returnType));
+            if (returnType            == null) throw new ArgumentNullException(nameof(returnType));
             return method?.ReturnType == returnType;
         }
     }

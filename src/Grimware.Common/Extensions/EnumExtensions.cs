@@ -15,7 +15,7 @@ namespace Grimware.Extensions
             typeof(TEnum).HasAttributeOfType<FlagsAttribute>()
                 ? (TEnum)(object)((long)(object)source | (long)(object)value)
                 : throw new InvalidOperationException(
-                    String.Format(_CultureInfo, ExceptionMessages.EnumValueNotAddedFormat, source.GetType().Name));
+                      String.Format(_CultureInfo, ExceptionMessages.EnumValueNotAddedFormat, source.GetType().Name));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Has<TEnum>(this TEnum source, TEnum value)
@@ -35,7 +35,7 @@ namespace Grimware.Extensions
             typeof(TEnum).HasAttributeOfType<FlagsAttribute>()
                 ? (TEnum)(object)(((long)(object)source & ~(long)(object)value))
                 : throw new InvalidOperationException(
-                    String.Format(_CultureInfo, ExceptionMessages.EnumValueNotRemovedFormat, source.GetType().Name));
+                      String.Format(_CultureInfo, ExceptionMessages.EnumValueNotRemovedFormat, source.GetType().Name));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToDescription<TEnum>(this TEnum? source)

@@ -165,4 +165,13 @@
   <data name="SingletonCantBeEnforcedFormat" xml:space="preserve">
     <value>'{0}' has at least one accessible constructor, singleton behavior cannot be enforced.</value>
   </data>
+  <data name="SingletonMustBeAccessedThroughInstanceProperty" xml:space="preserve">
+    <value>Singleton must be referenced through the static 'Instance' property.</value>
+  </data>
+  <data name="SingletonMustBeSealedFormat" xml:space="preserve">
+    <value>'{0}' must be a sealed class to be used as Singleton&lt;&gt;.</value>
+  </data>
+  <data name="SingletonMustHavePrivateDefaultConstructorFormat" xml:space="preserve">
+    <value>'{0}' must have a private parameterless constructor to be used as Singleton&lt;&gt;.</value>
+  </data>
 </root>

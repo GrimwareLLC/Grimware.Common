@@ -19,5 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)EventArgsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HasherTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingletonTests.cs" />
   </ItemGroup>
 </Project>

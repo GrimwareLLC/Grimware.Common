@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using Grimware.Resources;
 
 namespace Grimware
@@ -10,43 +12,44 @@ namespace Grimware
     /// </summary>
     /// <typeparam name="T">The type of Singleton being used.</typeparam>
     public abstract class Singleton<T>
-        where T : Singleton<T>, new()
+        where T : Singleton<T>
     {
-        private static T CreateInstance()
+        private static readonly Lazy<T> _InstanceLoader = new Lazy<T>(CreateInstance);
+
+        protected Singleton()
         {
-            lock (_InitLock)
-            {
-                var t = typeof(T);
-                var constructors = t.GetConstructors();
+            var t = typeof(T);
 
-                if (constructors.Length > 0)
-                {
-                    throw new InvalidOperationException(
-                        String.Format(CultureInfo.InvariantCulture, ExceptionMessages.SingletonCantBeEnforcedFormat, t.Name));
-                }
+            var publicConstructors = t.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
+            if (publicConstructors.Length > 0)
+                throw new InvalidOperationException(
+                    String.Format(CultureInfo.CurrentCulture, ExceptionMessages.SingletonCantBeEnforcedFormat, t.Name));
 
-                return Activator.CreateInstance(t, true) as T;
-            }
+            if (!t.IsSealed)
+                throw new InvalidOperationException(
+                    String.Format(CultureInfo.CurrentCulture, ExceptionMessages.SingletonMustBeSealedFormat, t.Name));
+
+
+            if (_InstanceLoader.IsValueCreated)
+                throw new InvalidOperationException(ExceptionMessages.SingletonMustBeAccessedThroughInstanceProperty);
         }
 
-        private static T GetInstance()
-        {
-            lock (_InitLock)
-            {
-                return _Instance ?? (_Instance = CreateInstance());
-            }
-        }
-
-        // ReSharper disable StaticFieldInGenericType
 #pragma warning disable CA1000 // Do not declare static members on generic types
-
-        private static readonly T[] _InitLock = Array.Empty<T>();
-        private static T _Instance;
-
-        public static T Instance => GetInstance();
-
+        public static T Instance => _InstanceLoader.Value;
 #pragma warning restore CA1000 // Do not declare static members on generic types
 
-        // ReSharper restore StaticFieldInGenericType
+        private static T CreateInstance()
+        {
+            try
+            {
+                return Activator.CreateInstance(typeof(T), true) as T;
+            }
+            catch (MissingMethodException ex)
+            {
+                throw new InvalidOperationException(
+                    String.Format(CultureInfo.CurrentCulture, ExceptionMessages.SingletonMustHavePrivateDefaultConstructorFormat, typeof(T).Name),
+                    ex);
+            }
+        }
     }
 }

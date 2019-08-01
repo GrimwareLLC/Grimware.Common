@@ -12,6 +12,11 @@
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AbstractEqualityComparerTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CancelEventArgsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DisposableAdapterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DisposableBaseTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventArgsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HasherTests.cs" />
   </ItemGroup>

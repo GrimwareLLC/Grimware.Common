@@ -9,15 +9,15 @@
     <Import_RootNamespace>Grimware.Common.UnitTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AbstractEqualityComparerTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CancelEventArgsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\LazyCollectionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\LazyListTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DisposableAdapterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DisposableBaseTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EqualityComparerTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArgsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\CalendarExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HasherTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingletonTests.cs" />

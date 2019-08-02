@@ -8,91 +8,45 @@ namespace Grimware.Collections
 {
 #pragma warning disable CA1710 // Identifiers should have correct suffix
     public class LazyList<T>
-        : IList<T>
+        : LazyCollection<T>, IList<T>
 #pragma warning restore CA1710 // Identifiers should have correct suffix
     {
-        private readonly Lazy<IList<T>> _lazyList;
+        private IList<T> List => Collection as IList<T>;
 
         public LazyList()
             : this(LazyThreadSafetyMode.ExecutionAndPublication)
         {
         }
 
-        public LazyList(IEnumerable<T> collection)
-            : this(collection, LazyThreadSafetyMode.ExecutionAndPublication)
-        {
-            if (collection == null)
-                throw new ArgumentNullException(nameof(collection));
-        }
-
-        public LazyList(Func<IList<T>> valueFactory)
-            : this(valueFactory, LazyThreadSafetyMode.ExecutionAndPublication)
-        {
-        }
-
-        public LazyList(bool isThreadSafe)
-            : this(isThreadSafe ? LazyThreadSafetyMode.ExecutionAndPublication : LazyThreadSafetyMode.None)
-        {
-        }
-
-        public LazyList(IEnumerable<T> collection, bool isThreadSafe)
-            : this(collection, isThreadSafe ? LazyThreadSafetyMode.ExecutionAndPublication : LazyThreadSafetyMode.None)
-        {
-        }
-
-        public LazyList(Func<IList<T>> valueFactory, bool isThreadSafe)
-            : this(valueFactory, isThreadSafe ? LazyThreadSafetyMode.ExecutionAndPublication : LazyThreadSafetyMode.None)
-        {
-        }
-
         public LazyList(LazyThreadSafetyMode mode)
+            : this(Array.Empty<T>().AsEnumerable(), mode)
         {
-            _lazyList = new Lazy<IList<T>>(mode);
         }
 
-        public LazyList(IEnumerable<T> collection, LazyThreadSafetyMode mode)
-            : this(collection.ToList, mode)
+        public LazyList(IEnumerable<T> collection, LazyThreadSafetyMode mode = LazyThreadSafetyMode.ExecutionAndPublication)
+            : this(collection != null ? (Func<IList<T>>)collection.ToList : Array.Empty<T>, mode)
         {
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection));
         }
 
-        public LazyList(Func<IList<T>> valueFactory, LazyThreadSafetyMode mode)
+        public LazyList(Func<IList<T>> valueFactory, LazyThreadSafetyMode mode = LazyThreadSafetyMode.ExecutionAndPublication)
+            : base(valueFactory ?? Array.Empty<T>, mode)
         {
             if (valueFactory == null)
                 throw new ArgumentNullException(nameof(valueFactory));
-
-            _lazyList = new Lazy<IList<T>>(valueFactory, mode);
         }
 
         public T this[int index]
         {
-            get => _lazyList.Value[index];
-            set => _lazyList.Value[index] = value;
+            get => List[index];
+            set => List[index] = value;
         }
 
-        public int Count => _lazyList.Value.Count;
+        public int IndexOf(T item) => List.IndexOf(item);
 
-        public bool IsReadOnly => _lazyList.Value.IsReadOnly;
+        public void Insert(int index, T item) => List.Insert(index, item);
 
-        public void Add(T item) => _lazyList.Value.Add(item);
-
-        public void Clear() => _lazyList.Value.Clear();
-
-        public bool Contains(T item) => _lazyList.Value.Contains(item);
-
-        public void CopyTo(T[] array, int arrayIndex) => _lazyList.Value.CopyTo(array, arrayIndex);
-
-        public IEnumerator<T> GetEnumerator() => _lazyList.Value.GetEnumerator();
-
-        public int IndexOf(T item) => _lazyList.Value.IndexOf(item);
-
-        public void Insert(int index, T item) => _lazyList.Value.Insert(index, item);
-
-        public bool Remove(T item) => _lazyList.Value.Remove(item);
-
-        public void RemoveAt(int index) => _lazyList.Value.RemoveAt(index);
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        public void RemoveAt(int index) => List.RemoveAt(index);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Threading;
 using Grimware.Resources;
 
 namespace Grimware
@@ -13,7 +14,7 @@ namespace Grimware
     public abstract class Singleton<T>
         where T : Singleton<T>
     {
-        private static readonly Lazy<T> _InstanceLoader = new Lazy<T>(CreateInstance);
+        private static readonly Lazy<T> _InstanceLoader = new Lazy<T>(CreateInstance, LazyThreadSafetyMode.ExecutionAndPublication);
 
         protected Singleton()
         {

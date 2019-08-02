@@ -1,7 +1,10 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+
+#if NETCORE
+using System.Diagnostics.CodeAnalysis;
+#endif
 
 namespace Grimware
 {

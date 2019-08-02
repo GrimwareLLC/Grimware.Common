@@ -7,6 +7,8 @@
     <IsPackable>false</IsPackable>
 
     <RootNamespace>Grimware.Common.UnitTests</RootNamespace>
+
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>

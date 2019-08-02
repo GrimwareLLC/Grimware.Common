@@ -10,9 +10,9 @@ namespace Grimware.Common.UnitTests
     public class DisposableAdapterTests
     {
         [TestMethod]
-        public void Test()
+        public void Using()
         {
-            int v = 0;
+            var v = 0;
             DisposableAdapter adapter;
             using (adapter = new DisposableAdapter(() => v = Int32.MaxValue))
             {

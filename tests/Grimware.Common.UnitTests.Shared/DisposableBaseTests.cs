@@ -33,22 +33,25 @@ namespace Grimware.Common.UnitTests
             foo.IsDisposed.Should().BeFalse();
             foo.Check();
 
+            // ReSharper disable once RedundantAssignment
+#pragma warning disable IDE0059 // Value assigned to symbol is never used
             foo = null;
             GC.WaitForPendingFinalizers();
+#pragma warning restore IDE0059 // Value assigned to symbol is never used
         }
 
         [TestMethod]
         public void Raise_Test()
         {
-            var testState = Int32.MinValue;
+            const int TestState = Int32.MinValue;
 
             using (var foo = new DisposableFoo())
             {
                 foo.Should().NotBeNull();
-                foo.Bar += (f, e) => e.State.Should().Be(testState);
+                foo.Bar += (f, e) => e.State.Should().Be(TestState);
                 foo.IsDisposed.Should().BeFalse();
 
-                foo.RaiseBar(testState);
+                foo.RaiseBar(TestState);
             }
         }
 

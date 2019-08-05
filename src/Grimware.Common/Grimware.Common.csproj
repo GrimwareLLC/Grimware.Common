@@ -15,8 +15,8 @@
     <PackageTags>dotnet utility helper extension extensions</PackageTags>
     <Copyright>© 2007-2019, Grimware, LLC</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>1.0.1-RC1</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Version>1.1.0-RC1</Version>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 

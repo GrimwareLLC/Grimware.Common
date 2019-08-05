@@ -13,7 +13,7 @@ namespace Grimware.Extensions
         {
             private readonly IDictionary<TKey, TValue> _dictionary;
 
-            public ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
+            internal ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
             {
                 _dictionary = new Dictionary<TKey, TValue>(dictionary, (dictionary as Dictionary<TKey, TValue>)?.Comparer);
             }
@@ -25,10 +25,6 @@ namespace Grimware.Extensions
                 get => this[key];
                 set => throw ReadOnlyException();
             }
-
-            // ReSharper disable once UnusedMember.Local
-            public static ReadOnlyDictionary<TKey, TValue> Empty { get; } =
-                new ReadOnlyDictionary<TKey, TValue>(new Dictionary<TKey, TValue>());
 
             public int Count => _dictionary.Count;
 

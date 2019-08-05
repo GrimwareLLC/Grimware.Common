@@ -6,11 +6,15 @@ namespace Grimware.Extensions
 {
     public static class DateTimeExtensions
     {
-        public static Calendar DefaultCalendar { get; set; } = new GregorianCalendar(GregorianCalendarTypes.Localized);
+        private static Calendar DefaultCalendar { get; } = new GregorianCalendar(GregorianCalendarTypes.Localized);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static DateTime? AddTime(this DateTime? dateTime, TimeSpan? time) =>
-            dateTime != null ? dateTime.Value + (time ?? TimeSpan.Zero) : (DateTime?)null;
+        public static DateTime Add(this DateTime dateTime, TimeSpan? time) =>
+            Add((DateTime?)dateTime, time) ?? dateTime;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static DateTime? Add(this DateTime? dateTime, TimeSpan? time) =>
+            dateTime?.Add(time ?? TimeSpan.Zero);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetDayOfWeekOccurence(this DateTime time) => GetDayOfWeekOccurence(time, DefaultCalendar);

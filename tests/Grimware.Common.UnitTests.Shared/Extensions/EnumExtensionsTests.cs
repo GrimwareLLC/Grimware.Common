@@ -1,5 +1,6 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
+using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Grimware.Common.UnitTests.Extensions
@@ -9,26 +10,36 @@ namespace Grimware.Common.UnitTests.Extensions
     public class EnumExtensionsTests
     {
         [TestMethod]
-        public void Add()
+        public void ToDescription()
         {
+            // Assert
+            TestEnumeration.DescriptiveText.ToDescription().Should().Be("Descriptive Text");
 
+            ((TestEnumeration?)TestEnumeration.DescriptiveText).ToDescription().Should().Be("Descriptive Text");
         }
 
-        [Flags]
-        private enum TestFlags
+        [TestMethod]
+        public void Translate()
         {
-            None = 0,
+            // Arrange
+            const TestEnumeration TestValue = TestEnumeration.TranslatableValue;
 
-            BitOne = 1,
-            BitTwo = 2,
-            BitThree = 4,
-            BitFour = 8,
-            BitFive = 16,
-            BitSix = 32,
-            BitSeven = 64,
-            BitEight = 128,
+            // Act
+            var result = TestValue.Translate<TestEnumeration, AnotherTestEnumeration>();
 
-            All = 0xFF,
+            // Assert
+            result.Should().Be(AnotherTestEnumeration.TranslatableValue);
+        }
+
+        private enum TestEnumeration
+        {
+            DescriptiveText = 1,
+            TranslatableValue = 2,
+        }
+
+        private enum AnotherTestEnumeration
+        {
+            TranslatableValue = 10,
         }
     }
 }

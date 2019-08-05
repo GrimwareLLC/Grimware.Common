@@ -18,6 +18,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)EqualityComparerTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArgsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\CalendarExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DoubleExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Int32ExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HasherTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingletonTests.cs" />

@@ -8,7 +8,7 @@ namespace Grimware.Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal? ToDecimal(this double? source, IFormatProvider provider) =>
-            source != null ? Convert.ToDecimal(source, provider) : (decimal?)null;
+            source != null ? Convert.ToDecimal(source.Value, provider) : (decimal?)null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal? ToDecimalInvariant(this double? source) => ToDecimal(source, CultureInfo.InvariantCulture);

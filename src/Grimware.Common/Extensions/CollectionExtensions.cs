@@ -12,7 +12,7 @@ namespace Grimware.Extensions
             if (predicate == null)
                 throw new ArgumentNullException(nameof(predicate));
 
-            collection.AddIf(item, predicate(item));
+            AddIf(collection, item, predicate(item));
         }
 
         public static void AddIf<T>(this ICollection<T> collection, T item, bool condition)
@@ -45,7 +45,7 @@ namespace Grimware.Extensions
             if (predicate == null)
                 throw new ArgumentNullException(nameof(predicate));
 
-            collection.RemoveIf(item, predicate(item));
+            RemoveIf(collection, item, predicate(item));
         }
 
         public static void RemoveIf<T>(this ICollection<T> collection, T item, bool condition)
@@ -54,8 +54,10 @@ namespace Grimware.Extensions
                 collection.Remove(item);
         }
 
+#pragma warning disable CA1062 // Validate arguments of public methods
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void RemoveIfExists<T>(this ICollection<T> collection, T item) => collection?.RemoveIf(item, collection.Contains(item));
+        public static void RemoveIfExists<T>(this ICollection<T> collection, T item) => RemoveIf(collection, item, collection.Contains(item));
+#pragma warning restore CA1062 // Validate arguments of public methods
 
         public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {

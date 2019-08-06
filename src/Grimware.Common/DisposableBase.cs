@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 
 #if NETCORE
 using System.Diagnostics.CodeAnalysis;
+
 #endif
 
 namespace Grimware

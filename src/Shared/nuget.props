@@ -11,7 +11,7 @@
     <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/GrimGadget/Grimware.Common</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageDescription Condition=" '$(PackageDescription)' == '' " >$(Product)</PackageDescription>
+    <PackageDescription Condition=" '$(PackageDescription)' == '' ">$(Product)</PackageDescription>
   </PropertyGroup>
 
 </Project>

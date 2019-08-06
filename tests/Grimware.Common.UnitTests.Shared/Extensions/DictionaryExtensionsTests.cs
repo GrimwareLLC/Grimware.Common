@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using FluentAssertions;
 using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,6 +52,32 @@ namespace Grimware.Common.UnitTests.Extensions
 
             // Assert
             result.Should().BeNull();
+        }
+
+        [DataTestMethod]
+        [DataRow("0", "Zero")]
+        [DataRow("1", "One")]
+        [DataRow("2", "Two")]
+        [DataRow("3", "Three")]
+        [DataRow("4", "Four")]
+        [DataRow("5", "Five")]
+        [DataRow("6", "Six")]
+        [DataRow("7", "Seven")]
+        [DataRow("8", "Eight")]
+        [DataRow("9", "Nine")]
+        public void Item_Get(string key, string value)
+        {
+            ReadOnlyTarget[key].Should().Be(value);
+        }
+
+        [TestMethod]
+        public void Item_Set()
+        {
+            // Arrange
+            Action act = () => ReadOnlyTarget["Foo"] = "Bar";
+
+            // Assert
+            act.Should().Throw<NotSupportedException>();
         }
 
         [TestMethod]
@@ -157,11 +182,76 @@ namespace Grimware.Common.UnitTests.Extensions
             list.Count.Should().Be(10);
             list.Should().BeEquivalentTo(ReadOnlyTarget.Keys);
         }
+        
+        [TestMethod]
+        public void ReadOnlyDictionary_Enumerate_Untyped()
+        {
+            // Arrange
+            var list = new List<object>(10);
+
+            // Act
+            foreach (var kvp in (IEnumerable)ReadOnlyTarget)
+                list.Add(kvp);
+
+            // Assert
+            list.Count.Should().Be(10);
+        }
 
         [TestMethod]
         public void ReadOnlyDictionary_TryGetValue()
         {
-            throw new NotImplementedException();
+            ReadOnlyTarget.TryGetValue("5", out var result).Should().BeTrue();
+            result.Should().Be("Five");
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_Add_Exception()
+        {
+            // Arrange
+            Action act = () => ReadOnlyTarget.Add("Foo", "Bar");
+
+            // Assert
+            act.Should().Throw<NotSupportedException>();
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_Add_KeyValuePair_Exception()
+        {
+            // Arrange
+            Action act = () => ReadOnlyTarget.Add(new KeyValuePair<string, string>("Foo", "Bar"));
+
+            // Assert
+            act.Should().Throw<NotSupportedException>();
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_Clear_Exception()
+        {
+            // Arrange
+            Action act = () => ReadOnlyTarget.Clear();
+
+            // Assert
+            act.Should().Throw<NotSupportedException>();
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_Remove_Exception()
+        {
+            // Arrange
+            Action act = () => ReadOnlyTarget.Remove("0");
+
+            // Assert
+            act.Should().Throw<NotSupportedException>();
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_Remove_KeyValuePair_Exception()
+        {
+            // Arrange
+            Action act = () => ReadOnlyTarget.Remove(new KeyValuePair<string, string>("0", "Zero"));
+
+            // Assert
+            act.Should().Throw<NotSupportedException>();
         }
     }
 }

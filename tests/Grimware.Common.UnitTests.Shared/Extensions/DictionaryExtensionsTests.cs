@@ -182,7 +182,7 @@ namespace Grimware.Common.UnitTests.Extensions
             list.Count.Should().Be(10);
             list.Should().BeEquivalentTo(ReadOnlyTarget.Keys);
         }
-        
+
         [TestMethod]
         public void ReadOnlyDictionary_Enumerate_Untyped()
         {

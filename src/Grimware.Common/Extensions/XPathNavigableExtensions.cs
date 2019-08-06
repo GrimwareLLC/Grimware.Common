@@ -60,13 +60,14 @@ namespace Grimware.Extensions
                 throw new ArgumentNullException(nameof(stream));
 
 #pragma warning disable CA2000 // Dispose objects before losing scope
-            var textWriter = new StreamWriter(stream);
-            var xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings { Indent = true, Encoding = Encoding.UTF8 });
+#pragma warning disable IDE0068 // Use recommended dispose pattern
+            var xmlWriter = XmlWriter.Create(new StreamWriter(stream), new XmlWriterSettings { Indent = true, Encoding = Encoding.UTF8 });
 
             var nav = source.CreateNavigator();
             nav?.WriteSubtree(xmlWriter);
 
             xmlWriter.Flush();
+#pragma warning restore IDE0068 // Use recommended dispose pattern
 #pragma warning restore CA2000 // Dispose objects before losing scope
         }
     }

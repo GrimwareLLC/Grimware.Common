@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace Grimware.Extensions
 {
@@ -12,16 +11,19 @@ namespace Grimware.Extensions
             if (source == null)
                 return null;
 
-            var originalPosition = -1L;
-
-            if (source.CanSeek)
-                originalPosition = source.Position;
-
             var ms = new MemoryStream();
 
             try
             {
-                Copy(source, ms);
+                var originalPosition = -1L;
+
+                if (source.CanSeek)
+                {
+                    originalPosition = source.Position;
+                    source.Seek(0, SeekOrigin.Begin);
+                }
+
+                source.CopyTo(ms, _BufferSize);
 
                 ms.Seek(
                     originalPosition > -1
@@ -36,32 +38,6 @@ namespace Grimware.Extensions
                 ms.Dispose();
                 throw;
             }
-        }
-
-        public static void Copy(this Stream source, Stream target)
-        {
-            int count;
-
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
-
-            var originalPosition = -1L;
-            var buffer = new byte[_BufferSize];
-
-            if (source.CanSeek)
-            {
-                originalPosition = source.Position;
-                source.Seek(0, SeekOrigin.Begin);
-            }
-
-            while ((count = source.Read(buffer, 0, buffer.Length)) > 0)
-                target.Write(buffer, 0, count);
-
-            if (originalPosition > -1)
-                source.Seek(originalPosition, SeekOrigin.Begin);
         }
     }
 }

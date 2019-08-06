@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Resources;
 using FluentAssertions;
 using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#if NETFRAMEWORK
+using System.Drawing;
+#endif
 
 namespace Grimware.Common.UnitTests.Extensions
 {

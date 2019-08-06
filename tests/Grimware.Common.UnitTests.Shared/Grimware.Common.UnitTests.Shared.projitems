@@ -27,9 +27,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Int32ExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ResourceManagerExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SecureStringExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StreamExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\XPathNavigableExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HasherTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingletonTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestException.cs" />
   </ItemGroup>
 </Project>

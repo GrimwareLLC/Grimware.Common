@@ -18,12 +18,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)EqualityComparerTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArgsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\CalendarExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\CollectionsExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DecimalExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DictionaryExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DoubleExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExceptionExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\GenericExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Int32ExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ResourceManagerExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SecureStringExtensionsTests.cs" />

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace Grimware.Common.UnitTests
 {
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class TestException
         : Exception
     {

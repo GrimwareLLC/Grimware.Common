@@ -11,8 +11,6 @@ namespace Grimware.Collections
     {
         private readonly Lazy<ICollection<T>> _lazyCollection;
 
-        internal ICollection<T> Collection => _lazyCollection.Value;
-
         public LazyCollection()
             : this(LazyThreadSafetyMode.ExecutionAndPublication)
         {
@@ -39,6 +37,8 @@ namespace Grimware.Collections
         public int Count => Collection.Count;
 
         public bool IsReadOnly => Collection.IsReadOnly;
+
+        internal ICollection<T> Collection => _lazyCollection.Value;
 
         public void Add(T item) => Collection.Add(item);
 

@@ -10,8 +10,6 @@ namespace Grimware.Collections
         : LazyCollection<T>, IList<T>
 #pragma warning restore CA1710 // Identifiers should have correct suffix
     {
-        private IList<T> List => Collection as IList<T>;
-
         public LazyList()
             : this(LazyThreadSafetyMode.ExecutionAndPublication)
         {
@@ -41,6 +39,8 @@ namespace Grimware.Collections
             get => List[index];
             set => List[index] = value;
         }
+
+        private IList<T> List => Collection as IList<T>;
 
         public int IndexOf(T item) => List.IndexOf(item);
 

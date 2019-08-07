@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -55,14 +56,14 @@ namespace Grimware.Extensions
                 : values.Any(s => source.Equals(s, comparisonType));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string NullIf(this string source, bool ignoreCase, string value) => source.NullIfIn(ignoreCase, value);
+        public static string NullIf(this string source, bool ignoreCase, string value) => source?.NullIfIn(ignoreCase, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string NullIfEmpty(this string source) => source.NullIf(String.IsNullOrEmpty);
+        public static string NullIfEmpty(this string source) => source?.NullIf(String.IsNullOrEmpty);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string NullIfIn(this string source, bool ignoreCase, params string[] values) =>
-            source.NullIfIn(
+            source?.NullIfIn(
                 ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal,
                 values);
 
@@ -70,7 +71,7 @@ namespace Grimware.Extensions
         public static string NullIfWhitespace(this string source) => source.NullIf(String.IsNullOrWhiteSpace);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string[] Split(this string source, string separator, StringSplitOptions options = StringSplitOptions.None) =>
+        public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options = StringSplitOptions.None) =>
             source == null
                 ? Array.Empty<string>()
                 : source.Split(separator == null ? null : new[] { separator }, options);
@@ -86,37 +87,6 @@ namespace Grimware.Extensions
         public static string StripNonAlphanumericOrWhiteSpaceCharacters(this string source) =>
             source == null ? null : _NonAlphaNumericWhiteSpaceRegex.Replace(source, String.Empty);
 
-        public static bool? ToBoolean(this string source)
-        {
-            if (String.IsNullOrEmpty(source))
-                return null;
-
-            var parsedTrue =
-                "true".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "yes".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "t".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "y".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "1".Equals(source, StringComparison.OrdinalIgnoreCase);
-
-            if (parsedTrue)
-                return true;
-
-            var parsedFalse =
-                "false".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "no".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "f".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "n".Equals(source, StringComparison.OrdinalIgnoreCase)
-             || "0".Equals(source, StringComparison.OrdinalIgnoreCase);
-
-            if (parsedFalse)
-                return false;
-
-            return source.ToInt32().ToBoolean();
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static DateTime? ToDateTime(this string source) => ToDateTime(source, CultureInfo.InvariantCulture);
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime? ToDateTime(this string source, IFormatProvider provider) => ToDateTime(source, provider, DateTimeStyles.None);
 
@@ -127,9 +97,6 @@ namespace Grimware.Extensions
                       ? (DateTime?)result
                       : null
                 : null;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static DateTime? ToDateTime(this string source, string format) => ToDateTime(source, format, CultureInfo.InvariantCulture);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime? ToDateTime(this string source, string format, IFormatProvider provider) =>
@@ -169,6 +136,12 @@ namespace Grimware.Extensions
 
             return null;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static DateTime? ToDateTimeInvariant(this string source) => ToDateTime(source, CultureInfo.InvariantCulture);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static DateTime? ToDateTimeInvariant(this string source, string format) => ToDateTime(source, format, CultureInfo.InvariantCulture);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal? ToDecimal(this string source) =>

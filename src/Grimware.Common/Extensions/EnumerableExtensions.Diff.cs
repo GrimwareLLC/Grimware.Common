@@ -86,15 +86,8 @@ namespace Grimware.Extensions
 
         private class DiffContext<T, TKey>
         {
-            public DiffContext(
-                IEnumerable<T> previous,
-                IEnumerable<T> current,
-                Func<T, TKey>  keySelector
-            )
+            public DiffContext(IEnumerable<T> previous, IEnumerable<T> current, Func<T, TKey> keySelector)
             {
-                if (keySelector == null)
-                    throw new ArgumentNullException(nameof(keySelector));
-
                 Previous = (previous ?? Array.Empty<T>()).ToDictionary(keySelector);
                 Current = (current ?? Array.Empty<T>()).ToDictionary(keySelector);
             }

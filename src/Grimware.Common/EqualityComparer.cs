@@ -23,15 +23,15 @@ namespace Grimware
 
             return Create(
                 keySelector,
-                (x, y) => ReferenceEquals(x, y) || (x != null && x.Equals(y)),
+                (x, y) => ReferenceEquals(x, y) || x != null && x.Equals(y),
                 k => k.GetHashCode()
             );
         }
 
         public static IEqualityComparer<T> Create<T, TKey>(
-            Func<T, TKey>          keySelector,
+            Func<T, TKey> keySelector,
             Func<TKey, TKey, bool> keyEqualityComparison,
-            Func<TKey, int>        keyHashFunction
+            Func<TKey, int> keyHashFunction
         )
         {
             if (keySelector == null)
@@ -50,7 +50,7 @@ namespace Grimware
         }
 
         public static IEqualityComparer<T> Create<T, TKey>(
-            Func<T, TKey>           keySelector,
+            Func<T, TKey> keySelector,
             IEqualityComparer<TKey> keyEqualityComparer
         )
         {

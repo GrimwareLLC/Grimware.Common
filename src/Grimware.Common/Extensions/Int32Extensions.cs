@@ -5,9 +5,15 @@ namespace Grimware.Extensions
     public static class Int32Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ToBoolean(this int source) => !0.Equals(source);
+        public static bool ToBoolean(this int source)
+        {
+            return !0.Equals(source);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool? ToBoolean(this int? source) => source != null ? !0.Equals(source.Value) : (bool?)null;
+        public static bool? ToBoolean(this int? source)
+        {
+            return source != null ? !0.Equals(source.Value) : (bool?)null;
+        }
     }
 }

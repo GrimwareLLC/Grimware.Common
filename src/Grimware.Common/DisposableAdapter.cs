@@ -16,10 +16,7 @@ namespace Grimware
         {
             try
             {
-                if (disposing && !IsDisposed)
-                {
-                    _disposer?.Invoke();
-                }
+                if (disposing && !IsDisposed) _disposer?.Invoke();
             }
             finally
             {

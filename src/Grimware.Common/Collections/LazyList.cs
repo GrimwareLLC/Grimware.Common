@@ -42,10 +42,19 @@ namespace Grimware.Collections
 
         private IList<T> List => Collection as IList<T>;
 
-        public int IndexOf(T item) => List.IndexOf(item);
+        public int IndexOf(T item)
+        {
+            return List.IndexOf(item);
+        }
 
-        public void Insert(int index, T item) => List.Insert(index, item);
+        public void Insert(int index, T item)
+        {
+            List.Insert(index, item);
+        }
 
-        public void RemoveAt(int index) => List.RemoveAt(index);
+        public void RemoveAt(int index)
+        {
+            List.RemoveAt(index);
+        }
     }
 }

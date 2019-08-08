@@ -16,7 +16,7 @@ namespace Grimware.Common.UnitTests.Collections
     {
         private static readonly IEnumerable<int> _Int32TestData =
             new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
-               .AsEnumerable();
+                .AsEnumerable();
 
         [TestMethod]
         public void Constructor()

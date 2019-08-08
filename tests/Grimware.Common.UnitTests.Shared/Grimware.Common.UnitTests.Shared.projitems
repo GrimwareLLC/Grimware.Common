@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DecimalExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DictionaryExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Digit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DoubleExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumExtensionsTests.cs" />

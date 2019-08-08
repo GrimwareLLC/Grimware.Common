@@ -82,7 +82,9 @@ namespace Grimware.Common.UnitTests
         private sealed class Foo
             : Singleton<Foo>
         {
-            private Foo() { }
+            private Foo()
+            {
+            }
         }
 
         private sealed class Bar
@@ -93,7 +95,9 @@ namespace Grimware.Common.UnitTests
         private sealed class Baz
             : Singleton<Baz>
         {
-            private Baz() { }
+            private Baz()
+            {
+            }
 
             // ReSharper disable once UnusedParameter.Local
 #pragma warning disable IDE0060 // Remove unused parameter
@@ -111,7 +115,9 @@ namespace Grimware.Common.UnitTests
         private sealed class Waldo
             : Singleton<Waldo>
         {
-            private Waldo(int i) { }
+            private Waldo(int i)
+            {
+            }
         }
 #pragma warning restore IDE0051 // Remove unused private members
 #pragma warning restore IDE0060 // Remove unused parameter
@@ -120,7 +126,9 @@ namespace Grimware.Common.UnitTests
         private class Fred
             : Singleton<Fred>
         {
-            private Fred() { }
+            private Fred()
+            {
+            }
         }
     }
 }

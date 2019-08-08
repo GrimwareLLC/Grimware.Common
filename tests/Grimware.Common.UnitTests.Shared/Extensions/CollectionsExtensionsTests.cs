@@ -6,6 +6,7 @@ using FluentAssertions;
 using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
 namespace Grimware.Common.UnitTests.Extensions
@@ -16,7 +17,7 @@ namespace Grimware.Common.UnitTests.Extensions
     {
         private static readonly IEnumerable<int> _Int32TestData =
             new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
-               .AsEnumerable();
+                .AsEnumerable();
 
         private ICollection<int> _testCollection;
 
@@ -35,7 +36,7 @@ namespace Grimware.Common.UnitTests.Extensions
             _testCollection.AddIf(101, true);
             _testCollection.AddIf(-101, false);
 
-            _testCollection.AddIf(1001, i => i > 0);
+            _testCollection.AddIf(1001, i => i  > 0);
             _testCollection.AddIf(-1001, i => i > 0);
 
             // Assert
@@ -111,7 +112,7 @@ namespace Grimware.Common.UnitTests.Extensions
             _testCollection.RemoveIf(101, false);
             _testCollection.RemoveIf(-101, true);
 
-            _testCollection.RemoveIf(1001, i => i < 0);
+            _testCollection.RemoveIf(1001, i => i  < 0);
             _testCollection.RemoveIf(-1001, i => i < 0);
 
             // Assert
@@ -136,7 +137,7 @@ namespace Grimware.Common.UnitTests.Extensions
             _testCollection.Contains(Arg.Any<int>()).Returns(c => (int)c[0] < 0);
 
             // Act
-            foreach(var i in _Int32TestData)
+            foreach (var i in _Int32TestData)
                 _testCollection.RemoveIfExists(i);
 
             // Assert

@@ -28,19 +28,21 @@ namespace Grimware.Extensions
 
             return
                 attTypeArray
-                   .Except(attTypeArray.Where(attType => property?.GetCustomAttributes(inherit).Any(attType.IsInstanceOfType) ?? false))
-                   .Any();
+                    .Except(attTypeArray.Where(attType => property?.GetCustomAttributes(inherit).Any(attType.IsInstanceOfType) ?? false))
+                    .Any();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasName(this PropertyInfo property, string name, bool ignoreCase = false) =>
-            ignoreCase
+        public static bool HasName(this PropertyInfo property, string name, bool ignoreCase = false)
+        {
+            return ignoreCase
                 ? property?.Name.Equals(name, StringComparison.OrdinalIgnoreCase) ?? false
                 : property?.Name.Equals(name, StringComparison.Ordinal)           ?? false;
+        }
 
         public static Attribute TryGetSingleAttributeOfType(
-            this PropertyInfo                       property,
-            Type                                    attributeType,
+            this PropertyInfo property,
+            Type attributeType,
             Func<IEnumerable<Attribute>, Attribute> selector)
         {
             if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));

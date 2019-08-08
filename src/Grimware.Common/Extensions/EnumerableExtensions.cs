@@ -8,15 +8,19 @@ namespace Grimware.Extensions
     public static partial class EnumerableExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
-            source?
-               .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
-               .Where(a => a.IsMatch)
-               .Select(a => a.Index);
+        public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
+        {
+            return source?
+                   .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
+                   .Where(a => a.IsMatch)
+                   .Select(a => a.Index);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item) =>
-            source == null ? Enumerable.Repeat(item, 1) : source.Concat(Enumerable.Repeat(item, 1));
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
+        {
+            return source == null ? Enumerable.Repeat(item, 1) : source.Concat(Enumerable.Repeat(item, 1));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TResult> Convert<T, TResult>(this IEnumerable<T> source, Converter<T, TResult> converter)
@@ -40,12 +44,13 @@ namespace Grimware.Extensions
         ///     A <see cref="Func&lt;T, Int32&gt;" /> to generate hash codes for an item.
         /// </param>
         /// <returns>
-        ///     An <see cref="IEnumerable&lt;T&gt;" /> that contains distinct elements from the <paramref name="source" /> sequence.
+        ///     An <see cref="IEnumerable&lt;T&gt;" /> that contains distinct elements from the <paramref name="source" />
+        ///     sequence.
         /// </returns>
         public static IEnumerable<T> Distinct<T>(
             this IEnumerable<T> source,
-            Func<T, T, bool>    equalityComparison,
-            Func<T, int>        hashGenerator
+            Func<T, T, bool> equalityComparison,
+            Func<T, int> hashGenerator
         )
         {
             if (equalityComparison == null)
@@ -84,11 +89,16 @@ namespace Grimware.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item) => source?.Except(Enumerable.Repeat(item, 1));
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item)
+        {
+            return source?.Except(Enumerable.Repeat(item, 1));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
-            source?.AllIndexesWhere(predicate)?.Convert(i => (int?)i).FirstOrDefault();
+        public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
+        {
+            return source?.AllIndexesWhere(predicate)?.Convert(i => (int?)i).FirstOrDefault();
+        }
 
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
@@ -100,17 +110,27 @@ namespace Grimware.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> Last<T>(this IEnumerable<T> source, int count) =>
-            source?.Reverse().Take(count).Reverse();
+        public static IEnumerable<T> Last<T>(this IEnumerable<T> source, int count)
+        {
+            return source?.Reverse().Take(count).Reverse();
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> Last<T>(this IEnumerable<T> source, Predicate<T> predicate, int count) =>
-            source?.Where(t => predicate(t)).Reverse().Take(count).Reverse();
+        public static IEnumerable<T> Last<T>(this IEnumerable<T> source, Predicate<T> predicate, int count)
+        {
+            return source?.Where(t => predicate(t)).Reverse().Take(count).Reverse();
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool None<T>(this IEnumerable<T> source) => !(source?.Any() ?? false);
+        public static bool None<T>(this IEnumerable<T> source)
+        {
+            return !(source?.Any() ?? false);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !(source?.Any(predicate) ?? false);
+        public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            return !(source?.Any(predicate) ?? false);
+        }
     }
 }

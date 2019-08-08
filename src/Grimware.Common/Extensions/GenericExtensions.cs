@@ -11,64 +11,85 @@ namespace Grimware.Extensions
     public static class GenericExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool In<T>(this T source, params T[] values) =>
-            source == null ? values.Any(t => t == null) : values.Any(t => source.Equals(t));
+        public static bool In<T>(this T source, params T[] values)
+        {
+            return source == null ? values.Any(t => t == null) : values.Any(t => source.Equals(t));
+        }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullOrDefault<T>(this T source)
-            where T : struct =>
-            IsNullOrDefault((T?)source);
+            where T : struct
+        {
+            return IsNullOrDefault((T?)source);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullOrDefault<T>(this T? source)
-            where T : struct =>
-            NullIfDefault(source) == null;
+            where T : struct
+        {
+            return NullIfDefault(source) == null;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIf<T>(this T? source, Predicate<T> condition)
-            where T : struct =>
-            condition != null
+            where T : struct
+        {
+            return condition != null
                 ? source != null
-                      ? condition(source.Value)
-                            ? null
-                            : source
-                      : null
+                    ? condition(source.Value)
+                        ? null
+                        : source
+                    : null
                 : throw new ArgumentNullException(nameof(condition));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T NullIf<T>(this T source, Predicate<T> condition)
-            where T : class =>
-            condition != null
+            where T : class
+        {
+            return condition != null
                 ? source != null
-                      ? condition(source)
-                            ? null
-                            : source
-                      : null
+                    ? condition(source)
+                        ? null
+                        : source
+                    : null
                 : throw new ArgumentNullException(nameof(condition));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfDefault<T>(this T source)
-            where T : struct =>
-            NullIfDefault((T?)source);
+            where T : struct
+        {
+            return NullIfDefault((T?)source);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfDefault<T>(this T? source)
-            where T : struct =>
-            NullIfIn(source, default(T));
+            where T : struct
+        {
+            return NullIfIn(source, default(T));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfIn<T>(this T source, params T[] values)
-            where T : struct =>
-            NullIfIn((T?)source, values);
+            where T : struct
+        {
+            return NullIfIn((T?)source, values);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfIn<T>(this T? source, params T[] values)
-            where T : struct =>
-            NullIf(source, t => values.Any(v => v.Equals(t)));
+            where T : struct
+        {
+            return NullIf(source, t => values.Any(v => v.Equals(t)));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int TryGetHashCode<T>(this T source) => source == null ? 0 : source.GetHashCode();
+        public static int TryGetHashCode<T>(this T source)
+        {
+            return source == null ? 0 : source.GetHashCode();
+        }
 
         public static string TrySerializeAsXml<T>(this T source)
         {

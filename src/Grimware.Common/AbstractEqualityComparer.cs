@@ -24,9 +24,15 @@ namespace Grimware
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(T x, T y) => _equalityComparison(x, y);
+        public override bool Equals(T x, T y)
+        {
+            return _equalityComparison(x, y);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode(T obj) => _hashFunction(obj);
+        public override int GetHashCode(T obj)
+        {
+            return _hashFunction(obj);
+        }
     }
 }

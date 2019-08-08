@@ -40,18 +40,39 @@ namespace Grimware.Collections
 
         internal ICollection<T> Collection => _lazyCollection.Value;
 
-        public void Add(T item) => Collection.Add(item);
+        public void Add(T item)
+        {
+            Collection.Add(item);
+        }
 
-        public void Clear() => Collection.Clear();
+        public void Clear()
+        {
+            Collection.Clear();
+        }
 
-        public bool Contains(T item) => Collection.Contains(item);
+        public bool Contains(T item)
+        {
+            return Collection.Contains(item);
+        }
 
-        public void CopyTo(T[] array, int arrayIndex) => Collection.CopyTo(array, arrayIndex);
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            Collection.CopyTo(array, arrayIndex);
+        }
 
-        public IEnumerator<T> GetEnumerator() => Collection.GetEnumerator();
+        public IEnumerator<T> GetEnumerator()
+        {
+            return Collection.GetEnumerator();
+        }
 
-        public bool Remove(T item) => Collection.Remove(item);
+        public bool Remove(T item)
+        {
+            return Collection.Remove(item);
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

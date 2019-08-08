@@ -45,8 +45,8 @@ namespace Grimware.Extensions
         }
 
         public static IEnumerable<PropertyInfo> FindPropertiesOfType(
-            this Type    type,
-            Type         propertyType,
+            this Type type,
+            Type propertyType,
             BindingFlags bindingAttributes
         )
         {
@@ -69,8 +69,8 @@ namespace Grimware.Extensions
 
         public static IEnumerable<PropertyInfo> FindPropertiesWithAttributeOfType(
             this Type type,
-            Type      attributeType,
-            bool      inherit
+            Type attributeType,
+            bool inherit
         )
         {
             if (type == null || attributeType == null)
@@ -81,8 +81,8 @@ namespace Grimware.Extensions
         }
 
         public static IEnumerable<PropertyInfo> FindPropertiesWithAttributeOfType<T>(
-            this Type    type,
-            bool         inherit,
+            this Type type,
+            bool inherit,
             BindingFlags bindingAttributes
         )
             where T : Attribute
@@ -95,14 +95,16 @@ namespace Grimware.Extensions
         }
 
         public static IEnumerable<PropertyInfo> FindPropertiesWithAttributeOfType(
-            this Type    type,
-            Type         attributeType,
-            bool         inherit,
-            BindingFlags bindingAttributes) =>
-            type != null && attributeType != null
+            this Type type,
+            Type attributeType,
+            bool inherit,
+            BindingFlags bindingAttributes)
+        {
+            return type != null && attributeType != null
                 ? type.GetProperties(bindingAttributes)
                       .Where(property => property.HasAttributeOfType(attributeType, inherit))
                 : Array.Empty<PropertyInfo>();
+        }
 
         public static bool IsSubclassOf<T>(this Type type)
         {
@@ -126,12 +128,16 @@ namespace Grimware.Extensions
                 else
                 {
                     if (type.IsInstanceOfType(value))
+                    {
                         convertedValue = value;
+                    }
                     else
                     {
                         var typeConverter = TypeDescriptor.GetConverter(type);
                         if (typeConverter.CanConvertFrom(typeof(string)))
+                        {
                             convertedValue = typeConverter.ConvertFromString(value);
+                        }
                         else
                         {
                             if (type.IsEnum)

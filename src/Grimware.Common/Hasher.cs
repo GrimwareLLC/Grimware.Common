@@ -11,22 +11,28 @@ namespace Grimware
         private const int _HashMixer = 0xBF;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Hash(IEnumerable<string> args) =>
-            args != null
+        public static int Hash(IEnumerable<string> args)
+        {
+            return args != null
                 ? Hash(args as string[] ?? args.ToArray())
                 : 0;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Hash(params string[] args) =>
-            args != null
+        public static int Hash(params string[] args)
+        {
+            return args != null
                 ? Hash(args.Select(Hash))
                 : 0;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Hash(IEnumerable<int> args) =>
-            args != null
+        public static int Hash(IEnumerable<int> args)
+        {
+            return args != null
                 ? Hash(args as int[] ?? args.ToArray())
                 : 0;
+        }
 
         public static int Hash(params int[] args)
         {
@@ -42,10 +48,12 @@ namespace Grimware
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Hash(IEnumerable<long> args) =>
-            args != null
+        public static int Hash(IEnumerable<long> args)
+        {
+            return args != null
                 ? Hash(args as long[] ?? args.ToArray())
                 : 0;
+        }
 
         public static int Hash(params long[] args)
         {
@@ -76,10 +84,7 @@ namespace Grimware
             var result = values.Length;
 
             var i = 0;
-            for (; i < values.Length - 4 ; i += 4)
-            {
-                result = Hash(result, BitConverter.ToInt32(values, i));
-            }
+            for (; i < values.Length - 4 ; i += 4) result = Hash(result, BitConverter.ToInt32(values, i));
 
             if (i < values.Length)
                 result = Hash(result, BitConverter.ToInt32(values, values.Length - 4));
@@ -88,7 +93,10 @@ namespace Grimware
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int CalculateShortHash(IReadOnlyCollection<byte> values) => values.Aggregate(values.Count, (n, b) => Hash(n, b));
+        private static int CalculateShortHash(IReadOnlyCollection<byte> values)
+        {
+            return values.Aggregate(values.Count, (n, b) => Hash(n, b));
+        }
 
         private static int Fold(long n)
         {
@@ -110,12 +118,17 @@ namespace Grimware
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int Hash(int i, long n) => Hash(i, Fold(n));
+        private static int Hash(int i, long n)
+        {
+            return Hash(i, Fold(n));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int Hash(string arg) =>
-            arg != null
+        private static int Hash(string arg)
+        {
+            return arg != null
                 ? Hash(Encoding.Unicode.GetBytes(arg))
                 : 0;
+        }
     }
 }

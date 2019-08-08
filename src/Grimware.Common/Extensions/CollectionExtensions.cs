@@ -22,7 +22,10 @@ namespace Grimware.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void AddIfNotExists<T>(this ICollection<T> collection, T item) => collection?.AddIf(item, !collection.Contains(item));
+        public static void AddIfNotExists<T>(this ICollection<T> collection, T item)
+        {
+            collection?.AddIf(item, !collection.Contains(item));
+        }
 
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
@@ -56,7 +59,10 @@ namespace Grimware.Extensions
 
 #pragma warning disable CA1062 // Validate arguments of public methods
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void RemoveIfExists<T>(this ICollection<T> collection, T item) => RemoveIf(collection, item, collection.Contains(item));
+        public static void RemoveIfExists<T>(this ICollection<T> collection, T item)
+        {
+            RemoveIf(collection, item, collection.Contains(item));
+        }
 #pragma warning restore CA1062 // Validate arguments of public methods
 
         public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> items)

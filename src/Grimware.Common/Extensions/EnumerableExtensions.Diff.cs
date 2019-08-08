@@ -8,9 +8,9 @@ namespace Grimware.Extensions
     {
         public static IDiffResult<T> Diff<T, TKey, TData>(
             this IEnumerable<T> previous,
-            IEnumerable<T>      current,
-            Func<T, TKey>       keySelector,
-            Func<T, TData>      dataSelector
+            IEnumerable<T> current,
+            Func<T, TKey> keySelector,
+            Func<T, TData> dataSelector
         )
         {
             if (keySelector == null)
@@ -25,18 +25,18 @@ namespace Grimware.Extensions
             var unmodifiedKeys = diffContext.SelectIntersecting().Except(modifiedKeys).ToArray();
 
             return new DiffResult<T>
-                   {
-                       Removed = SelectValues(diffContext.Previous, diffContext.SelectRemoved()),
-                       Added = SelectValues(diffContext.Current, diffContext.SelectAdded()),
-                       Modified = SelectValues(diffContext.Current, modifiedKeys),
-                       Unmodified = SelectValues(diffContext.Current, unmodifiedKeys),
-                   };
+            {
+                Removed = SelectValues(diffContext.Previous, diffContext.SelectRemoved()),
+                Added = SelectValues(diffContext.Current, diffContext.SelectAdded()),
+                Modified = SelectValues(diffContext.Current, modifiedKeys),
+                Unmodified = SelectValues(diffContext.Current, unmodifiedKeys)
+            };
         }
 
         public static IEnumerable<T> SelectAdded<T, TKey>(
             this IEnumerable<T> previous,
-            IEnumerable<T>      current,
-            Func<T, TKey>       keySelector
+            IEnumerable<T> current,
+            Func<T, TKey> keySelector
         )
         {
             if (keySelector == null)
@@ -49,9 +49,9 @@ namespace Grimware.Extensions
 
         public static IEnumerable<T> SelectModified<T, TKey, TData>(
             this IEnumerable<T> previous,
-            IEnumerable<T>      current,
-            Func<T, TKey>       keySelector,
-            Func<T, TData>      dataSelector
+            IEnumerable<T> current,
+            Func<T, TKey> keySelector,
+            Func<T, TData> dataSelector
         )
         {
             if (keySelector == null)
@@ -67,8 +67,8 @@ namespace Grimware.Extensions
 
         public static IEnumerable<T> SelectRemoved<T, TKey>(
             this IEnumerable<T> previous,
-            IEnumerable<T>      current,
-            Func<T, TKey>       keySelector
+            IEnumerable<T> current,
+            Func<T, TKey> keySelector
         )
         {
             if (keySelector == null)
@@ -79,10 +79,13 @@ namespace Grimware.Extensions
             return SelectValues(diffContext.Previous, diffContext.SelectRemoved());
         }
 
-        private static IEnumerable<T> SelectValues<T, TKey>(Dictionary<TKey, T> dictionary, IEnumerable<TKey> keys) =>
-            from kv in dictionary
-            where keys.Contains(kv.Key)
-            select kv.Value;
+        private static IEnumerable<T> SelectValues<T, TKey>(Dictionary<TKey, T> dictionary, IEnumerable<TKey> keys)
+        {
+            return
+                from kv in dictionary
+                where keys.Contains(kv.Key)
+                select kv.Value;
+        }
 
         private class DiffContext<T, TKey>
         {
@@ -96,29 +99,38 @@ namespace Grimware.Extensions
 
             public Dictionary<TKey, T> Previous { get; }
 
-            public IEnumerable<TKey> SelectAdded() => Current.Keys.Except(Previous.Keys);
+            public IEnumerable<TKey> SelectAdded()
+            {
+                return Current.Keys.Except(Previous.Keys);
+            }
 
-            public IEnumerable<TKey> SelectIntersecting() => Current.Keys.Intersect(Previous.Keys);
+            public IEnumerable<TKey> SelectIntersecting()
+            {
+                return Current.Keys.Intersect(Previous.Keys);
+            }
 
             public IEnumerable<TKey> SelectModified<TData>(Func<T, TData> dataSelector)
             {
                 var intersectingValues =
                     from k in SelectIntersecting()
                     select new
-                           {
-                               Key = k,
-                               CurrentData = dataSelector(Current[k]),
-                               PreviousData = dataSelector(Previous[k]),
-                           };
+                    {
+                        Key = k,
+                        CurrentData = dataSelector(Current[k]),
+                        PreviousData = dataSelector(Previous[k])
+                    };
 
                 return
                     from a in intersectingValues
                     where a.CurrentData != null
-                       && !a.CurrentData.Equals(a.PreviousData)
+                        && !a.CurrentData.Equals(a.PreviousData)
                     select a.Key;
             }
 
-            public IEnumerable<TKey> SelectRemoved() => Previous.Keys.Except(Current.Keys);
+            public IEnumerable<TKey> SelectRemoved()
+            {
+                return Previous.Keys.Except(Current.Keys);
+            }
         }
 
         private struct DiffResult<T>

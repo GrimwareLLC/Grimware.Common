@@ -119,7 +119,10 @@ namespace Grimware
         ///     only unmanaged resources.
         /// </param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected virtual void Dispose(bool disposing) => IsDisposed = true;
+        protected virtual void Dispose(bool disposing)
+        {
+            IsDisposed = true;
+        }
 
         /// <summary>
         ///     Checks whether this instance has been disposed, and throws an
@@ -127,10 +130,7 @@ namespace Grimware
         /// </summary>
         protected void CheckDisposed()
         {
-            if (IsDisposed)
-            {
-                throw BuildObjectDisposedException();
-            }
+            if (IsDisposed) throw BuildObjectDisposedException();
         }
 
 #pragma warning disable CA1030 // Use events where appropriate
@@ -196,12 +196,18 @@ namespace Grimware
         ///     Raises the Disposed event if any event handlers are attached.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void RaiseDisposedEvent() => RaiseEvent(Disposed, new EventArgs());
+        private void RaiseDisposedEvent()
+        {
+            RaiseEvent(Disposed, new EventArgs());
+        }
 
         /// <summary>
         ///     Raises the Disposing event if any event handlers are attached.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void RaiseDisposingEvent() => RaiseEvent(Disposing, new EventArgs());
+        private void RaiseDisposingEvent()
+        {
+            RaiseEvent(Disposing, new EventArgs());
+        }
     }
 }

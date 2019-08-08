@@ -20,6 +20,7 @@ namespace Grimware.Common.UnitTests.Extensions
                 var ms = new MemoryStream(
                     Encoding.UTF8.GetBytes(
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
+
                 ms.Seek(0, SeekOrigin.Begin);
                 return ms;
             }

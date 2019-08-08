@@ -11,6 +11,7 @@ namespace Grimware.Common.UnitTests
     {
         private static readonly Func<int, int, bool> _EqualityFunction = (a, b) => a == b;
         private static readonly Func<int, int> _GetHashCodeFunction = i => i.GetHashCode();
+
         private static readonly AbstractEqualityComparer<int> _IntegerComparer =
             new AbstractEqualityComparer<int>(_EqualityFunction, _GetHashCodeFunction);
 

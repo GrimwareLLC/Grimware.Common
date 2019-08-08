@@ -6,9 +6,9 @@ using System.Resources;
 using FluentAssertions;
 using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 #if NETFRAMEWORK
 using System.Drawing;
+
 #endif
 
 namespace Grimware.Common.UnitTests.Extensions
@@ -117,7 +117,6 @@ namespace Grimware.Common.UnitTests.Extensions
             // Act
             using (var result = _target.TryGetStream("Pdf"))
             {
-
                 // Assert
                 result.Should().NotBeNull();
                 result.Length.Should().Be(81603);
@@ -130,7 +129,6 @@ namespace Grimware.Common.UnitTests.Extensions
             // Act
             using (var result = _target.TryGetStream("Pdf", CultureInfo.InvariantCulture))
             {
-
                 // Assert
                 result.Should().NotBeNull();
                 result.Length.Should().Be(81603);
@@ -143,7 +141,6 @@ namespace Grimware.Common.UnitTests.Extensions
             // Act
             using (var result = _target.TryGetStream("PdfEmbedded"))
             {
-
                 // Assert
                 result.Should().BeNull();
             }
@@ -179,6 +176,7 @@ namespace Grimware.Common.UnitTests.Extensions
             result.StartsWith("Lorem ipsum").Should().BeTrue();
             result.Length.Should().Be(3475);
         }
+
         [TestMethod]
         public void TryGetString_Invariant()
         {
@@ -195,6 +193,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void TryGetString_Exception()
         {
             string str = null;
+
             // Arrange
             Action act = () => str = _target.TryGetString("Text", null);
 

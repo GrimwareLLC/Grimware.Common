@@ -6,6 +6,7 @@ using FluentAssertions;
 using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+
 // ReSharper disable JoinDeclarationAndInitializer
 // ReSharper disable RedundantAssignment
 
@@ -19,7 +20,7 @@ namespace Grimware.Common.UnitTests.Extensions
     {
         private static readonly IEnumerable<int> _Int32TestData =
             new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
-               .AsEnumerable();
+                .AsEnumerable();
 
         private IEnumerable<int> _testEnumerable;
 
@@ -230,35 +231,41 @@ namespace Grimware.Common.UnitTests.Extensions
                 new TestClass { Data = 6 },
                 new TestClass { Data = 7 },
                 new TestClass { Data = 8 },
-                new TestClass { Data = 9 },
+                new TestClass { Data = 9 }
             };
+
         private static readonly IEnumerable<TestClass> _TestClassesAfter =
             _TestClassesBefore
-                    // Make sure we're modifying copies, not the originals
-                   .Select(x => x.Clone())
-                    // Add some
-                   .Concat(
-                        new[]
-                        {
-                            new TestClass { Data = 101 },
-                            new TestClass { Data = 102 },
-                            new TestClass { Data = 103 },
-                            new TestClass { Data = 104 },
-                            new TestClass { Data = 105 },
-                        })
-                    // Modify some
-                   .Select(
-                        x =>
-                        {
-                            if (x.Data % 2 != 0)
-                                x.Data += 10;
 
-                            return x;
-                        })
-                    // Remove some
-                   .Where(x => x.Data % 3 != 0)
-                    // Enumerate
-                   .ToArray();
+                // Make sure we're modifying copies, not the originals
+                .Select(x => x.Clone())
+
+                // Add some
+                .Concat(
+                    new[]
+                    {
+                        new TestClass { Data = 101 },
+                        new TestClass { Data = 102 },
+                        new TestClass { Data = 103 },
+                        new TestClass { Data = 104 },
+                        new TestClass { Data = 105 }
+                    })
+
+                // Modify some
+                .Select(
+                    x =>
+                    {
+                        if (x.Data % 2 != 0)
+                            x.Data += 10;
+
+                        return x;
+                    })
+
+                // Remove some
+                .Where(x => x.Data % 3 != 0)
+
+                // Enumerate
+                .ToArray();
 
 
         [TestMethod]
@@ -306,7 +313,10 @@ namespace Grimware.Common.UnitTests.Extensions
 
             // Assert
             act1.Should().Throw<ArgumentNullException>().Where(ex => "keySelector".Equals(ex.ParamName));
+            diff.Should().BeNull();
+
             act2.Should().Throw<ArgumentNullException>().Where(ex => "dataSelector".Equals(ex.ParamName));
+            diff.Should().BeNull();
         }
 
         [TestMethod]
@@ -405,7 +415,7 @@ namespace Grimware.Common.UnitTests.Extensions
 
             public TestClass Clone()
             {
-                return new TestClass { Key = this.Key, Data = this.Data };
+                return new TestClass { Key = Key, Data = Data };
             }
         }
     }

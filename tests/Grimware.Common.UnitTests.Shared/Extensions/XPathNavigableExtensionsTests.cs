@@ -72,7 +72,7 @@ namespace Grimware.Common.UnitTests.Extensions
             Stream stream = null;
             var nav = Substitute.For<IXPathNavigable>();
             nav.CreateNavigator().Returns(x => throw new TestException());
-            
+
             // Act
             Action act = () => stream = nav.WriteToStream();
 

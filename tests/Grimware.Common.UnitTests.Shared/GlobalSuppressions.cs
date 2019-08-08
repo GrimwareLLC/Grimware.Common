@@ -1,3 +1,3 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-[module:SuppressMessage("Microsoft.Naming", "CA1707")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707")]

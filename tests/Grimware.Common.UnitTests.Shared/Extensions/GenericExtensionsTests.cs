@@ -128,7 +128,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void TrySerializeAsXml()
         {
             // Arrange
-            var note = new Note { From = "Waldo", To = "Fred", Subject = "FooBar", Body = "Lorem ipsum dolor sit amet."};
+            var note = new Note { From = "Waldo", To = "Fred", Subject = "FooBar", Body = "Lorem ipsum dolor sit amet." };
             var notes = Enumerable.Repeat(note, 10).ToArray();
 
             // Act
@@ -143,7 +143,6 @@ namespace Grimware.Common.UnitTests.Extensions
 
             notesXml.Should().NotBeNull();
             notesXml.Length.Should().Be(1579);
-
         }
 
         [TestMethod]
@@ -188,7 +187,9 @@ namespace Grimware.Common.UnitTests.Extensions
         }
 
 #pragma warning disable CA1034 // Nested types should not be visible
+
         // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable UnusedAutoPropertyAccessor.Global
         public class Note
         {
             public string From { get; set; }
@@ -196,20 +197,8 @@ namespace Grimware.Common.UnitTests.Extensions
             public string Subject { get; set; }
             public string Body { get; set; }
         }
-#pragma warning restore CA1034 // Nested types should not be visible
 
-        private enum Digit
-        {
-            Zero = 0,
-            One = 1,
-            Two = 2,
-            Three = 3,
-            Four = 4,
-            Five = 5,
-            Six = 6,
-            Seven = 7,
-            Eight = 8,
-            Nine = 9,
-        }
+        // ReSharper restore UnusedAutoPropertyAccessor.Global
+#pragma warning restore CA1034 // Nested types should not be visible
     }
 }

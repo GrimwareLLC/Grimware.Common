@@ -16,7 +16,7 @@
     <Copyright>© 2007-2019, Grimware, LLC</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <Version>1.1.0-RC1</Version>
+    <Version>1.1.0-RC2</Version>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 

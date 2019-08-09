@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
+using System.Runtime.Remoting.Channels;
 using FluentAssertions;
 using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -148,10 +149,15 @@ namespace Grimware.Common.UnitTests.Extensions
             " \t\r\n 1.2.3.".StripNonAlphanumericOrWhiteSpaceCharacters().Should().Be(" \t\r\n 123");
         }
 
-        [TestMethod]
-        public void TitleCase()
+        [DataTestMethod]
+        [DataRow(null, null)]
+        [DataRow("", "")]
+        [DataRow("test", "Test")]
+        [DataRow("the catcher in the rye", "The Catcher In The Rye")]
+        [DataRow("rick o'shea", "Rick O'Shea")]
+        public void TitleCase(string test, string expected)
         {
-
+            test.TitleCase().Should().Be(expected);
         }
 
         [DataTestMethod]

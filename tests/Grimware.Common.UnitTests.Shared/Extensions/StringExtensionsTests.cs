@@ -148,6 +148,12 @@ namespace Grimware.Common.UnitTests.Extensions
             " \t\r\n 1.2.3.".StripNonAlphanumericOrWhiteSpaceCharacters().Should().Be(" \t\r\n 123");
         }
 
+        [TestMethod]
+        public void TitleCase()
+        {
+
+        }
+
         [DataTestMethod]
         [DataRow(null, 0, 0, 0, 0, 0, 0, DateTimeStyles.None)]
         [DataRow("", 0, 0, 0, 0, 0, 0, DateTimeStyles.None)]

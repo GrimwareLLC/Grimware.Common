@@ -22,6 +22,8 @@ namespace Grimware.Extensions
             + @"|\{0x[\da-f]{8},0x[\da-f]{4},0x[\da-f]{4},\{0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2}\}\}"
             + @")\Z";
 
+        private const string _Trn = @"{~_`:=@ ""&(+,-./\t\r\n";
+
         private static readonly Regex _NonAlphaNumericRegex =
             new Regex("(?i)[^a-z0-9]", _StandardRegexOptions | RegexOptions.IgnoreCase);
 
@@ -105,16 +107,22 @@ namespace Grimware.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string StripNonAlphanumericCharacters(this string source)
-        {
-            return source == null ? null : _NonAlphaNumericRegex.Replace(source, String.Empty);
-        }
+        public static string StripNonAlphanumericCharacters(this string source) =>
+            source != null ? _NonAlphaNumericRegex.Replace(source, String.Empty) : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string StripNonAlphanumericOrWhiteSpaceCharacters(this string source)
-        {
-            return source == null ? null : _NonAlphaNumericWhiteSpaceRegex.Replace(source, String.Empty);
-        }
+        public static string StripNonAlphanumericOrWhiteSpaceCharacters(this string source) =>
+            source != null ? _NonAlphaNumericWhiteSpaceRegex.Replace(source, String.Empty) : null;
+
+        public static string TitleCase(this string source) =>
+            source != null
+                ? new string(
+                    source
+                        .ToUpperInvariant()
+                        .ToCharArray()
+                        .Select((c, i) => i > 0 && _Trn.IndexOf(source[i - 1]) == -1 ? char.ToLowerInvariant(c) : c)
+                        .ToArray())
+                : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime? ToDateTime(this string source, IFormatProvider provider)

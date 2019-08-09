@@ -22,7 +22,7 @@ namespace Grimware.Extensions
             + @"|\{0x[\da-f]{8},0x[\da-f]{4},0x[\da-f]{4},\{0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2}\}\}"
             + @")\Z";
 
-        private const string _Trn = @"{~_`:=@ ""&(+,-./\t\r\n";
+        private const string _CasingSymbols = "{~_`:=@ \"&'(+,-./\t\r\n";
 
         private static readonly Regex _NonAlphaNumericRegex =
             new Regex("(?i)[^a-z0-9]", _StandardRegexOptions | RegexOptions.IgnoreCase);
@@ -120,7 +120,7 @@ namespace Grimware.Extensions
                     source
                         .ToUpperInvariant()
                         .ToCharArray()
-                        .Select((c, i) => i > 0 && _Trn.IndexOf(source[i - 1]) == -1 ? char.ToLowerInvariant(c) : c)
+                        .Select((c, i) => i > 0 && _CasingSymbols.IndexOf(source[i - 1]) == -1 ? char.ToLowerInvariant(c) : c)
                         .ToArray())
                 : null;
 

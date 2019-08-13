@@ -19,15 +19,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{506F4ED8-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C1D2373E-4240-4C02-9EB6-67A6C67552F7}"
 	ProjectSection(SolutionItems) = preProject
-		Shared\base.framework.props = src\Shared\base.framework.props
-		Shared\base.netstandard.props = src\Shared\base.netstandard.props
-		Shared\configuration.props = src\Shared\configuration.props
-		Shared\nuget.props = src\Shared\nuget.props
+		src\Shared\base.framework.props = src\Shared\base.framework.props
+		src\Shared\base.netstandard.props = src\Shared\base.netstandard.props
+		src\Shared\configuration.props = src\Shared\configuration.props
+		src\Shared\nuget.props = src\Shared\nuget.props
 	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Grimware.Common.UnitTests.Shared", "tests\Grimware.Common.UnitTests.Shared\Grimware.Common.UnitTests.Shared.shproj", "{D5B64700-789A-46D5-9D15-C7A2EC8E3DB2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grimware.Common.UnitTests.Net461", "tests\Grimware.Common.UnitTests.Net461\Grimware.Common.UnitTests.Net461.csproj", "{84A4E365-B654-4FA4-9F63-F788548CBF8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C961FCE2-1556-47A5-BD06-2290401E3868}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

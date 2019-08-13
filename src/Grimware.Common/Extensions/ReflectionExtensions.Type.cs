@@ -118,6 +118,7 @@ namespace Grimware.Extensions
 
             var successful = true;
             object convertedValue = null;
+
             try
             {
                 if (value == null)
@@ -127,23 +128,7 @@ namespace Grimware.Extensions
                 }
                 else
                 {
-                    if (type.IsInstanceOfType(value))
-                    {
-                        convertedValue = value;
-                    }
-                    else
-                    {
-                        var typeConverter = TypeDescriptor.GetConverter(type);
-                        if (typeConverter.CanConvertFrom(typeof(string)))
-                        {
-                            convertedValue = typeConverter.ConvertFromString(value);
-                        }
-                        else
-                        {
-                            if (type.IsEnum)
-                                convertedValue = Enum.Parse(type, value, true);
-                        }
-                    }
+                    convertedValue = type.IsInstanceOfType(value) ? value : TryConvertFromStringInternal(type, value);
                 }
             }
 #pragma warning disable CA1031 // Do not catch general exception types
@@ -155,6 +140,21 @@ namespace Grimware.Extensions
 
             returnValue = successful ? convertedValue : null;
             return successful;
+        }
+
+        private static object TryConvertFromStringInternal(Type type, string value)
+        {
+            var typeConverter = TypeDescriptor.GetConverter(type);
+            if (typeConverter.CanConvertFrom(typeof(string)))
+            {
+                return typeConverter.ConvertFromString(value);
+            }
+            else if (type.IsEnum)
+            {
+                return Enum.Parse(type, value, true);
+            }
+
+            return null;
         }
     }
 }

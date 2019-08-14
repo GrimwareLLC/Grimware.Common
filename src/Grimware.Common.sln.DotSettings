@@ -1,4 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=23FE7830_002DC2AA_002D469B_002D97C3_002D5BEC56D7D49D_002Fd_003AProperties_002Ff_003AResources_002EDesigner_002Ecs/@EntryIndexedValue">23FE7830-C2AA-469B-97C3-5BEC56D7D49D/d:Properties/f:Resources.Designer.cs</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=84A4E365_002DB654_002D4FA4_002D9F63_002DF788548CBF8C_002Fd_003AProperties_002Ff_003AResources_002EDesigner_002Ecs/@EntryIndexedValue">84A4E365-B654-4FA4-9F63-F788548CBF8C/d:Properties/f:Resources.Designer.cs</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">SOLUTION</s:String>
 	<s:Boolean x:Key="/Default/CodeInspection/Highlighting/IncludeWarningsInSwea/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ArrangeTypeMemberModifiers/@EntryIndexedValue">WARNING</s:String>

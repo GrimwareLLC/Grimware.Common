@@ -44,6 +44,7 @@ namespace Grimware
             {
                 return Activator.CreateInstance(typeof(T), true) as T;
             }
+            // ReSharper disable once UncatchableException
             catch (MissingMethodException ex)
             {
                 throw new InvalidOperationException(

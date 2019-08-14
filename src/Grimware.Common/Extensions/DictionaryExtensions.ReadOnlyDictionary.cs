@@ -35,7 +35,7 @@ namespace Grimware.Extensions
             public ICollection<TValue> Values => _dictionary.Values;
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static Exception ReadOnlyException()
+            private static NotSupportedException ReadOnlyException()
             {
                 return new NotSupportedException(ExceptionMessages.DictionaryIsReadOnly);
             }
@@ -65,6 +65,7 @@ namespace Grimware.Extensions
                 return _dictionary.TryGetValue(key, out value);
             }
 
+#pragma warning disable IDE0060 // Remove unused parameter
             void IDictionary<TKey, TValue>.Add(TKey key, TValue value)
             {
                 throw ReadOnlyException();
@@ -94,6 +95,7 @@ namespace Grimware.Extensions
             {
                 throw ReadOnlyException();
             }
+#pragma warning restore IDE0060 // Remove unused parameter
         }
     }
 }

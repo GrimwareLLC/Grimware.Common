@@ -3,7 +3,7 @@
     <LangVersion>Latest</LangVersion>
     <RestorePackages Condition="'$(RestorePackages)' == ''">true</RestorePackages>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(ProjectDir)..\Grimware.Common.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(ProjectDir)..\..\Grimware.Common.snk</AssemblyOriginatorKeyFile>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 

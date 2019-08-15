@@ -15,8 +15,8 @@
     <PackageTags>Common Utility ExtensionMethods Library</PackageTags>
     <Copyright>© 2007-2019, Grimware, LLC</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.2.1.0</AssemblyVersion>
-    <Version>0.2.1-alpha</Version>
+    <AssemblyVersion>0.3.0.0</AssemblyVersion>
+    <Version>0.3.0-alpha</Version>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 

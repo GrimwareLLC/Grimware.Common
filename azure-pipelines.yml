@@ -6,12 +6,6 @@
 trigger:
 - master
 - releases/*
-- release/*
-- features/*
-- feature/*
-- hotfixes/*
-- hotfix/*
-- support/*
 - develop
 
 

@@ -48,6 +48,7 @@ steps:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
       **\*.UnitTests.dll
+      **\*.UnitTests.*.dll
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'

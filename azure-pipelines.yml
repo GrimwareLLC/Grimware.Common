@@ -18,13 +18,27 @@ steps:
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
+  displayName: 'NuGet Restore'
   inputs:
-    restoreSolution: '$(solution)'
+    restoreSolution: '$(solution)'    
+
+- task: GitVersion@5
+  displayName: 'GitVersion'
+  inputs:
+    runtime: 'core'
+    updateAssemblyInfo: true
+    updateAssemblyInfoFilename: true
+
+- script: echo %Action%%BuildVersion%
+  displayName: 'Set BuildVersion'
+  env:
+    Action: '##vso[build.updatebuildnumber]'
+    BuildVersion: $(GitVersion.NuGetVersionV2)
 
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: '/p:SkipInvalidConfigurations=true'
 
   inputs:
     runtime: 'core'

@@ -53,7 +53,7 @@ steps:
     codeCoverageEnabled: true
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\*.Tests.dll
+      **\*.UnitTests.dll
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'

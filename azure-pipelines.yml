@@ -25,12 +25,15 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  displayName: 'NuGet Tool Installer'
 
 - task: NuGetCommand@2
+  displayName: 'NuGet Restore'
   inputs:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: 'VS Build'
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
@@ -38,6 +41,7 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: 'VS Test'
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'

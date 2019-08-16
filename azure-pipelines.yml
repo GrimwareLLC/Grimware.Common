@@ -1,12 +1,10 @@
-# ASP.NET
-# Build and test ASP.NET projects.
+# .NET
+# Build and test .NET projects.
 # Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
 - master
 - develop
-
 
 pool:
   vmImage: 'windows-latest'
@@ -62,5 +60,3 @@ steps:
   inputs:
     testResultsFormat: 'VSTest'
     testResultsFiles: '**/TEST-*.xml'
-
-    

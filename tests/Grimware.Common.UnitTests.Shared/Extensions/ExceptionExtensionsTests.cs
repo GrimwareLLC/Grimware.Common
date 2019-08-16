@@ -26,7 +26,7 @@ namespace Grimware.Common.UnitTests.Extensions
             {
                 try
                 {
-                    throw new Exception("Outer Exception", ix);
+                    throw new TestException("Outer Exception", ix);
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
@@ -45,7 +45,7 @@ namespace Grimware.Common.UnitTests.Extensions
 
         private static void ThrowInnerException()
         {
-            throw new Exception("Inner Exception");
+            throw new TestException("Inner Exception");
         }
     }
 }

@@ -1,0 +1,76 @@
+# .NET
+# Build and test .NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+
+trigger:
+    batch: true
+    branches:
+        include:
+            - develop
+            - master
+            - hotfix/*
+            - feature/*
+            - features/*
+            - bug/*
+            - bugs/*
+            - user/*
+            - users/*
+
+pr:
+- develop
+- master
+- release/*
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+  displayName: 'NuGet Tool Installer'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet Restore'
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+    updateAssemblyInfo: true
+
+- task: VSBuild@1
+  displayName: 'VS Build'
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  displayName: 'VS Test'
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    codeCoverageEnabled: true
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*.UnitTests.dll
+      **\*.UnitTests.*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/TEST-*.xml'

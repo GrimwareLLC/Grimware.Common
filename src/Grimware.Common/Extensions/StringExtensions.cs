@@ -11,6 +11,7 @@ namespace Grimware.Extensions
 {
     public static class StringExtensions
     {
+        private const string _CasingSymbols = "{~_`:=@ \"&'(+,-./\t\r\n";
         private const RegexOptions _StandardRegexOptions = RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
         private const string _ValidGuidExpression =
@@ -21,8 +22,6 @@ namespace Grimware.Extensions
             + @"|\([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\)"
             + @"|\{0x[\da-f]{8},0x[\da-f]{4},0x[\da-f]{4},\{0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2}\}\}"
             + @")\Z";
-
-        private const string _CasingSymbols = "{~_`:=@ \"&'(+,-./\t\r\n";
 
         private static readonly Regex _NonAlphaNumericRegex =
             new Regex("(?i)[^a-z0-9]", _StandardRegexOptions | RegexOptions.IgnoreCase);
@@ -49,7 +48,7 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T ConvertTo<T>(this string source, T defaultValue)
         {
-            return (T)typeof(T).ConvertFromString(source, defaultValue);
+            return (T) typeof(T).ConvertFromString(source, defaultValue);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -97,7 +96,7 @@ namespace Grimware.Extensions
         {
             return source == null
                 ? Array.Empty<string>()
-                : source.Split(separator == null ? null : new[] { separator }, options);
+                : source.Split(separator == null ? null : new[] {separator}, options);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -107,22 +106,28 @@ namespace Grimware.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string StripNonAlphanumericCharacters(this string source) =>
-            source != null ? _NonAlphaNumericRegex.Replace(source, String.Empty) : null;
+        public static string StripNonAlphanumericCharacters(this string source)
+        {
+            return source != null ? _NonAlphaNumericRegex.Replace(source, String.Empty) : null;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string StripNonAlphanumericOrWhiteSpaceCharacters(this string source) =>
-            source != null ? _NonAlphaNumericWhiteSpaceRegex.Replace(source, String.Empty) : null;
+        public static string StripNonAlphanumericOrWhiteSpaceCharacters(this string source)
+        {
+            return source != null ? _NonAlphaNumericWhiteSpaceRegex.Replace(source, String.Empty) : null;
+        }
 
-        public static string TitleCase(this string source) =>
-            source != null
+        public static string TitleCase(this string source)
+        {
+            return source != null
                 ? new string(
                     source
                         .ToUpperInvariant()
                         .ToCharArray()
-                        .Select((c, i) => i > 0 && _CasingSymbols.IndexOf(source[i - 1]) == -1 ? char.ToLowerInvariant(c) : c)
+                        .Select((c, i) => i > 0 && _CasingSymbols.IndexOf(source[i - 1]) == -1 ? Char.ToLowerInvariant(c) : c)
                         .ToArray())
                 : null;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime? ToDateTime(this string source, IFormatProvider provider)
@@ -135,7 +140,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? DateTime.TryParse(source, provider, styles, out var result)
-                    ? (DateTime?)result
+                    ? (DateTime?) result
                     : null
                 : null;
         }
@@ -155,7 +160,7 @@ namespace Grimware.Extensions
             bool adjustCentury = false)
         {
             return format != null
-                ? ToDateTime(source, new[] { format }, provider, style, adjustCentury)
+                ? ToDateTime(source, new[] {format}, provider, style, adjustCentury)
                 : throw new ArgumentNullException(nameof(format));
         }
 
@@ -200,7 +205,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Decimal.TryParse(source, out var result)
-                    ? (decimal?)result
+                    ? (decimal?) result
                     : null
                 : null;
         }
@@ -210,7 +215,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Decimal.TryParse(source, style, provider, out var result)
-                    ? (decimal?)result
+                    ? (decimal?) result
                     : null
                 : null;
         }
@@ -220,7 +225,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Double.TryParse(source, out var result)
-                    ? (double?)result
+                    ? (double?) result
                     : null
                 : null;
         }
@@ -230,7 +235,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Double.TryParse(source, style, provider, out var result)
-                    ? (double?)result
+                    ? (double?) result
                     : null
                 : null;
         }
@@ -239,7 +244,7 @@ namespace Grimware.Extensions
         public static TEnum? ToEnum<TEnum>(this string value, bool ignoreCase = false)
             where TEnum : struct, Enum
         {
-            return Enum.TryParse(value, ignoreCase, out TEnum result) ? result : (TEnum?)null;
+            return Enum.TryParse(value, ignoreCase, out TEnum result) ? result : (TEnum?) null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -247,7 +252,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? _ValidGuidRegex.IsMatch(source)
-                    ? (Guid?)new Guid(source)
+                    ? (Guid?) new Guid(source)
                     : null
                 : null;
         }
@@ -257,7 +262,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Int16.TryParse(source, out var result)
-                    ? (short?)result
+                    ? (short?) result
                     : null
                 : null;
         }
@@ -267,7 +272,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Int16.TryParse(source, style, provider, out var result)
-                    ? (short?)result
+                    ? (short?) result
                     : null
                 : null;
         }
@@ -277,7 +282,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Int32.TryParse(source, out var result)
-                    ? (int?)result
+                    ? (int?) result
                     : null
                 : null;
         }
@@ -287,7 +292,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Int32.TryParse(source, style, provider, out var result)
-                    ? (int?)result
+                    ? (int?) result
                     : null
                 : null;
         }
@@ -297,7 +302,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Int64.TryParse(source, out var result)
-                    ? (long?)result
+                    ? (long?) result
                     : null
                 : null;
         }
@@ -307,7 +312,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Int64.TryParse(source, style, provider, out var result)
-                    ? (long?)result
+                    ? (long?) result
                     : null
                 : null;
         }
@@ -335,7 +340,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Single.TryParse(source, out var result)
-                    ? (float?)result
+                    ? (float?) result
                     : null
                 : null;
         }
@@ -345,7 +350,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? Single.TryParse(source, style, provider, out var result)
-                    ? (float?)result
+                    ? (float?) result
                     : null
                 : null;
         }
@@ -355,7 +360,7 @@ namespace Grimware.Extensions
         {
             return source != null
                 ? TimeSpan.TryParse(source, out var result)
-                    ? (TimeSpan?)result
+                    ? (TimeSpan?) result
                     : null
                 : null;
         }
@@ -369,7 +374,7 @@ namespace Grimware.Extensions
 
             var sb = new StringBuilder(source);
 
-            for (var i = 0 ; i < sb.Length ; i++)
+            for (var i = 0; i < sb.Length; i++)
             {
                 var j = from.IndexOf(sb[i]);
                 if (j >= 0 && j < to.Length)
@@ -385,7 +390,7 @@ namespace Grimware.Extensions
         {
             if (typeof(T).TryConvertFromString(value, out var convertedValue))
             {
-                returnValue = (T)convertedValue;
+                returnValue = (T) convertedValue;
                 return true;
             }
 

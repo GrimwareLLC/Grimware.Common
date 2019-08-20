@@ -34,12 +34,6 @@ namespace Grimware.Extensions
 
             public ICollection<TValue> Values => _dictionary.Values;
 
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static NotSupportedException ReadOnlyException()
-            {
-                return new NotSupportedException(ExceptionMessages.DictionaryIsReadOnly);
-            }
-
             public bool Contains(KeyValuePair<TKey, TValue> item)
             {
                 return _dictionary.Contains(item);
@@ -63,6 +57,12 @@ namespace Grimware.Extensions
             public bool TryGetValue(TKey key, out TValue value)
             {
                 return _dictionary.TryGetValue(key, out value);
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private static NotSupportedException ReadOnlyException()
+            {
+                return new NotSupportedException(ExceptionMessages.DictionaryIsReadOnly);
             }
 
 #pragma warning disable IDE0060 // Remove unused parameter

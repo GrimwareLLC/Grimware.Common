@@ -15,7 +15,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Assert
             TestEnumeration.DescriptiveText.ToDescription().Should().Be("Descriptive Text");
 
-            ((TestEnumeration?)TestEnumeration.DescriptiveText).ToDescription().Should().Be("Descriptive Text");
+            ((TestEnumeration?) TestEnumeration.DescriptiveText).ToDescription().Should().Be("Descriptive Text");
         }
 
         [TestMethod]
@@ -31,15 +31,15 @@ namespace Grimware.Common.UnitTests.Extensions
             result.Should().Be(AnotherTestEnumeration.TranslatableValue);
         }
 
+        private enum AnotherTestEnumeration
+        {
+            TranslatableValue = 10,
+        }
+
         private enum TestEnumeration
         {
             DescriptiveText = 1,
             TranslatableValue = 2,
-        }
-
-        private enum AnotherTestEnumeration
-        {
-            TranslatableValue = 10,
         }
     }
 }

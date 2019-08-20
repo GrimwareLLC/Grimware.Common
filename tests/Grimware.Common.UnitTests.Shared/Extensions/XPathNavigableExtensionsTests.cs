@@ -37,7 +37,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToXmlDocument()
         {
-            ((IXPathNavigable)null).ToXmlDocument().Should().BeNull();
+            ((IXPathNavigable) null).ToXmlDocument().Should().BeNull();
 
             var xml = _TestDocument.ToXmlDocument();
             xml.Should().NotBeNull();
@@ -47,22 +47,17 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToXPathDocument()
         {
-            ((IXPathNavigable)null).ToXPathDocument().Should().BeNull();
+            ((IXPathNavigable) null).ToXPathDocument().Should().BeNull();
 
             var xpDoc = _TestDocument.ToXPathDocument();
             xpDoc.Should().NotBeNull();
         }
 
         [TestMethod]
-        public void WriteToStream_New()
+        public void WriteToStream_Exception()
         {
-            ((IXPathNavigable)null).WriteToStream().Should().BeNull();
-
-            using (var stream = _TestDocument.WriteToStream())
-            {
-                stream.Should().NotBeNull();
-                stream.Length.Should().Be(301);
-            }
+            Action act = () => _TestDocument.WriteToStream(null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [TestMethod]
@@ -86,7 +81,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void WriteToStream_Existing()
         {
-            ((IXPathNavigable)null).WriteToStream(null);
+            ((IXPathNavigable) null).WriteToStream(null);
 
             using (var stream = new MemoryStream())
             {
@@ -96,10 +91,15 @@ namespace Grimware.Common.UnitTests.Extensions
         }
 
         [TestMethod]
-        public void WriteToStream_Exception()
+        public void WriteToStream_New()
         {
-            Action act = () => _TestDocument.WriteToStream(null);
-            act.Should().Throw<ArgumentNullException>();
+            ((IXPathNavigable) null).WriteToStream().Should().BeNull();
+
+            using (var stream = _TestDocument.WriteToStream())
+            {
+                stream.Should().NotBeNull();
+                stream.Length.Should().Be(301);
+            }
         }
     }
 }

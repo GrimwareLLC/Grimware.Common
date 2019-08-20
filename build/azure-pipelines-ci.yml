@@ -42,7 +42,10 @@ steps:
     runtime: 'core'
     updateAssemblyInfo: true
     preferBundledVersion: false
-    url: 'https://github.com/GrimGadget/Grimware.Common'
+    url: '$(Build.Repository.Uri)'
+    user: 'GitVersion'
+    password: '$(GitHubToken)'
+    branch: '$(Build.SourceBranch)'
 
 - script: echo %Action%%BuildVersion%
   displayName: 'Set Build Version'

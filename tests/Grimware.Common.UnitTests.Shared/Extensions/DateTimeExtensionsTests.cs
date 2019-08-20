@@ -27,9 +27,9 @@ namespace Grimware.Common.UnitTests.Extensions
         {
             var dateTime = DateTime.Now;
 
-            ((DateTime?)null).Add(null).Should().BeNull();
-            ((DateTime?)null).Add(TimeSpan.Zero).Should().BeNull();
-            ((DateTime?)dateTime).Add(null).Should().Be(dateTime);
+            ((DateTime?) null).Add(null).Should().BeNull();
+            ((DateTime?) null).Add(TimeSpan.Zero).Should().BeNull();
+            ((DateTime?) dateTime).Add(null).Should().Be(dateTime);
         }
 
         [DataTestMethod]

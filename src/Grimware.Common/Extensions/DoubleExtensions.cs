@@ -15,7 +15,7 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal? ToDecimal(this double? source, IFormatProvider provider)
         {
-            return source != null ? Convert.ToDecimal(source.Value, provider) : (decimal?)null;
+            return source != null ? Convert.ToDecimal(source.Value, provider) : (decimal?) null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

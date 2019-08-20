@@ -11,7 +11,7 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime Add(this DateTime dateTime, TimeSpan? time)
         {
-            return Add((DateTime?)dateTime, time) ?? dateTime;
+            return Add((DateTime?) dateTime, time) ?? dateTime;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

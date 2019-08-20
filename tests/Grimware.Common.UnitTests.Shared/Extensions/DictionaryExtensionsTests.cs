@@ -15,16 +15,16 @@ namespace Grimware.Common.UnitTests.Extensions
         private static readonly IDictionary<string, string> _TestDictionary =
             new Dictionary<string, string>
             {
-                { "0", "Zero" },
-                { "1", "One" },
-                { "2", "Two" },
-                { "3", "Three" },
-                { "4", "Four" },
-                { "5", "Five" },
-                { "6", "Six" },
-                { "7", "Seven" },
-                { "8", "Eight" },
-                { "9", "Nine" },
+                {"0", "Zero"},
+                {"1", "One"},
+                {"2", "Two"},
+                {"3", "Three"},
+                {"4", "Four"},
+                {"5", "Five"},
+                {"6", "Six"},
+                {"7", "Seven"},
+                {"8", "Eight"},
+                {"9", "Nine"},
             };
 
         private readonly Lazy<IDictionary<string, string>> _lazyReadOnly =
@@ -48,7 +48,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void AsReadOnly_Null()
         {
             // Act
-            var result = ((IDictionary<string, string>)null).AsReadOnly();
+            var result = ((IDictionary<string, string>) null).AsReadOnly();
 
             // Assert
             result.Should().BeNull();
@@ -81,40 +81,33 @@ namespace Grimware.Common.UnitTests.Extensions
         }
 
         [TestMethod]
-        public void ReadOnlyDictionary_Count()
-        {
-            // Assert
-            ReadOnlyTarget.Count.Should().Be(10);
-        }
-
-        [TestMethod]
-        public void ReadOnlyDictionary_IsReadOnly()
-        {
-            ReadOnlyTarget.IsReadOnly.Should().BeTrue();
-        }
-
-        [TestMethod]
-        public void ReadOnlyDictionary_Keys()
+        public void ReadOnlyDictionary_Add_Exception()
         {
             // Arrange
-            var keys = ReadOnlyTarget.Keys;
+            Action act = () => ReadOnlyTarget.Add("Foo", "Bar");
 
             // Assert
-            keys.Should().NotBeNull();
-            keys.Count.Should().Be(10);
-            keys.Should().BeEquivalentTo(_TestDictionary.Keys);
+            act.Should().Throw<NotSupportedException>();
         }
 
         [TestMethod]
-        public void ReadOnlyDictionary_Values()
+        public void ReadOnlyDictionary_Add_KeyValuePair_Exception()
         {
             // Arrange
-            var values = ReadOnlyTarget.Values;
+            Action act = () => ReadOnlyTarget.Add(new KeyValuePair<string, string>("Foo", "Bar"));
 
             // Assert
-            values.Should().NotBeNull();
-            values.Count.Should().Be(10);
-            values.Should().BeEquivalentTo(_TestDictionary.Values);
+            act.Should().Throw<NotSupportedException>();
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_Clear_Exception()
+        {
+            // Arrange
+            Action act = () => ReadOnlyTarget.Clear();
+
+            // Assert
+            act.Should().Throw<NotSupportedException>();
         }
 
         [DataTestMethod]
@@ -169,6 +162,13 @@ namespace Grimware.Common.UnitTests.Extensions
         }
 
         [TestMethod]
+        public void ReadOnlyDictionary_Count()
+        {
+            // Assert
+            ReadOnlyTarget.Count.Should().Be(10);
+        }
+
+        [TestMethod]
         public void ReadOnlyDictionary_Enumerate()
         {
             // Arrange
@@ -190,7 +190,7 @@ namespace Grimware.Common.UnitTests.Extensions
             var list = new List<object>(10);
 
             // Act
-            foreach (var kvp in (IEnumerable)ReadOnlyTarget)
+            foreach (var kvp in (IEnumerable) ReadOnlyTarget)
                 list.Add(kvp);
 
             // Assert
@@ -198,40 +198,21 @@ namespace Grimware.Common.UnitTests.Extensions
         }
 
         [TestMethod]
-        public void ReadOnlyDictionary_TryGetValue()
+        public void ReadOnlyDictionary_IsReadOnly()
         {
-            ReadOnlyTarget.TryGetValue("5", out var result).Should().BeTrue();
-            result.Should().Be("Five");
+            ReadOnlyTarget.IsReadOnly.Should().BeTrue();
         }
 
         [TestMethod]
-        public void ReadOnlyDictionary_Add_Exception()
+        public void ReadOnlyDictionary_Keys()
         {
             // Arrange
-            Action act = () => ReadOnlyTarget.Add("Foo", "Bar");
+            var keys = ReadOnlyTarget.Keys;
 
             // Assert
-            act.Should().Throw<NotSupportedException>();
-        }
-
-        [TestMethod]
-        public void ReadOnlyDictionary_Add_KeyValuePair_Exception()
-        {
-            // Arrange
-            Action act = () => ReadOnlyTarget.Add(new KeyValuePair<string, string>("Foo", "Bar"));
-
-            // Assert
-            act.Should().Throw<NotSupportedException>();
-        }
-
-        [TestMethod]
-        public void ReadOnlyDictionary_Clear_Exception()
-        {
-            // Arrange
-            Action act = () => ReadOnlyTarget.Clear();
-
-            // Assert
-            act.Should().Throw<NotSupportedException>();
+            keys.Should().NotBeNull();
+            keys.Count.Should().Be(10);
+            keys.Should().BeEquivalentTo(_TestDictionary.Keys);
         }
 
         [TestMethod]
@@ -252,6 +233,25 @@ namespace Grimware.Common.UnitTests.Extensions
 
             // Assert
             act.Should().Throw<NotSupportedException>();
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_TryGetValue()
+        {
+            ReadOnlyTarget.TryGetValue("5", out var result).Should().BeTrue();
+            result.Should().Be("Five");
+        }
+
+        [TestMethod]
+        public void ReadOnlyDictionary_Values()
+        {
+            // Arrange
+            var values = ReadOnlyTarget.Values;
+
+            // Assert
+            values.Should().NotBeNull();
+            values.Count.Should().Be(10);
+            values.Should().BeEquivalentTo(_TestDictionary.Values);
         }
     }
 }

@@ -11,24 +11,6 @@ namespace Grimware.Common.UnitTests
     public class SingletonTests
     {
         [TestMethod]
-        public void Foo_Test()
-        {
-            var foo1 = Foo.Instance;
-            var foo2 = Foo.Instance;
-
-            foo1.Should().NotBeNull();
-            foo2.Should().NotBeNull();
-
-            foo1.Should().Be(Foo.Instance);
-            foo2.Should().Be(Foo.Instance);
-
-            Foo foo3 = null;
-            Action act = () => foo3 = Activator.CreateInstance(typeof(Foo), true) as Foo;
-            act.Should().Throw<TargetInvocationException>().WithInnerException<InvalidOperationException>();
-            foo3.Should().BeNull();
-        }
-
-        [TestMethod]
         public void Bar_Test()
         {
             Bar bar = null;
@@ -57,14 +39,21 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
-        public void Waldo_Test()
+        public void Foo_Test()
         {
-            Waldo waldo = null;
+            var foo1 = Foo.Instance;
+            var foo2 = Foo.Instance;
 
-            Action act = () => waldo = Waldo.Instance;
-            act.Should().Throw<InvalidOperationException>().WithInnerException<MissingMethodException>();
+            foo1.Should().NotBeNull();
+            foo2.Should().NotBeNull();
 
-            waldo.Should().BeNull();
+            foo1.Should().Be(Foo.Instance);
+            foo2.Should().Be(Foo.Instance);
+
+            Foo foo3 = null;
+            Action act = () => foo3 = Activator.CreateInstance(typeof(Foo), true) as Foo;
+            act.Should().Throw<TargetInvocationException>().WithInnerException<InvalidOperationException>();
+            foo3.Should().BeNull();
         }
 
         [TestMethod]
@@ -78,13 +67,15 @@ namespace Grimware.Common.UnitTests
             fred.Should().BeNull();
         }
 
-        // ReSharper disable once ClassNeverInstantiated.Local
-        private sealed class Foo
-            : Singleton<Foo>
+        [TestMethod]
+        public void Waldo_Test()
         {
-            private Foo()
-            {
-            }
+            Waldo waldo = null;
+
+            Action act = () => waldo = Waldo.Instance;
+            act.Should().Throw<InvalidOperationException>().WithInnerException<MissingMethodException>();
+
+            waldo.Should().BeNull();
         }
 
         private sealed class Bar
@@ -95,10 +86,6 @@ namespace Grimware.Common.UnitTests
         private sealed class Baz
             : Singleton<Baz>
         {
-            private Baz()
-            {
-            }
-
             // ReSharper disable once UnusedParameter.Local
 #pragma warning disable IDE0060 // Remove unused parameter
             public Baz(int i)
@@ -106,6 +93,27 @@ namespace Grimware.Common.UnitTests
             {
             }
 #pragma warning restore IDE0060 // Remove unused parameter
+            private Baz()
+            {
+            }
+        }
+
+        // ReSharper disable once ClassNeverInstantiated.Local
+        private sealed class Foo
+            : Singleton<Foo>
+        {
+            private Foo()
+            {
+            }
+        }
+
+        // ReSharper disable once ClassNeverInstantiated.Local
+        private class Fred
+            : Singleton<Fred>
+        {
+            private Fred()
+            {
+            }
         }
 
         // ReSharper disable once ClassNeverInstantiated.Local
@@ -121,14 +129,5 @@ namespace Grimware.Common.UnitTests
         }
 #pragma warning restore IDE0051 // Remove unused private members
 #pragma warning restore IDE0060 // Remove unused parameter
-
-        // ReSharper disable once ClassNeverInstantiated.Local
-        private class Fred
-            : Singleton<Fred>
-        {
-            private Fred()
-            {
-            }
-        }
     }
 }

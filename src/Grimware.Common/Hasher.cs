@@ -84,7 +84,7 @@ namespace Grimware
             var result = values.Length;
 
             var i = 0;
-            for (; i < values.Length - 4 ; i += 4) result = Hash(result, BitConverter.ToInt32(values, i));
+            for (; i < values.Length - 4; i += 4) result = Hash(result, BitConverter.ToInt32(values, i));
 
             if (i < values.Length)
                 result = Hash(result, BitConverter.ToInt32(values, values.Length - 4));
@@ -102,10 +102,10 @@ namespace Grimware
         {
             unchecked
             {
-                var little = n      & 0xFFFFFFFF;
+                var little = n & 0xFFFFFFFF;
                 var big = (n >> 32) & 0xFFFFFFFF;
 
-                return (int)(little ^ big);
+                return (int) (little ^ big);
             }
         }
 

@@ -10,7 +10,10 @@ trigger:
 - bug/*
 - users/*
 
-pr: none
+pr:
+- develop
+- master
+- release/*
 
 pool:
   vmImage: 'windows-latest'

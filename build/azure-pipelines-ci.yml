@@ -37,22 +37,6 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: GitVersion@5
-  inputs:
-    runtime: 'core'
-    updateAssemblyInfo: true
-    preferBundledVersion: false
-    url: '$(Build.Repository.Uri)'
-    user: 'GitVersion'
-    password: '$(GitHubToken)'
-    branch: '$(Build.SourceBranch)'
-
-- script: echo %Action%%BuildVersion%
-  displayName: 'Set Build Version'
-  env:
-    Action: '##vso[build.updatebuildnumber]'
-    BuildVersion: $(GitVersion.SemVer)
-
 - task: VSBuild@1
   displayName: 'VS Build'
   inputs:

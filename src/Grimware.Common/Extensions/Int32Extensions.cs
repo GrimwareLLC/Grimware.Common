@@ -13,7 +13,7 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool? ToBoolean(this int? source)
         {
-            return source != null ? !0.Equals(source.Value) : (bool?)null;
+            return source != null ? !0.Equals(source.Value) : (bool?) null;
         }
     }
 }

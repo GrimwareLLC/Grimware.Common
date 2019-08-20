@@ -37,12 +37,6 @@ namespace Grimware.Common.UnitTests.Extensions
         }
 
         [TestMethod]
-        public void Copy_Null()
-        {
-            ((Stream)null).Copy().Should().BeNull();
-        }
-
-        [TestMethod]
         public void Copy_ExceptionHandler()
         {
             // Arrange
@@ -56,6 +50,12 @@ namespace Grimware.Common.UnitTests.Extensions
 
             // Assert
             copy.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void Copy_Null()
+        {
+            ((Stream) null).Copy().Should().BeNull();
         }
     }
 }

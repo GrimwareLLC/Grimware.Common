@@ -21,7 +21,7 @@ namespace Grimware.Extensions
         public static bool IsNullOrDefault<T>(this T source)
             where T : struct
         {
-            return IsNullOrDefault((T?)source);
+            return IsNullOrDefault((T?) source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -61,7 +61,7 @@ namespace Grimware.Extensions
         public static T? NullIfDefault<T>(this T source)
             where T : struct
         {
-            return NullIfDefault((T?)source);
+            return NullIfDefault((T?) source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -75,7 +75,7 @@ namespace Grimware.Extensions
         public static T? NullIfIn<T>(this T source, params T[] values)
             where T : struct
         {
-            return NullIfIn((T?)source, values);
+            return NullIfIn((T?) source, values);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -97,7 +97,7 @@ namespace Grimware.Extensions
                 return null;
 
             var sb = new StringBuilder(1024 * 4);
-            using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true }))
+            using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true}))
             {
                 var serializer = new XmlSerializer(source.GetType());
                 serializer.Serialize(xmlWriter, source);
@@ -118,7 +118,7 @@ namespace Grimware.Extensions
 #pragma warning disable CA2000 // Dispose objects before losing scope
 
             // If we dispose the XmlWriter, it would dispose the underlying stream, which we don't want.
-            var xmlWriter = XmlWriter.Create(new StreamWriter(target), new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true });
+            var xmlWriter = XmlWriter.Create(new StreamWriter(target), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true});
             var serializer = new XmlSerializer(source.GetType());
             serializer.Serialize(xmlWriter, source);
             xmlWriter.Flush();

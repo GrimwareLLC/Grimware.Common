@@ -10,9 +10,9 @@ namespace Grimware.Common.UnitTests
     [ExcludeFromCodeCoverage]
     public class EqualityComparerTests
     {
+        private readonly EqualityComparer<int> _int32EqualityComparer = EqualityComparer<int>.Default;
         private readonly Func<int, int, bool> _int32EqualityComparison = (a, b) => a == b;
         private readonly Func<int, int> _int32HashFunction = i => i.GetHashCode();
-        private readonly EqualityComparer<int> _int32EqualityComparer = EqualityComparer<int>.Default;
 
         [TestMethod]
         public void Create_FromLambdas()
@@ -40,32 +40,6 @@ namespace Grimware.Common.UnitTests
             o.Should().BeNull();
 
             act = () => o = EqualityComparer.Create(_int32EqualityComparison, null);
-            act.Should().Throw<ArgumentNullException>();
-            o.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void Create_WithKeySelector()
-        {
-            var eq = EqualityComparer.Create<int, int>(i => i);
-
-            eq.Should().NotBeNull();
-            eq.GetType().Should().Be<AbstractEqualityComparer<int>>();
-
-            eq.Equals(0, 0).Should().BeTrue();
-            eq.Equals(Int32.MinValue, Int32.MaxValue).Should().BeFalse();
-
-            eq.GetHashCode(0).Should().Be(0);
-            eq.GetHashCode(Int32.MinValue).Should().Be(Int32.MinValue.GetHashCode());
-            eq.GetHashCode(Int32.MaxValue).Should().Be(Int32.MaxValue.GetHashCode());
-        }
-
-        [TestMethod]
-        public void Create_WithKeySelector_Exceptions()
-        {
-            object o = null;
-
-            Action act = () => o = EqualityComparer.Create<int, int>(null);
             act.Should().Throw<ArgumentNullException>();
             o.Should().BeNull();
         }
@@ -130,6 +104,32 @@ namespace Grimware.Common.UnitTests
             o.Should().BeNull();
 
             act = () => o = EqualityComparer.Create<int, int>(i => i, null);
+            act.Should().Throw<ArgumentNullException>();
+            o.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void Create_WithKeySelector()
+        {
+            var eq = EqualityComparer.Create<int, int>(i => i);
+
+            eq.Should().NotBeNull();
+            eq.GetType().Should().Be<AbstractEqualityComparer<int>>();
+
+            eq.Equals(0, 0).Should().BeTrue();
+            eq.Equals(Int32.MinValue, Int32.MaxValue).Should().BeFalse();
+
+            eq.GetHashCode(0).Should().Be(0);
+            eq.GetHashCode(Int32.MinValue).Should().Be(Int32.MinValue.GetHashCode());
+            eq.GetHashCode(Int32.MaxValue).Should().Be(Int32.MaxValue.GetHashCode());
+        }
+
+        [TestMethod]
+        public void Create_WithKeySelector_Exceptions()
+        {
+            object o = null;
+
+            Action act = () => o = EqualityComparer.Create<int, int>(null);
             act.Should().Throw<ArgumentNullException>();
             o.Should().BeNull();
         }

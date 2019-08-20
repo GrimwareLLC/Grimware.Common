@@ -11,9 +11,9 @@ namespace Grimware.Extensions
         public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
         {
             return source?
-                   .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
-                   .Where(a => a.IsMatch)
-                   .Select(a => a.Index);
+                .Select((t, i) => new {Index = i, IsMatch = predicate(t)})
+                .Where(a => a.IsMatch)
+                .Select(a => a.Index);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -97,7 +97,7 @@ namespace Grimware.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
         {
-            return source?.AllIndexesWhere(predicate)?.Convert(i => (int?)i).FirstOrDefault();
+            return source?.AllIndexesWhere(predicate)?.Convert(i => (int?) i).FirstOrDefault();
         }
 
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
@@ -131,6 +131,32 @@ namespace Grimware.Extensions
         public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
             return !(source?.Any(predicate) ?? false);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<T> OrderRandom<T>(this IEnumerable<T> source)
+        {
+            if (source == null) return Enumerable.Empty<T>();
+
+            return
+                source
+                    .Select(t => new {T = t, Guid = Guid.NewGuid()})
+                    .OrderBy(a => a.Guid)
+                    .Select(a => a.T);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T TakeRandom<T>(this IEnumerable<T> source)
+        {
+            return source != null ? TakeRandom(source, 1).FirstOrDefault() : default;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<T> TakeRandom<T>(this IEnumerable<T> source, int count)
+        {
+            if (source == null || count <= 0) return Enumerable.Empty<T>();
+
+            return OrderRandom(source).Take(count);
         }
     }
 }

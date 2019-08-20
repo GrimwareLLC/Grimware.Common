@@ -36,6 +36,17 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
+        public void Equals_Exception()
+        {
+            // Arrange
+            var comparer = new AbstractEqualityComparer<int>((a, b) => throw new InvalidOperationException(), _GetHashCodeFunction);
+            Func<bool> act = () => comparer.Equals(0, 0);
+
+            // Assert
+            act.Should().Throw<InvalidOperationException>();
+        }
+
+        [TestMethod]
         public void Equals_Test()
         {
             _IntegerComparer.Should().NotBeNull();
@@ -49,11 +60,11 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
-        public void Equals_Exception()
+        public void GetHashCode_Exception()
         {
             // Arrange
-            var comparer = new AbstractEqualityComparer<int>((a, b) => throw new InvalidOperationException(), _GetHashCodeFunction);
-            Func<bool> act = () => comparer.Equals(0, 0);
+            var comparer = new AbstractEqualityComparer<int>(_EqualityFunction, i => throw new InvalidOperationException());
+            Func<int> act = () => comparer.GetHashCode(0);
 
             // Assert
             act.Should().Throw<InvalidOperationException>();
@@ -65,17 +76,6 @@ namespace Grimware.Common.UnitTests
             _IntegerComparer.Should().NotBeNull();
 
             _IntegerComparer.GetHashCode(0).Should().Be(0);
-        }
-
-        [TestMethod]
-        public void GetHashCode_Exception()
-        {
-            // Arrange
-            var comparer = new AbstractEqualityComparer<int>(_EqualityFunction, i => throw new InvalidOperationException());
-            Func<int> act = () => comparer.GetHashCode(0);
-
-            // Assert
-            act.Should().Throw<InvalidOperationException>();
         }
     }
 }

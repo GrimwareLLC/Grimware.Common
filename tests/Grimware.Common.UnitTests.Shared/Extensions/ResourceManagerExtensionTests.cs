@@ -19,6 +19,97 @@ namespace Grimware.Common.UnitTests.Extensions
     {
         private readonly ResourceManager _target = new ResourceManager(typeof(Properties.Resources));
 
+        [TestMethod]
+        public void TryGetStream()
+        {
+            // Act
+            using (var result = _target.TryGetStream("Pdf"))
+            {
+                // Assert
+                result.Should().NotBeNull();
+                result.Length.Should().Be(81603);
+            }
+        }
+
+        [TestMethod]
+        public void TryGetStream_Exception()
+        {
+            Stream stream = null;
+            try
+            {
+                // Arrange
+                Action act = () => stream = _target.TryGetStream("Pdf", null);
+
+                // Assert
+                act.Should().Throw<ArgumentNullException>();
+                stream.Should().BeNull();
+            }
+            finally
+            {
+                stream?.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public void TryGetStream_Invariant()
+        {
+            // Act
+            using (var result = _target.TryGetStream("Pdf", CultureInfo.InvariantCulture))
+            {
+                // Assert
+                result.Should().NotBeNull();
+                result.Length.Should().Be(81603);
+            }
+        }
+
+        [TestMethod]
+        public void TryGetStream_NotFound()
+        {
+            // Act
+            using (var result = _target.TryGetStream("PdfEmbedded"))
+            {
+                // Assert
+                result.Should().BeNull();
+            }
+        }
+
+        [TestMethod]
+        public void TryGetString()
+        {
+            // Act
+            var result = _target.TryGetString("Text");
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StartsWith("Lorem ipsum").Should().BeTrue();
+            result.Length.Should().Be(3475);
+        }
+
+        [TestMethod]
+        public void TryGetString_Exception()
+        {
+            string str = null;
+
+            // Arrange
+            Action act = () => str = _target.TryGetString("Text", null);
+
+            // Assert
+            act.Should().Throw<ArgumentNullException>();
+            str.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void TryGetString_Invariant()
+        {
+            // Act
+            var result = _target.TryGetString("Text", CultureInfo.InvariantCulture);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.StartsWith("Lorem ipsum").Should().BeTrue();
+            result.Length.Should().Be(3475);
+        }
+
 #if NETFRAMEWORK
         [TestMethod]
         public void TryGetIcon()
@@ -110,96 +201,5 @@ namespace Grimware.Common.UnitTests.Extensions
             }
         }
 #endif
-
-        [TestMethod]
-        public void TryGetStream()
-        {
-            // Act
-            using (var result = _target.TryGetStream("Pdf"))
-            {
-                // Assert
-                result.Should().NotBeNull();
-                result.Length.Should().Be(81603);
-            }
-        }
-
-        [TestMethod]
-        public void TryGetStream_Invariant()
-        {
-            // Act
-            using (var result = _target.TryGetStream("Pdf", CultureInfo.InvariantCulture))
-            {
-                // Assert
-                result.Should().NotBeNull();
-                result.Length.Should().Be(81603);
-            }
-        }
-
-        [TestMethod]
-        public void TryGetStream_NotFound()
-        {
-            // Act
-            using (var result = _target.TryGetStream("PdfEmbedded"))
-            {
-                // Assert
-                result.Should().BeNull();
-            }
-        }
-
-        [TestMethod]
-        public void TryGetStream_Exception()
-        {
-            Stream stream = null;
-            try
-            {
-                // Arrange
-                Action act = () => stream = _target.TryGetStream("Pdf", null);
-
-                // Assert
-                act.Should().Throw<ArgumentNullException>();
-                stream.Should().BeNull();
-            }
-            finally
-            {
-                stream?.Dispose();
-            }
-        }
-
-        [TestMethod]
-        public void TryGetString()
-        {
-            // Act
-            var result = _target.TryGetString("Text");
-
-            // Assert
-            result.Should().NotBeNull();
-            result.StartsWith("Lorem ipsum").Should().BeTrue();
-            result.Length.Should().Be(3475);
-        }
-
-        [TestMethod]
-        public void TryGetString_Invariant()
-        {
-            // Act
-            var result = _target.TryGetString("Text", CultureInfo.InvariantCulture);
-
-            // Assert
-            result.Should().NotBeNull();
-            result.StartsWith("Lorem ipsum").Should().BeTrue();
-            result.Length.Should().Be(3475);
-        }
-
-        [TestMethod]
-        public void TryGetString_Exception()
-        {
-            string str = null;
-
-            // Arrange
-            Action act = () => str = _target.TryGetString("Text", null);
-
-            // Assert
-            act.Should().Throw<ArgumentNullException>();
-            str.Should().BeNull();
-        }
     }
 }

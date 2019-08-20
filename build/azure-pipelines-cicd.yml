@@ -15,81 +15,62 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-stages:
-- stage: Prep
-  jobs:
-  - job: NuGet_Prep
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: NuGetToolInstaller@1
-      displayName: 'NuGet Tool Installer'
+pool:
+    vmImage: 'windows-latest'
 
-    - task: NuGetCommand@2
-      displayName: 'NuGet Restore'
-      inputs:
-        restoreSolution: '$(solution)'
+steps:
+- task: NuGetToolInstaller@1
+    displayName: 'NuGet Tool Installer'
 
-  - job: GitVersion
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: GitVersion@5
-      displayName: 'Execute GitVersion'
-      inputs:
-        runtime: 'core'
-        updateAssemblyInfo: true
-        preferBundledVersion: false
-        url: 'https://github.com/GrimGadget/Grimware.Common'
+- task: NuGetCommand@2
+    displayName: 'NuGet Restore'
+    inputs:
+    restoreSolution: '$(solution)'
 
-    - script: echo %Action%%BuildVersion%
-      displayName: 'Set Build Version to GitVersion.SemVer'
-      env:
-          Action: '##vso[build.updatebuildnumber]'
-          BuildVersion: $(GitVersion.SemVer)
+- task: GitVersion@5
+    displayName: 'Execute GitVersion'
+    inputs:
+    runtime: 'core'
+    updateAssemblyInfo: true
+    preferBundledVersion: false
+    url: 'https://github.com/GrimGadget/Grimware.Common'
 
-- stage: Build
-  jobs:
-  - job: VSBuild
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: VSBuild@1
-      displayName: 'VS Build'
-      inputs:
-        solution: '$(solution)'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+- script: echo %Action%%BuildVersion%
+    displayName: 'Set Build Version to GitVersion.SemVer'
+    env:
+        Action: '##vso[build.updatebuildnumber]'
+        BuildVersion: $(GitVersion.SemVer)
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Build Artifacts'
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+- task: VSBuild@1
+    displayName: 'VS Build'
+    inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
 
-- stage: Test
-  jobs:
-  - job: VSTest
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: VSTest@2
-      displayName: 'VS Test Run'
-      inputs:
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
-        codeCoverageEnabled: true
-        testSelector: 'testAssemblies'
-        testAssemblyVer2: |
-          **\*.UnitTests.dll
-          **\*.UnitTests.*.dll
-          !**\*TestAdapter.dll
-          !**\obj\**
-        searchFolder: '$(System.DefaultWorkingDirectory)'
+- task: PublishBuildArtifacts@1
+    displayName: 'Publish Build Artifacts'
+    inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
-    - task: PublishTestResults@2
-      displayName: 'Publishing Test Results'
-      inputs:
-        testResultsFormat: 'VSTest'
-        testResultsFiles: '**/TEST-*.xml'
+- task: VSTest@2
+    displayName: 'VS Test Run'
+    inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    codeCoverageEnabled: true
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+        **\*.UnitTests.dll
+        **\*.UnitTests.*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: PublishTestResults@2
+    displayName: 'Publishing Test Results'
+    inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/TEST-*.xml'

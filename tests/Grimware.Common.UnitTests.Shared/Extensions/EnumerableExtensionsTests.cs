@@ -72,7 +72,7 @@ namespace Grimware.Common.UnitTests.Extensions
                 .ToArray();
 
 
-        private static Fixture Fixture;
+        private static Fixture _Fixture;
 
 
         private IEnumerable<int> _testEnumerable;
@@ -80,7 +80,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestInitialize]
         public void Init()
         {
-            Fixture = new Fixture();
+            _Fixture = new Fixture();
 
             _testEnumerable = Substitute.For<IEnumerable<int>>();
         }
@@ -330,7 +330,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void OrderRandom()
         {
             // Arrange
-            var testData = Fixture.CreateMany<int>(128).ToList();
+            var testData = _Fixture.CreateMany<int>(128).ToList();
 
             // Act
             var random = testData.OrderRandom().ToList();
@@ -438,7 +438,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void TakeRandom()
         {
             // Arrange
-            var testData = Fixture.CreateMany<int>(128).ToList();
+            var testData = _Fixture.CreateMany<int>(128).ToList();
 
             // Act
             var random = testData.TakeRandom(64).ToList();

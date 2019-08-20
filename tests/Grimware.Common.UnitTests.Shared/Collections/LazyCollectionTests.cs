@@ -15,8 +15,28 @@ namespace Grimware.Common.UnitTests.Collections
     public class LazyCollectionTests
     {
         private static readonly IEnumerable<int> _Int32TestData =
-            new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
+            new[] {Int32.MinValue, -1, 0, 1, Int32.MaxValue}
                 .AsEnumerable();
+
+        [TestMethod]
+        public void Add_Remove_Clear()
+        {
+            // Arrange
+            var lazy = new LazyCollection<int>(_Int32TestData);
+            lazy.Should().NotBeNull();
+            lazy.Count.Should().Be(5);
+            lazy.IsReadOnly.Should().BeFalse();
+
+            lazy.Remove(Int32.MinValue);
+            lazy.Count.Should().Be(4);
+
+            lazy.Add(Int32.MinValue);
+            lazy.Add(101);
+            lazy.Count.Should().Be(6);
+
+            lazy.Clear();
+            lazy.Count.Should().Be(0);
+        }
 
         [TestMethod]
         public void Constructor()
@@ -29,13 +49,21 @@ namespace Grimware.Common.UnitTests.Collections
         }
 
         [TestMethod]
-        public void Constructor_ThreadSafetyMode()
+        public void Constructor_Exceptions()
         {
-            // ReSharper disable once CollectionNeverUpdated.Local
-            var lazy = new LazyCollection<int>(LazyThreadSafetyMode.ExecutionAndPublication);
-            lazy.Should().NotBeNull();
-            lazy.Count.Should().Be(0);
-            lazy.IsReadOnly.Should().BeFalse();
+            // Arrange
+            LazyCollection<int> lazy = null;
+
+            // Act
+            Action act1 = () => lazy = new LazyCollection<int>((IEnumerable<int>) null);
+            Action act2 = () => lazy = new LazyCollection<int>((Func<ICollection<int>>) null);
+
+            // Assert
+            act1.Should().Throw<ArgumentNullException>();
+            lazy.Should().BeNull();
+
+            act2.Should().Throw<ArgumentNullException>();
+            lazy.Should().BeNull();
         }
 
         [TestMethod]
@@ -58,41 +86,13 @@ namespace Grimware.Common.UnitTests.Collections
         }
 
         [TestMethod]
-        public void Constructor_Exceptions()
+        public void Constructor_ThreadSafetyMode()
         {
-            // Arrange
-            LazyCollection<int> lazy = null;
-
-            // Act
-            Action act1 = () => lazy = new LazyCollection<int>((IEnumerable<int>)null);
-            Action act2 = () => lazy = new LazyCollection<int>((Func<ICollection<int>>)null);
-
-            // Assert
-            act1.Should().Throw<ArgumentNullException>();
-            lazy.Should().BeNull();
-
-            act2.Should().Throw<ArgumentNullException>();
-            lazy.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void Add_Remove_Clear()
-        {
-            // Arrange
-            var lazy = new LazyCollection<int>(_Int32TestData);
+            // ReSharper disable once CollectionNeverUpdated.Local
+            var lazy = new LazyCollection<int>(LazyThreadSafetyMode.ExecutionAndPublication);
             lazy.Should().NotBeNull();
-            lazy.Count.Should().Be(5);
-            lazy.IsReadOnly.Should().BeFalse();
-
-            lazy.Remove(Int32.MinValue);
-            lazy.Count.Should().Be(4);
-
-            lazy.Add(Int32.MinValue);
-            lazy.Add(101);
-            lazy.Count.Should().Be(6);
-
-            lazy.Clear();
             lazy.Count.Should().Be(0);
+            lazy.IsReadOnly.Should().BeFalse();
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace Grimware.Common.UnitTests.Collections
             var lazy = new LazyCollection<int>(_Int32TestData);
             lazy.Should().NotBeNull();
 
-            foreach (var i in (IEnumerable)lazy)
+            foreach (var i in (IEnumerable) lazy)
                 list.Add(i);
 
             list.OfType<int>().Count().Should().Be(5);

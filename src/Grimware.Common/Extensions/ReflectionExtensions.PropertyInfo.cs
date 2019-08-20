@@ -37,7 +37,7 @@ namespace Grimware.Extensions
         {
             return ignoreCase
                 ? property?.Name.Equals(name, StringComparison.OrdinalIgnoreCase) ?? false
-                : property?.Name.Equals(name, StringComparison.Ordinal)           ?? false;
+                : property?.Name.Equals(name, StringComparison.Ordinal) ?? false;
         }
 
         public static Attribute TryGetSingleAttributeOfType(
@@ -46,7 +46,7 @@ namespace Grimware.Extensions
             Func<IEnumerable<Attribute>, Attribute> selector)
         {
             if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
-            if (selector      == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw new ArgumentNullException(nameof(selector));
             return selector(property?.GetCustomAttributes(attributeType, true).Cast<Attribute>());
         }
     }

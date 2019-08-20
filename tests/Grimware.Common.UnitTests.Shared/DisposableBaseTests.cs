@@ -11,7 +11,7 @@ namespace Grimware.Common.UnitTests
     public class DisposableBaseTests
     {
         [TestMethod]
-        public void Dispose_Test()
+        public void Check_Exception()
         {
             DisposableFoo foo;
             using (foo = new DisposableFoo())
@@ -23,6 +23,9 @@ namespace Grimware.Common.UnitTests
 
             foo.Should().NotBeNull();
             foo.IsDisposed.Should().BeTrue();
+
+            Action act = () => foo.Check();
+            act.Should().Throw<ObjectDisposedException>();
         }
 
         [TestMethod]
@@ -41,18 +44,18 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
-        public void Raise_Test()
+        public void Dispose_Test()
         {
-            const int TestState = Int32.MinValue;
-
-            using (var foo = new DisposableFoo())
+            DisposableFoo foo;
+            using (foo = new DisposableFoo())
             {
                 foo.Should().NotBeNull();
-                foo.Bar += (f, e) => e.State.Should().Be(TestState);
                 foo.IsDisposed.Should().BeFalse();
-
-                foo.RaiseBar(TestState);
+                foo.Check();
             }
+
+            foo.Should().NotBeNull();
+            foo.IsDisposed.Should().BeTrue();
         }
 
         [TestMethod]
@@ -76,21 +79,18 @@ namespace Grimware.Common.UnitTests
         }
 
         [TestMethod]
-        public void Check_Exception()
+        public void Raise_Test()
         {
-            DisposableFoo foo;
-            using (foo = new DisposableFoo())
+            const int TestState = Int32.MinValue;
+
+            using (var foo = new DisposableFoo())
             {
                 foo.Should().NotBeNull();
+                foo.Bar += (f, e) => e.State.Should().Be(TestState);
                 foo.IsDisposed.Should().BeFalse();
-                foo.Check();
+
+                foo.RaiseBar(TestState);
             }
-
-            foo.Should().NotBeNull();
-            foo.IsDisposed.Should().BeTrue();
-
-            Action act = () => foo.Check();
-            act.Should().Throw<ObjectDisposedException>();
         }
 
         private class DisposableFoo
@@ -98,6 +98,11 @@ namespace Grimware.Common.UnitTests
         {
             public event EventHandler<EventArgs<int>> Bar;
             public event EventHandler Baz;
+
+            public void Check()
+            {
+                CheckDisposed();
+            }
 
             public void RaiseBar(int i)
             {
@@ -112,11 +117,6 @@ namespace Grimware.Common.UnitTests
             public void ThrowBaz()
             {
                 RaiseEvent(Baz, null);
-            }
-
-            public void Check()
-            {
-                CheckDisposed();
             }
         }
     }

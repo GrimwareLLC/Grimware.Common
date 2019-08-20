@@ -14,7 +14,7 @@ namespace Grimware.Common.UnitTests.Collections
     public class LazyListTests
     {
         private static readonly IEnumerable<int> _Int32TestData =
-            new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
+            new[] {Int32.MinValue, -1, 0, 1, Int32.MaxValue}
                 .AsEnumerable();
 
         [TestMethod]
@@ -28,13 +28,21 @@ namespace Grimware.Common.UnitTests.Collections
         }
 
         [TestMethod]
-        public void Constructor_ThreadSafetyMode()
+        public void Constructor_Exceptions()
         {
-            // ReSharper disable once CollectionNeverUpdated.Local
-            var lazy = new LazyList<int>(LazyThreadSafetyMode.ExecutionAndPublication);
-            lazy.Should().NotBeNull();
-            lazy.Count.Should().Be(0);
-            lazy.IsReadOnly.Should().BeFalse();
+            // Arrange
+            LazyList<int> lazy = null;
+
+            // Act
+            Action act1 = () => lazy = new LazyList<int>((IEnumerable<int>) null);
+            Action act2 = () => lazy = new LazyList<int>((Func<IList<int>>) null);
+
+            // Assert
+            act1.Should().Throw<ArgumentNullException>();
+            lazy.Should().BeNull();
+
+            act2.Should().Throw<ArgumentNullException>();
+            lazy.Should().BeNull();
         }
 
         [TestMethod]
@@ -57,21 +65,13 @@ namespace Grimware.Common.UnitTests.Collections
         }
 
         [TestMethod]
-        public void Constructor_Exceptions()
+        public void Constructor_ThreadSafetyMode()
         {
-            // Arrange
-            LazyList<int> lazy = null;
-
-            // Act
-            Action act1 = () => lazy = new LazyList<int>((IEnumerable<int>)null);
-            Action act2 = () => lazy = new LazyList<int>((Func<IList<int>>)null);
-
-            // Assert
-            act1.Should().Throw<ArgumentNullException>();
-            lazy.Should().BeNull();
-
-            act2.Should().Throw<ArgumentNullException>();
-            lazy.Should().BeNull();
+            // ReSharper disable once CollectionNeverUpdated.Local
+            var lazy = new LazyList<int>(LazyThreadSafetyMode.ExecutionAndPublication);
+            lazy.Should().NotBeNull();
+            lazy.Count.Should().Be(0);
+            lazy.IsReadOnly.Should().BeFalse();
         }
 
         [TestMethod]

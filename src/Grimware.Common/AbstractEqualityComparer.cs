@@ -20,7 +20,7 @@ namespace Grimware
         public AbstractEqualityComparer(Func<T, T, bool> equalityComparison, Func<T, int> hashFunction)
         {
             _equalityComparison = equalityComparison ?? throw new ArgumentNullException(nameof(equalityComparison));
-            _hashFunction = hashFunction             ?? throw new ArgumentNullException(nameof(hashFunction));
+            _hashFunction = hashFunction ?? throw new ArgumentNullException(nameof(hashFunction));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

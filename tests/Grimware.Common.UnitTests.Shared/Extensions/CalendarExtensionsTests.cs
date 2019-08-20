@@ -27,7 +27,7 @@ namespace Grimware.Common.UnitTests.Extensions
         {
             var week = 0;
 
-            Action act = () => week = ((Calendar)null).GetWeekOfYear(DateTime.Now);
+            Action act = () => week = ((Calendar) null).GetWeekOfYear(DateTime.Now);
 
             act.Should().Throw<ArgumentNullException>();
             week.Should().Be(0);

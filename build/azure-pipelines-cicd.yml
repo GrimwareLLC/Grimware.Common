@@ -3,22 +3,13 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 
 trigger:
-    batch: true
-    branches:
-        include:
-            - develop
-            - master
-            - hotfix/*
-            - feature/*
-            - features/*
-            - bug/*
-            - bugs/*
-            - user/*
-            - users/*
+  batch: true
+  branches:
+    include:
+      - release/*
+      - refs/tags/*
 
 pr:
-- develop
-- master
 - release/*
 
 pool:
@@ -42,6 +33,13 @@ steps:
   inputs:
     runtime: 'core'
     updateAssemblyInfo: true
+    preferBundledVersion: false
+
+- script: echo %Action%%BuildVersion%
+  displayName: 'Set Build Version'
+  env:
+    Action: '##vso[build.updatebuildnumber]'
+    BuildVersion: $(GitVersion.SemVer)
 
 - task: VSBuild@1
   displayName: 'VS Build'
@@ -64,13 +62,13 @@ steps:
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/TEST-*.xml'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '**/TEST-*.xml'

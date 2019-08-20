@@ -20,9 +20,6 @@ pr:
 - release/*
 - feature/*
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
@@ -32,6 +29,8 @@ stages:
 - stage: Prep
   jobs:
   - job: 'NuGet Prep'
+    pool:
+      vmImage: 'windows-latest'
     steps:
     - task: NuGetToolInstaller@1
       displayName: 'NuGet Tool Installer'
@@ -42,6 +41,8 @@ stages:
         restoreSolution: '$(solution)'
 
   - job: GitVersion
+    pool:
+      vmImage: 'windows-latest'
     steps:
     - task: GitVersion@5
       inputs:
@@ -59,6 +60,8 @@ stages:
 - stage: Build
   jobs:
   - job: VSBuild
+    pool:
+      vmImage: 'windows-latest'
     steps:
     - task: VSBuild@1
       displayName: 'VS Build'
@@ -76,6 +79,8 @@ stages:
 - stage: Test
   jobs:
   - job: VSTest
+    pool:
+      vmImage: 'windows-latest'
     steps:
     - task: VSTest@2
       displayName: 'VS Test'

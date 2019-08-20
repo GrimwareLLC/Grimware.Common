@@ -30,57 +30,54 @@ pool:
 
 steps:
 - task: NuGetToolInstaller@1
-    displayName: 'NuGet Tool Installer'
+  displayName: 'NuGet Tool Installer'
 
 - task: NuGetCommand@2
-    displayName: 'NuGet Restore'
-    inputs:
+  displayName: 'NuGet Restore'
+  inputs:
     restoreSolution: '$(solution)'
 
 - task: GitVersion@5
-    displayName: 'Execute GitVersion'
-    inputs:
+  inputs:
     runtime: 'core'
     updateAssemblyInfo: true
     preferBundledVersion: false
     url: 'https://github.com/GrimGadget/Grimware.Common'
 
 - script: echo %Action%%BuildVersion%
-    displayName: 'Set Build Version to GitVersion.SemVer'
-    env:
-        Action: '##vso[build.updatebuildnumber]'
-        BuildVersion: $(GitVersion.SemVer)
+  displayName: 'Set Build Version'
+  env:
+    Action: '##vso[build.updatebuildnumber]'
+    BuildVersion: $(GitVersion.SemVer)
 
 - task: VSBuild@1
-    displayName: 'VS Build'
-    inputs:
+  displayName: 'VS Build'
+  inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
-    displayName: 'Publish Build Artifacts'
-    inputs:
+  inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
 - task: VSTest@2
-    displayName: 'VS Test Run'
-    inputs:
+  displayName: 'VS Test'
+  inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     codeCoverageEnabled: true
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-        **\*.UnitTests.dll
-        **\*.UnitTests.*.dll
-        !**\*TestAdapter.dll
-        !**\obj\**
+      **\*.UnitTests.dll
+      **\*.UnitTests.*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 - task: PublishTestResults@2
-    displayName: 'Publishing Test Results'
-    inputs:
+  inputs:
     testResultsFormat: 'VSTest'
     testResultsFiles: '**/TEST-*.xml'

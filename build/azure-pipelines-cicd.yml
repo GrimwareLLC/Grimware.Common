@@ -44,8 +44,8 @@ stages:
     - script: echo %Action%%BuildVersion%
       displayName: 'Set Build Version'
       env:
-      Action: '##vso[build.updatebuildnumber]'
-      BuildVersion: $(GitVersion.SemVer)
+          Action: '##vso[build.updatebuildnumber]'
+          BuildVersion: $(GitVersion.SemVer)
 
 - stage: Build
   jobs:

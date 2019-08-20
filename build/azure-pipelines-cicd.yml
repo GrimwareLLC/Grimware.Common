@@ -18,7 +18,7 @@ variables:
 stages:
 - stage: Prep
   jobs:
-  - job: 'NuGet Prep'
+  - job: NuGet_Prep
     pool:
       vmImage: 'windows-latest'
     steps:
@@ -35,6 +35,7 @@ stages:
       vmImage: 'windows-latest'
     steps:
     - task: GitVersion@5
+      displayName: 'Execute GitVersion'
       inputs:
         runtime: 'core'
         updateAssemblyInfo: true
@@ -42,7 +43,7 @@ stages:
         url: 'https://github.com/GrimGadget/Grimware.Common'
 
     - script: echo %Action%%BuildVersion%
-      displayName: 'Set Build Version'
+      displayName: 'Set Build Version to GitVersion.SemVer'
       env:
           Action: '##vso[build.updatebuildnumber]'
           BuildVersion: $(GitVersion.SemVer)
@@ -61,6 +62,7 @@ stages:
         configuration: '$(buildConfiguration)'
 
     - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifacts'
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
@@ -73,7 +75,7 @@ stages:
       vmImage: 'windows-latest'
     steps:
     - task: VSTest@2
-      displayName: 'VS Test'
+      displayName: 'VS Test Run'
       inputs:
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
@@ -87,6 +89,7 @@ stages:
         searchFolder: '$(System.DefaultWorkingDirectory)'
 
     - task: PublishTestResults@2
+      displayName: 'Publishing Test Results'
       inputs:
         testResultsFormat: 'VSTest'
         testResultsFiles: '**/TEST-*.xml'

@@ -3,8 +3,17 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 
 trigger:
-- master
 - develop
+- master
+- hotfix/*
+- feature/*
+- bug/*
+- users/*
+
+pr:
+- develop
+- master
+- release/*
 
 pool:
   vmImage: 'windows-latest'
@@ -32,7 +41,6 @@ steps:
   displayName: 'VS Build'
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 

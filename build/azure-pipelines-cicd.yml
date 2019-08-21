@@ -65,10 +65,7 @@ steps:
     codeCoverageEnabled: true
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\*.UnitTests.dll
-      **\*.UnitTests.*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
+      **\Grimware.Common.UnitTests.Net461.dll
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 - task: PublishTestResults@2

@@ -58,7 +58,6 @@ steps:
       **\*.pdb
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
-    flattenFolders: true
     preserveTimestamp: true
 
 - task: PublishBuildArtifacts@1

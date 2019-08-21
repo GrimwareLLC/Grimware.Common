@@ -29,6 +29,11 @@ pool:
     vmImage: 'windows-latest'
 
 steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '2.1.x'
+
 - task: NuGetToolInstaller@1
   displayName: 'NuGet Tool Installer'
 
@@ -50,21 +55,11 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: VSTest@2
-  displayName: 'VS Test'
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    codeCoverageEnabled: true
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*.UnitTests.dll
-      **\*.UnitTests.*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '**/TEST-*.xml'
+    command: 'test'
+    projects: |
+      **\*.UnitTests.csproj
+      **\*.UnitTests.*.csproj
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'

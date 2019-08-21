@@ -54,9 +54,9 @@ steps:
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
     Contents: |
-      **\*.exe
-      **\*.dll
-      **\*.pdb
+      **\src\**\*.exe
+      **\src\**\*.dll
+      **\src\**\*.pdb
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
     preserveTimestamp: true

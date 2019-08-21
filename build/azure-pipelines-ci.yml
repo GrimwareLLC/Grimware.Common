@@ -55,11 +55,21 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: DotNetCoreCLI@2
+- task: VSTest@2
+  displayName: 'VS Test'
   inputs:
-    command: 'test'
-    projects: |
-      **\*.UnitTests.csproj
-      **\*.UnitTests.*.csproj
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    codeCoverageEnabled: true
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*.UnitTests.dll
+      **\*.UnitTests.*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/TEST-*.trx'

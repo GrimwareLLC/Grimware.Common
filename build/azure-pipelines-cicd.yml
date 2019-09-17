@@ -6,19 +6,9 @@ trigger:
   batch: true
   branches:
     include:
-      - develop
-      - master
-      - release/*
-      - feature/*
-      - user/*
-      - hotfix/*
-      - bug/*
+      - refs/tags/v*
 
-pr:
-- develop
-- master
-- release/*
-- feature/*
+pr: none
 
 variables:
   solution: '**/*.sln'

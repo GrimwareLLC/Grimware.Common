@@ -67,7 +67,7 @@ jobs:
     inputs:
       command: 'test'
       projects: '**/tests/**/Grimware.Common.UnitTests.NetCoreApp21.csproj'
-      arguments: '--configuration $(BuildConfiguration) --logger trx "/p:CollectCoverage=true" "/p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/Grimware.Common.NetCoreApp21/$(Build.BuildId)" "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+      arguments: '--framework netcoreapp21 --configuration $(BuildConfiguration) --logger trx "/p:CollectCoverage=true" "/p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/Grimware.Common.NetCoreApp21/$(Build.BuildId)" "/p:CoverletOutputFormat=\"cobertura,opencover\""'
       testRunTitle: 'DotNet Test - Grimware.Common (netcoreapp21) $(Build.BuildId)'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
   - task: CopyFiles@2

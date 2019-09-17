@@ -52,7 +52,7 @@ jobs:
     displayName: Copy Build Output to Artifact folder
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: **/src/**/bin/**
+      Contents: '**/src/**/bin/**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)/Binaries'
       OverWrite: true
 

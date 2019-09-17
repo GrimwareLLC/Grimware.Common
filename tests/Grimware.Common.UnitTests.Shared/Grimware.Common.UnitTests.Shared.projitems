@@ -29,7 +29,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExceptionExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\GenericExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Int32ExtensionsTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ResourceManagerExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SecureStringExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StreamExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensionsTests.cs" />

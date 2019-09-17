@@ -19,7 +19,8 @@
   <PropertyGroup>
     <PackageReleaseNotes>
 <![CDATA[
-0.3.0-beta - Removed ResourceManagerExtensions. Nobody uses resources this way any more.
+0.3.1-beta - Removed ResourceManagerExtensions. Nobody uses resources this way any more.
+           - Removed ExceptionExtensions. Exception.ToString() implementation has improved and made this obsolete over the years.
            - Removed dependency on System.Drawing.Common, since it was only required for ResourceManagerExtensions.
            - Disable auto-package on build, switching to pipeline builds.
            - Trying to get on-track for proper versioning again. The versioning sequence is totally broken at this
@@ -30,7 +31,7 @@
 1.0.0 - Initial usable release. Badly versioned.
 ]]>
     </PackageReleaseNotes>
-    <Version>0.3.0-beta</Version>
+    <Version>0.3.1-beta</Version>
     <Description>Lightweight .NET extensions, helpers, and abstractions library</Description>
     <Authors>Toby Herring</Authors>
     <Company>Grimware, LLC</Company>

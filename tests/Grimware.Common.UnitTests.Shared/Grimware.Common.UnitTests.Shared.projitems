@@ -26,7 +26,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DoubleExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumExtensionsTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExceptionExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\GenericExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Int32ExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SecureStringExtensionsTests.cs" />

@@ -34,8 +34,6 @@ jobs:
       command: 'restore'
       projects: '$(Solution)'
       feedsToUse: 'select'
-      vstsFeed: 'McNuget'
-      includeNuGetOrg: false
       restoreDirectory: '$(System.DefaultWorkingDirectory)'
 
 # SonarQubePrepare

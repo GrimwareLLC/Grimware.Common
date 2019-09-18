@@ -45,6 +45,7 @@ jobs:
       projects: '$(Solution)'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
       configuration: '$(BuildConfiguration)'
+      arguments: '--configuration $(BuildConfiguration)'
 
   - task: CopyFiles@2
     displayName: Copy Build Output to Artifact folder

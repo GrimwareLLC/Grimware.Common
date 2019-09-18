@@ -5,18 +5,19 @@
 variables:
   solution: '**/Grimware.Common.sln'
 
-trigger:
-  batch: true
+trigger: none
+
+pr:
   branches:
     include:
     - develop
     - master
-
-pr: none
+    - release/*
+    - releases/*
 
 jobs:
 - job: job
-  displayName: Continuous Integration Build
+  displayName: Gated Build
   pool:
     vmImage: 'windows-2019'
   workspace:
@@ -46,14 +47,6 @@ jobs:
       workingDirectory: '$(System.DefaultWorkingDirectory)'
       configuration: '$(BuildConfiguration)'
       arguments: '--configuration $(BuildConfiguration)'
-
-  - task: CopyFiles@2
-    displayName: Copy Build Output to Artifact folder
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: '**/src/**/bin/**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/Binaries'
-      OverWrite: true
 
   - task: DotNetCoreCLI@2
     displayName: DotNet Test - Grimware.Common (net461)
@@ -86,17 +79,3 @@ jobs:
 
 # SonarQubeAnalyze
 # SonarQubePublish
-
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Binaries'
-      ArtifactName: 'binaries'
-      publishLocation: 'Container'
-
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/TestResults'
-      ArtifactName: 'test results'
-      publishLocation: 'Container'

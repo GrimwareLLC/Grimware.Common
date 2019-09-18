@@ -3,7 +3,9 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 
 variables:
-  solution: '**/Grimware.Common.sln'
+- group: 'Grimware.Common-Variable-Group'
+- name: Solution
+  value: '**/Grimware.Common.sln'
 
 trigger:
   batch: true
@@ -36,7 +38,19 @@ jobs:
       feedsToUse: 'select'
       restoreDirectory: '$(System.DefaultWorkingDirectory)'
 
-# SonarQubePrepare
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'SonarCloud - SteelGadget'
+      organization: 'grimware'
+      scannerMode: 'MSBuild'
+      projectKey: '$(SonarCloudKey)'
+      projectName: '$(SonarCloudProject)'
+      projectVersion: '$(SonarCloudVersion)'
+      extraProperties: |
+        # Additional properties that will be passed to the scanner,
+        # Put one key=value per line, example:
+        # sonar.exclusions=**/*.bin
+        sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/**/*.opencover.xml
 
   - task: DotNetCoreCLI@2
     displayName: DotNet Build
@@ -84,8 +98,12 @@ jobs:
       codeCoverageTool: 'Cobertura'
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/TestResults/**/*.cobertura.xml'
 
-# SonarQubeAnalyze
-# SonarQubePublish
+  - task: SonarCloudAnalyze@1
+    displayName: Run SonarCloud Analysis
+  - task: SonarCloudPublish@1
+    displayName: Publish SonarCloud Quality Gate Results
+    inputs:
+      pollingTimeoutSec: '300'
 
   - task: DotNetCoreCLI@2
     displayName: NuGet Pack

@@ -14,8 +14,6 @@ trigger:
       - release/*
       - releases/*
 
-pr: '*'
-
 jobs:
 - job: job
   displayName: Continuous Integration

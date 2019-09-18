@@ -87,6 +87,14 @@ jobs:
 # SonarQubeAnalyze
 # SonarQubePublish
 
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/Grimware.Common.csproj'
+      packDirectory: '$(Build.ArtifactStagingDirectory)/NuGet'
+      nobuild: true
+      versioningScheme: 'off'
+      
   - task: PublishBuildArtifacts@1
     displayName: Publish Artifacts
     inputs:

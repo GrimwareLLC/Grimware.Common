@@ -1,4 +1,6 @@
 ﻿using System;
+// ReSharper disable once RedundantUsingDirective
+// Using directive required for net461 compilation, but not for netstandard2.0
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;

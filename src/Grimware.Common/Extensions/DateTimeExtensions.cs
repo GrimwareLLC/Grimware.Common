@@ -9,7 +9,7 @@ namespace Grimware.Extensions
 
         public static DateTime Add(this DateTime dateTime, TimeSpan? time)
         {
-            return Add((DateTime?)dateTime, time) ?? dateTime;
+            return Add((DateTime?) dateTime, time) ?? dateTime;
         }
 
         public static DateTime? Add(this DateTime? dateTime, TimeSpan? time)

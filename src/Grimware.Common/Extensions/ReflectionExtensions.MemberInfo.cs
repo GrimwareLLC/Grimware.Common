@@ -12,7 +12,7 @@ namespace Grimware.Extensions
         {
             return member != null
                 ? member.GetCustomAttributes(typeof(T), true)
-                        .Cast<T>()
+                    .Cast<T>()
                 : Array.Empty<T>();
         }
 
@@ -22,7 +22,7 @@ namespace Grimware.Extensions
             return
                 member != null
                     ? member.GetCustomAttributes(attributeType, true)
-                            .Cast<Attribute>()
+                        .Cast<Attribute>()
                     : Array.Empty<Attribute>();
         }
 
@@ -80,7 +80,7 @@ namespace Grimware.Extensions
         public static bool IsNamed(this MemberInfo member, string name)
         {
             return !String.IsNullOrEmpty(name)
-                   && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
+                && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
         }
     }
 }

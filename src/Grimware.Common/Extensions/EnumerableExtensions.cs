@@ -9,9 +9,9 @@ namespace Grimware.Extensions
         public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
         {
             return source?
-                   .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
-                   .Where(a => a.IsMatch)
-                   .Select(a => a.Index);
+                .Select((t, i) => new {Index = i, IsMatch = predicate(t)})
+                .Where(a => a.IsMatch)
+                .Select(a => a.Index);
         }
 
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
@@ -91,7 +91,7 @@ namespace Grimware.Extensions
 
         public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
         {
-            return source?.AllIndexesWhere(predicate)?.Convert(i => (int?)i).FirstOrDefault();
+            return source?.AllIndexesWhere(predicate)?.Convert(i => (int?) i).FirstOrDefault();
         }
 
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
@@ -129,7 +129,7 @@ namespace Grimware.Extensions
 
             return
                 source
-                    .Select(t => new { T = t, Guid = Guid.NewGuid() })
+                    .Select(t => new {T = t, Guid = Guid.NewGuid()})
                     .OrderBy(a => a.Guid)
                     .Select(a => a.T);
         }

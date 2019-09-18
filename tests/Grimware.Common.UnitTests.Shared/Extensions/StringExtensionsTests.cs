@@ -115,6 +115,19 @@ namespace Grimware.Common.UnitTests.Extensions
             "Test".NullIfWhitespace().Should().Be("Test");
         }
 
+#if NET46
+        [TestMethod]
+        public void Split()
+        {
+            _NullString.Split(" ").Should().BeEquivalentTo(Array.Empty<string>());
+
+            "".Split(" ").Should().BeEquivalentTo("");
+            "".Split(" ", StringSplitOptions.RemoveEmptyEntries).Should().BeEquivalentTo(Array.Empty<string>());
+
+            "Lorem ipsum dolor sit amet".Split(" ").Should().BeEquivalentTo("Lorem", "ipsum", "dolor", "sit", "amet");
+        }
+#endif
+
         [TestMethod]
         public void StripNonAlphaCharacters()
         {

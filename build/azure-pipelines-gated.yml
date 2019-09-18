@@ -10,10 +10,7 @@ trigger: none
 pr:
   branches:
     include:
-    - develop
-    - master
-    - release/*
-    - releases/*
+    - '*'
 
 jobs:
 - job: job

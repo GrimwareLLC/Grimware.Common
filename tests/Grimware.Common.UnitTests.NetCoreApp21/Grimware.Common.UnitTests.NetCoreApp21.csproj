@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
     <Platforms>AnyCPU;x64;x86</Platforms>
 
     <IsPackable>false</IsPackable>

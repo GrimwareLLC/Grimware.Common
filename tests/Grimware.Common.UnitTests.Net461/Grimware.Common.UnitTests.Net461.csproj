@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
+    <DefineConstants>NET46;NET461;NETFULL</DefineConstants>
     <Platforms>AnyCPU;x64;x86</Platforms>
 
     <IsPackable>false</IsPackable>

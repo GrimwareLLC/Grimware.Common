@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Grimware.Resources;
 
 namespace Grimware.Extensions
@@ -59,7 +58,6 @@ namespace Grimware.Extensions
                 return _dictionary.TryGetValue(key, out value);
             }
 
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private static NotSupportedException ReadOnlyException()
             {
                 return new NotSupportedException(ExceptionMessages.DictionaryIsReadOnly);

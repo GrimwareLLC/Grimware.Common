@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Grimware
@@ -10,7 +9,6 @@ namespace Grimware
     {
         private const int _HashMixer = 0xBF;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(IEnumerable<string> args)
         {
             return args != null
@@ -18,7 +16,6 @@ namespace Grimware
                 : 0;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(params string[] args)
         {
             return args != null
@@ -26,7 +23,6 @@ namespace Grimware
                 : 0;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(IEnumerable<int> args)
         {
             return args != null
@@ -47,7 +43,6 @@ namespace Grimware
             return result;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(IEnumerable<long> args)
         {
             return args != null
@@ -92,7 +87,6 @@ namespace Grimware
             return result;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int CalculateShortHash(IReadOnlyCollection<byte> values)
         {
             return values.Aggregate(values.Count, (n, b) => Hash(n, b));
@@ -117,13 +111,11 @@ namespace Grimware
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Hash(int i, long n)
         {
             return Hash(i, Fold(n));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Hash(string arg)
         {
             return arg != null

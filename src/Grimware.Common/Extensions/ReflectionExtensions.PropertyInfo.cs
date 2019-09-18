@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
@@ -32,7 +31,6 @@ namespace Grimware.Extensions
                     .Any();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasName(this PropertyInfo property, string name, bool ignoreCase = false)
         {
             return ignoreCase

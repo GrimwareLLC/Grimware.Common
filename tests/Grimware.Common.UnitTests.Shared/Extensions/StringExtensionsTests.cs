@@ -115,6 +115,7 @@ namespace Grimware.Common.UnitTests.Extensions
             "Test".NullIfWhitespace().Should().Be("Test");
         }
 
+#if NET46
         [TestMethod]
         public void Split()
         {
@@ -125,6 +126,7 @@ namespace Grimware.Common.UnitTests.Extensions
 
             "Lorem ipsum dolor sit amet".Split(" ").Should().BeEquivalentTo("Lorem", "ipsum", "dolor", "sit", "amet");
         }
+#endif
 
         [TestMethod]
         public void StripNonAlphaCharacters()
@@ -241,8 +243,8 @@ namespace Grimware.Common.UnitTests.Extensions
             DateTime? result = null;
 
             // Arrange
-            Action act1 = () => result = "".ToDateTime(null, _CurrentCulture);
-            Action act2 = () => result = "".ToDateTime((string[]) null, _CurrentCulture, DateTimeStyles.None);
+            Action act1 = () => result = "".ToDateTime((string)null, _CurrentCulture);
+            Action act2 = () => result = "".ToDateTime((string[]) null, _CurrentCulture);
 
             // Act
 

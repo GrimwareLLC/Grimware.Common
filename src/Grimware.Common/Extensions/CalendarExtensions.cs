@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
     public static class CalendarExtensions
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetWeekOfYear(
             this Calendar calendar,
             DateTime time,

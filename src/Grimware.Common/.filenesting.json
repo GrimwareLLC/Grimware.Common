@@ -1,6 +1,6 @@
 {
   "help": "https://go.microsoft.com/fwlink/?linkid=866610",
-  "root": false,
+  "root": true,
 
   "dependentFileProviders": {
     "add": {

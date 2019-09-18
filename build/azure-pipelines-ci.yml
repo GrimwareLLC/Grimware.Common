@@ -2,85 +2,119 @@
 # Build and test .NET projects.
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 
+variables:
+- group: 'Grimware.Common-Variable-Group'
+- name: Solution
+  value: '**/Grimware.Common.sln'
+
 trigger:
   batch: true
   branches:
     include:
-      - develop
-      - master
-      - release/*
-      - feature/*
-      - user/*
-      - hotfix/*
-      - bug/*
+    - develop
+    - master
 
-pr:
-- develop
-- master
-- release/*
-- feature/*
+pr: none
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+jobs:
+- job: job
+  displayName: Continuous Integration Build
+  pool:
+    vmImage: 'windows-2019'
+  workspace:
+    clean: all
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '2.x'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
-pool:
-    vmImage: 'windows-latest'
+  - task: DotNetCoreCLI@2
+    displayName: DotNet Restore
+    inputs:
+      command: 'restore'
+      projects: '$(Solution)'
+      feedsToUse: 'select'
+      restoreDirectory: '$(System.DefaultWorkingDirectory)'
 
-steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '2.1.x'
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'SonarCloud - SteelGadget'
+      organization: 'grimware'
+      scannerMode: 'MSBuild'
+      projectKey: '$(SonarCloudKey)'
+      projectName: '$(SonarCloudProject)'
+      projectVersion: '$(SonarCloudVersion)'
+      extraProperties: |
+        # Additional properties that will be passed to the scanner,
+        # Put one key=value per line, example:
+        # sonar.exclusions=**/*.bin
+        sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/**/*.opencover.xml
 
-- task: NuGetToolInstaller@1
-  displayName: 'NuGet Tool Installer'
+  - task: DotNetCoreCLI@2
+    displayName: DotNet Build
+    inputs:
+      command: 'build'
+      projects: '$(Solution)'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+      configuration: '$(BuildConfiguration)'
+      arguments: '--configuration $(BuildConfiguration)'
 
-- task: NuGetCommand@2
-  displayName: 'NuGet Restore'
-  inputs:
-    restoreSolution: '$(solution)'
+  - task: CopyFiles@2
+    displayName: Copy Build Output to Artifact folder
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: '**/src/**/bin/**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/Binaries'
+      OverWrite: true
 
-- task: VSBuild@1
-  displayName: 'VS Build'
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    msbuildArgs: '-m'
+  - task: DotNetCoreCLI@2
+    displayName: DotNet Test - Grimware.Common (net461)
+    inputs:
+      command: 'test'
+      projects: '**/tests/**/Grimware.Common.UnitTests.Net461.csproj'
+      arguments: '--configuration $(BuildConfiguration) --logger trx "/p:CollectCoverage=true" "/p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/Grimware.Common.Net461/$(Build.BuildId)" "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+      testRunTitle: 'DotNet Test - Grimware.Common (net461) - $(Build.BuildId)'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: DotNetCoreCLI@2
+    displayName: DotNet Test - Grimware.Common (netcoreapp2.1)
+    inputs:
+      command: 'test'
+      projects: '**/tests/**/Grimware.Common.UnitTests.NetCoreApp21.csproj'
+      arguments: '--configuration $(BuildConfiguration) --logger trx "/p:CollectCoverage=true" "/p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/Grimware.Common.NetCoreApp21/$(Build.BuildId)" "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+      testRunTitle: 'DotNet Test - Grimware.Common (netcoreapp2.1) - $(Build.BuildId)'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: CopyFiles@2
+    displayName: Copy Test Results to Artifact folder
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/TestResults'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
+      OverWrite: true
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish Code Coverage Results
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/TestResults/**/*.cobertura.xml'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: |
-      **\src\**\*.exe
-      **\src\**\*.dll
-      **\src\**\*.pdb
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    CleanTargetFolder: true
-    preserveTimestamp: true
+  - task: SonarCloudAnalyze@1
+    displayName: Run SonarCloud Analysis
+  - task: SonarCloudPublish@1
+    displayName: Publish SonarCloud Quality Gate Results
+    inputs:
+      pollingTimeoutSec: '300'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Binaries
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Binaries'
+      ArtifactName: 'binaries'
+      publishLocation: 'Container'
 
-- task: VSTest@2
-  displayName: 'VS Test'
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    codeCoverageEnabled: true
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\Grimware.Common.UnitTests.Net461.dll
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '**/*.trx'
-    mergeTestResults: true
-    failTaskOnFailedTests: true
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Test Results
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/TestResults'
+      ArtifactName: 'test results'
+      publishLocation: 'Container'

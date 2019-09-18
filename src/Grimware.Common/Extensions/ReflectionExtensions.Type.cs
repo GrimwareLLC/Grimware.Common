@@ -147,6 +147,7 @@ namespace Grimware.Extensions
             var typeConverter = TypeDescriptor.GetConverter(type);
             if (typeConverter.CanConvertFrom(typeof(string)))
                 return typeConverter.ConvertFromString(value);
+
             if (type.IsEnum) return Enum.Parse(type, value, true);
 
             return null;

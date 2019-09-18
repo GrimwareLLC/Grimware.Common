@@ -29,7 +29,6 @@ namespace Grimware
                 throw new InvalidOperationException(
                     String.Format(CultureInfo.CurrentCulture, ExceptionMessages.SingletonMustBeSealedFormat, t.Name));
 
-
             if (_InstanceLoader.IsValueCreated)
                 throw new InvalidOperationException(ExceptionMessages.SingletonMustBeAccessedThroughInstanceProperty);
         }
@@ -44,6 +43,7 @@ namespace Grimware
             {
                 return Activator.CreateInstance(typeof(T), true) as T;
             }
+
             // ReSharper disable once UncatchableException
             catch (MissingMethodException ex)
             {

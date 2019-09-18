@@ -25,12 +25,12 @@ namespace Grimware.Extensions
             var unmodifiedKeys = diffContext.SelectIntersecting().Except(modifiedKeys).ToArray();
 
             return new DiffResult<T>
-            {
-                Removed = SelectValues(diffContext.Previous, diffContext.SelectRemoved()),
-                Added = SelectValues(diffContext.Current, diffContext.SelectAdded()),
-                Modified = SelectValues(diffContext.Current, modifiedKeys),
-                Unmodified = SelectValues(diffContext.Current, unmodifiedKeys)
-            };
+                   {
+                       Removed = SelectValues(diffContext.Previous, diffContext.SelectRemoved()),
+                       Added = SelectValues(diffContext.Current, diffContext.SelectAdded()),
+                       Modified = SelectValues(diffContext.Current, modifiedKeys),
+                       Unmodified = SelectValues(diffContext.Current, unmodifiedKeys)
+                   };
         }
 
         public static IEnumerable<T> SelectAdded<T, TKey>(
@@ -114,16 +114,16 @@ namespace Grimware.Extensions
                 var intersectingValues =
                     from k in SelectIntersecting()
                     select new
-                    {
-                        Key = k,
-                        CurrentData = dataSelector(Current[k]),
-                        PreviousData = dataSelector(Previous[k])
-                    };
+                           {
+                               Key = k,
+                               CurrentData = dataSelector(Current[k]),
+                               PreviousData = dataSelector(Previous[k])
+                           };
 
                 return
                     from a in intersectingValues
                     where a.CurrentData != null
-                        && !a.CurrentData.Equals(a.PreviousData)
+                          && !a.CurrentData.Equals(a.PreviousData)
                     select a.Key;
             }
 

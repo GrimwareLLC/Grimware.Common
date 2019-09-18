@@ -3,7 +3,7 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/Grimware.Common.sln'
 
 trigger:
   batch: true
@@ -11,8 +11,13 @@ trigger:
     include:
       - develop
       - master
+      - release/*
+      - releases/*
 
-pr: none
+pr:
+  batch: false
+  branches:
+    include: '*'
 
 jobs:
 - job: job
@@ -26,7 +31,7 @@ jobs:
     inputs:
       packageType: 'sdk'
       version: '2.x'
-      installationPath: $(Agent.ToolsDirectory)/dotnetcore
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - task: DotNetCoreCLI@2
     displayName: DotNet Restore
@@ -60,15 +65,15 @@ jobs:
       command: 'test'
       projects: '**/tests/**/Grimware.Common.UnitTests.Net461.csproj'
       arguments: '--configuration $(BuildConfiguration) --logger trx "/p:CollectCoverage=true" "/p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/Grimware.Common.Net461/$(Build.BuildId)" "/p:CoverletOutputFormat=\"cobertura,opencover\""'
-      testRunTitle: 'DotNet Test - Grimware.Common (net461) $(Build.BuildId)'
+      testRunTitle: 'DotNet Test - Grimware.Common (net461) - $(Build.BuildId)'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
   - task: DotNetCoreCLI@2
-    displayName: DotNet Test - Grimware.Common (netcoreapp21)
+    displayName: DotNet Test - Grimware.Common (net461)
     inputs:
       command: 'test'
       projects: '**/tests/**/Grimware.Common.UnitTests.NetCoreApp21.csproj'
-      arguments: '--framework netcoreapp21 --configuration $(BuildConfiguration) --logger trx "/p:CollectCoverage=true" "/p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/Grimware.Common.NetCoreApp21/$(Build.BuildId)" "/p:CoverletOutputFormat=\"cobertura,opencover\""'
-      testRunTitle: 'DotNet Test - Grimware.Common (netcoreapp21) $(Build.BuildId)'
+      arguments: '--configuration $(BuildConfiguration) --logger trx "/p:CollectCoverage=true" "/p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/Grimware.Common.NetCoreApp21/$(Build.BuildId)" "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+      testRunTitle: 'DotNet Test - Grimware.Common (netcoreapp2.1) - $(Build.BuildId)'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
   - task: CopyFiles@2
     displayName: Copy Test Results to Artifact folder

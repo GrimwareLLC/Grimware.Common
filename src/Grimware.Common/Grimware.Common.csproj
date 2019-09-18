@@ -1,26 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <!-- Common configuration properties for projects in this solution-->
-  <Import Project="../Shared/configuration.props" />
-
-  <!-- Common configuration properties for .Net Standard libraries-->
-  <Import Project="../Shared/base.netstandard.props" />
 
   <!-- Set properties for NuGet Package values that aren't specified in this file -->
   <Import Project="../Shared/nuget.props" />
 
   <PropertyGroup>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>Grimware.Common</AssemblyName>
     <RootNamespace>Grimware</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <LangVersion>Latest</LangVersion>
+    <RestorePackages Condition="'$(RestorePackages)' == ''">true</RestorePackages>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(ProjectDir)..\..\Grimware.Common.snk</AssemblyOriginatorKeyFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageReleaseNotes>
-<![CDATA[
+      <![CDATA[
 0.3.1-beta - Removed ResourceManagerExtensions. Nobody uses resources this way any more.
            - Removed ExceptionExtensions. Exception.ToString() implementation has improved and made this obsolete over the years.
+           - Removed Split method from StringExtensions. Method has been implemented in the core framework.
            - Removed dependency on System.Drawing.Common, since it was only required for ResourceManagerExtensions.
            - Disable auto-package on build, switching to pipeline builds.
            - Trying to get on-track for proper versioning again. The versioning sequence is totally broken at this
@@ -40,6 +45,61 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>full</DebugType>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <DefineConstants>X64</DefineConstants>
+  </PropertyGroup>
+
+  <!-- common NuGet package references that affect all target frameworks -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- .NET Standard 2.0 compilation flags and build options -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <!-- .NET Standard 2.0 references -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <!--<PackageReference Include="System.Data.SqlClient" Version="4.6.1" />-->
+  </ItemGroup>
+
+  <!-- .NET Full Framework compilation flags and build options -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net461'">
+    <DefineConstants>NET46;NET461;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+  <!-- .NET Full Framework references -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Resources\ExceptionMessages.Designer.cs">
@@ -53,6 +113,7 @@
       <DependentUpon>LogMessages.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Resources\ExceptionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -68,14 +129,6 @@
   <ItemGroup>
     <ProjectCapability Include="DynamicDependentFile" />
     <ProjectCapability Include="DynamicFileNesting" />
-  </ItemGroup>
-
-  <!-- common NuGet package references that affect all target frameworks -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
 </Project>

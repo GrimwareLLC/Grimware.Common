@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Grimware
@@ -10,7 +9,6 @@ namespace Grimware
     {
         private const int _HashMixer = 0xBF;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(IEnumerable<string> args)
         {
             return args != null
@@ -18,7 +16,6 @@ namespace Grimware
                 : 0;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(params string[] args)
         {
             return args != null
@@ -26,7 +23,6 @@ namespace Grimware
                 : 0;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(IEnumerable<int> args)
         {
             return args != null
@@ -47,7 +43,6 @@ namespace Grimware
             return result;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Hash(IEnumerable<long> args)
         {
             return args != null
@@ -84,7 +79,7 @@ namespace Grimware
             var result = values.Length;
 
             var i = 0;
-            for (; i < values.Length - 4; i += 4) result = Hash(result, BitConverter.ToInt32(values, i));
+            for (; i < values.Length - 4 ; i += 4) result = Hash(result, BitConverter.ToInt32(values, i));
 
             if (i < values.Length)
                 result = Hash(result, BitConverter.ToInt32(values, values.Length - 4));
@@ -92,7 +87,6 @@ namespace Grimware
             return result;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int CalculateShortHash(IReadOnlyCollection<byte> values)
         {
             return values.Aggregate(values.Count, (n, b) => Hash(n, b));
@@ -105,7 +99,7 @@ namespace Grimware
                 var little = n & 0xFFFFFFFF;
                 var big = (n >> 32) & 0xFFFFFFFF;
 
-                return (int) (little ^ big);
+                return (int)(little ^ big);
             }
         }
 
@@ -117,13 +111,11 @@ namespace Grimware
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Hash(int i, long n)
         {
             return Hash(i, Fold(n));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Hash(string arg)
         {
             return arg != null

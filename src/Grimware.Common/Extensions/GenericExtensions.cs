@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -10,28 +9,23 @@ namespace Grimware.Extensions
 {
     public static class GenericExtensions
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool In<T>(this T source, params T[] values)
         {
             return source == null ? values.Any(t => t == null) : values.Any(t => source.Equals(t));
         }
 
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullOrDefault<T>(this T source)
             where T : struct
         {
-            return IsNullOrDefault((T?) source);
+            return IsNullOrDefault((T?)source);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullOrDefault<T>(this T? source)
             where T : struct
         {
             return NullIfDefault(source) == null;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIf<T>(this T? source, Predicate<T> condition)
             where T : struct
         {
@@ -44,7 +38,6 @@ namespace Grimware.Extensions
                 : throw new ArgumentNullException(nameof(condition));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T NullIf<T>(this T source, Predicate<T> condition)
             where T : class
         {
@@ -57,35 +50,30 @@ namespace Grimware.Extensions
                 : throw new ArgumentNullException(nameof(condition));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfDefault<T>(this T source)
             where T : struct
         {
-            return NullIfDefault((T?) source);
+            return NullIfDefault((T?)source);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfDefault<T>(this T? source)
             where T : struct
         {
             return NullIfIn(source, default(T));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfIn<T>(this T source, params T[] values)
             where T : struct
         {
-            return NullIfIn((T?) source, values);
+            return NullIfIn((T?)source, values);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T? NullIfIn<T>(this T? source, params T[] values)
             where T : struct
         {
             return NullIf(source, t => values.Any(v => v.Equals(t)));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int TryGetHashCode<T>(this T source)
         {
             return source == null ? 0 : source.GetHashCode();
@@ -97,7 +85,7 @@ namespace Grimware.Extensions
                 return null;
 
             var sb = new StringBuilder(1024 * 4);
-            using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true}))
+            using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true }))
             {
                 var serializer = new XmlSerializer(source.GetType());
                 serializer.Serialize(xmlWriter, source);
@@ -118,7 +106,7 @@ namespace Grimware.Extensions
 #pragma warning disable CA2000 // Dispose objects before losing scope
 
             // If we dispose the XmlWriter, it would dispose the underlying stream, which we don't want.
-            var xmlWriter = XmlWriter.Create(new StreamWriter(target), new XmlWriterSettings {Encoding = Encoding.UTF8, Indent = true});
+            var xmlWriter = XmlWriter.Create(new StreamWriter(target), new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true });
             var serializer = new XmlSerializer(source.GetType());
             serializer.Serialize(xmlWriter, source);
             xmlWriter.Flush();

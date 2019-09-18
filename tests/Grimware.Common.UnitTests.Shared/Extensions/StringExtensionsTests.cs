@@ -116,17 +116,6 @@ namespace Grimware.Common.UnitTests.Extensions
         }
 
         [TestMethod]
-        public void Split()
-        {
-            _NullString.Split(" ").Should().BeEquivalentTo(Array.Empty<string>());
-
-            "".Split(" ").Should().BeEquivalentTo("");
-            "".Split(" ", StringSplitOptions.RemoveEmptyEntries).Should().BeEquivalentTo(Array.Empty<string>());
-
-            "Lorem ipsum dolor sit amet".Split(" ").Should().BeEquivalentTo("Lorem", "ipsum", "dolor", "sit", "amet");
-        }
-
-        [TestMethod]
         public void StripNonAlphaCharacters()
         {
             "Bazinga!".StripNonAlphaCharacters().Should().Be("Bazinga");
@@ -241,8 +230,8 @@ namespace Grimware.Common.UnitTests.Extensions
             DateTime? result = null;
 
             // Arrange
-            Action act1 = () => result = "".ToDateTime(null, _CurrentCulture);
-            Action act2 = () => result = "".ToDateTime((string[]) null, _CurrentCulture, DateTimeStyles.None);
+            Action act1 = () => result = "".ToDateTime((string)null, _CurrentCulture);
+            Action act2 = () => result = "".ToDateTime((string[]) null, _CurrentCulture);
 
             // Act
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 
 #if NETCORE
 using System.Diagnostics.CodeAnalysis;
@@ -118,7 +117,6 @@ namespace Grimware
         ///     managed and unmanaged resources; <see langword="false" /> to release
         ///     only unmanaged resources.
         /// </param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual void Dispose(bool disposing)
         {
             IsDisposed = true;
@@ -195,7 +193,6 @@ namespace Grimware
         /// <summary>
         ///     Raises the Disposed event if any event handlers are attached.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void RaiseDisposedEvent()
         {
             RaiseEvent(Disposed, new EventArgs());
@@ -204,7 +201,6 @@ namespace Grimware
         /// <summary>
         ///     Raises the Disposing event if any event handlers are attached.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void RaiseDisposingEvent()
         {
             RaiseEvent(Disposing, new EventArgs());

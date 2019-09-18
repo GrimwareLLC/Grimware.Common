@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
@@ -14,11 +13,10 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.First());
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetFirstAttributeOfType<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetFirstAttributeOfType(typeof(TAttribute));
+            return (TAttribute)field?.GetFirstAttributeOfType(typeof(TAttribute));
         }
 
         public static Attribute GetFirstAttributeOfTypeIfExists(this FieldInfo field, Type attributeType)
@@ -27,11 +25,10 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.FirstOrDefault());
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetFirstAttributeOfTypeIfExists<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetFirstAttributeOfTypeIfExists(typeof(TAttribute));
+            return (TAttribute)field?.GetFirstAttributeOfTypeIfExists(typeof(TAttribute));
         }
 
         public static Attribute GetSingleAttributeOfType(this FieldInfo field, Type attributeType)
@@ -40,11 +37,10 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.Single());
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetSingleAttributeOfType<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetSingleAttributeOfType(typeof(TAttribute));
+            return (TAttribute)field?.GetSingleAttributeOfType(typeof(TAttribute));
         }
 
         public static Attribute GetSingleAttributeOfTypeIfExists(this FieldInfo field, Type attributeType)
@@ -53,11 +49,10 @@ namespace Grimware.Extensions
             return field?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault());
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute GetSingleAttributeOfTypeIfExists<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetSingleAttributeOfTypeIfExists(typeof(TAttribute));
+            return (TAttribute)field?.GetSingleAttributeOfTypeIfExists(typeof(TAttribute));
         }
 
         public static bool HasDeclaredAttributeOfType(this FieldInfo field, Type attributeType, bool inherit = false)
@@ -66,7 +61,6 @@ namespace Grimware.Extensions
             return field?.GetCustomAttributes(attributeType, inherit).Any() ?? false;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasName(this FieldInfo field, string name, bool ignoreCase)
         {
             return ignoreCase

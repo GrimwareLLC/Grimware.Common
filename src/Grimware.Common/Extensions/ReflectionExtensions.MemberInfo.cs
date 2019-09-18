@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
     partial class ReflectionExtensions
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> FindAttributesOfType<T>(this MemberInfo member)
             where T : Attribute
         {
             return member != null
                 ? member.GetCustomAttributes(typeof(T), true)
-                    .Cast<T>()
+                        .Cast<T>()
                 : Array.Empty<T>();
         }
 
@@ -24,11 +22,10 @@ namespace Grimware.Extensions
             return
                 member != null
                     ? member.GetCustomAttributes(attributeType, true)
-                        .Cast<Attribute>()
+                            .Cast<Attribute>()
                     : Array.Empty<Attribute>();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T FindSingleAttributeOfType<T>(this MemberInfo member)
             where T : Attribute
         {
@@ -37,7 +34,6 @@ namespace Grimware.Extensions
                 : default;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Attribute FindSingleAttributeOfType(this MemberInfo member, Type attributeType)
         {
             return attributeType != null
@@ -45,7 +41,6 @@ namespace Grimware.Extensions
                 : throw new ArgumentNullException(nameof(attributeType));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T FindSingleAttributeOfType<T>(this MemberInfo member, Func<IEnumerable<T>, T> selector)
             where T : Attribute
         {
@@ -56,7 +51,6 @@ namespace Grimware.Extensions
                 : throw new ArgumentNullException(nameof(selector));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Attribute FindSingleAttributeOfType(
             this MemberInfo member,
             Type attributeType,
@@ -71,7 +65,6 @@ namespace Grimware.Extensions
                 : throw new ArgumentNullException(nameof(attributeType));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeOfType<T>(this MemberInfo member, bool inherit = false)
             where T : Attribute
         {
@@ -84,11 +77,10 @@ namespace Grimware.Extensions
             return member?.GetCustomAttributes(attributeType, inherit).Any() ?? false;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNamed(this MemberInfo member, string name)
         {
             return !String.IsNullOrEmpty(name)
-                && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
+                   && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
         }
     }
 }

@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Grimware.Extensions
 {
     public static partial class EnumerableExtensions
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<int> AllIndexesWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
         {
             return source?
-                .Select((t, i) => new {Index = i, IsMatch = predicate(t)})
-                .Where(a => a.IsMatch)
-                .Select(a => a.Index);
+                   .Select((t, i) => new { Index = i, IsMatch = predicate(t) })
+                   .Where(a => a.IsMatch)
+                   .Select(a => a.Index);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
         {
             return source == null ? Enumerable.Repeat(item, 1) : source.Concat(Enumerable.Repeat(item, 1));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TResult> Convert<T, TResult>(this IEnumerable<T> source, Converter<T, TResult> converter)
         {
             if (converter == null) throw new ArgumentNullException(nameof(converter));
@@ -88,16 +84,14 @@ namespace Grimware.Extensions
             return source?.Distinct(EqualityComparer.Create(keySelector));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item)
         {
             return source?.Except(Enumerable.Repeat(item, 1));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int? FirstIndexWhere<T>(this IEnumerable<T> source, Predicate<T> predicate)
         {
-            return source?.AllIndexesWhere(predicate)?.Convert(i => (int?) i).FirstOrDefault();
+            return source?.AllIndexesWhere(predicate)?.Convert(i => (int?)i).FirstOrDefault();
         }
 
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
@@ -109,49 +103,42 @@ namespace Grimware.Extensions
                 action(t);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Last<T>(this IEnumerable<T> source, int count)
         {
             return source?.Reverse().Take(count).Reverse();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Last<T>(this IEnumerable<T> source, Predicate<T> predicate, int count)
         {
             return source?.Where(t => predicate(t)).Reverse().Take(count).Reverse();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool None<T>(this IEnumerable<T> source)
         {
             return !(source?.Any() ?? false);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
             return !(source?.Any(predicate) ?? false);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> OrderRandom<T>(this IEnumerable<T> source)
         {
             if (source == null) return Enumerable.Empty<T>();
 
             return
                 source
-                    .Select(t => new {T = t, Guid = Guid.NewGuid()})
+                    .Select(t => new { T = t, Guid = Guid.NewGuid() })
                     .OrderBy(a => a.Guid)
                     .Select(a => a.T);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T TakeRandom<T>(this IEnumerable<T> source)
         {
             return source != null ? TakeRandom(source, 1).FirstOrDefault() : default;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> TakeRandom<T>(this IEnumerable<T> source, int count)
         {
             if (source == null || count <= 0) return Enumerable.Empty<T>();

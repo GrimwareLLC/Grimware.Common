@@ -37,4 +37,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+  <Import Project="..\Grimware.Common.UnitTests.Shared\Grimware.Common.UnitTests.Shared.projitems" Label="Shared" />
+
 </Project>

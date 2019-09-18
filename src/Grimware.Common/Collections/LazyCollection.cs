@@ -22,7 +22,7 @@ namespace Grimware.Collections
         }
 
         public LazyCollection(IEnumerable<T> collection, LazyThreadSafetyMode mode = LazyThreadSafetyMode.ExecutionAndPublication)
-            : this(collection != null ? (Func<ICollection<T>>) collection.ToList : null, mode)
+            : this(collection != null ? (Func<ICollection<T>>)collection.ToList : null, mode)
         {
         }
 

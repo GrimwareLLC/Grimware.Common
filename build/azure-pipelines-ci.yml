@@ -14,9 +14,7 @@ trigger:
       - release/*
       - releases/*
 
-pr:
-  branches:
-    include: '*'
+pr: '*'
 
 jobs:
 - job: job

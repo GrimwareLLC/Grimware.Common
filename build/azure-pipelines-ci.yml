@@ -64,7 +64,7 @@ jobs:
       testRunTitle: 'DotNet Test - Grimware.Common (net461) - $(Build.BuildId)'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
   - task: DotNetCoreCLI@2
-    displayName: DotNet Test - Grimware.Common (net461)
+    displayName: DotNet Test - Grimware.Common (netcoreapp2.1)
     inputs:
       command: 'test'
       projects: '**/tests/**/Grimware.Common.UnitTests.NetCoreApp21.csproj'

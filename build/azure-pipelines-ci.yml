@@ -88,14 +88,14 @@ jobs:
 # SonarQubePublish
 
   - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
+    displayName: Publish Binaries
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/Binaries'
       ArtifactName: 'binaries'
       publishLocation: 'Container'
 
   - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
+    displayName: Publish Test Results
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/TestResults'
       ArtifactName: 'test results'

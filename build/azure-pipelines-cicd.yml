@@ -88,6 +88,7 @@ jobs:
 # SonarQubePublish
 
   - task: DotNetCoreCLI@2
+    displayName: NuGet Pack
     inputs:
       command: 'pack'
       packagesToPack: '**/Grimware.Common.csproj'
@@ -96,19 +97,19 @@ jobs:
       versioningScheme: 'off'
 
   - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
+    displayName: Publish NuGet Packages
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/NuGet'
       ArtifactName: 'nuget'
       publishLocation: 'Container'
   - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
+    displayName: Publish Binaries
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/Binaries'
       ArtifactName: 'binaries'
       publishLocation: 'Container'
   - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
+    displayName: Publish Test Results
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/TestResults'
       ArtifactName: 'test results'

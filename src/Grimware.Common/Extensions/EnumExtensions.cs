@@ -16,7 +16,14 @@ namespace Grimware.Extensions
             return source != null ? ToDescription(source.Value) : null;
         }
 
-        public static TEnumOut? Translate<TEnumIn, TEnumOut>(this TEnumIn source, bool ignoreCase = false)
+        public static TEnumOut? Translate<TEnumIn, TEnumOut>(this TEnumIn source)
+            where TEnumIn : struct, Enum
+            where TEnumOut : struct, Enum
+        {
+            return Translate<TEnumIn, TEnumOut>(source, false);
+        }
+
+        public static TEnumOut? Translate<TEnumIn, TEnumOut>(this TEnumIn source, bool ignoreCase)
             where TEnumIn : struct, Enum
             where TEnumOut : struct, Enum
         {

@@ -13,13 +13,23 @@ namespace Grimware.Extensions
             return property?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault());
         }
 
-        public static bool HasAttributeOfType(this PropertyInfo property, Type attributeType, bool inherit = false)
+        public static bool HasAttributeOfType(this PropertyInfo property, Type attributeType)
+        {
+            return HasAttributeOfType(property, attributeType, false);
+        }
+
+        public static bool HasAttributeOfType(this PropertyInfo property, Type attributeType, bool inherit)
         {
             if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
             return property?.GetCustomAttributes(attributeType, inherit).Any() ?? false;
         }
 
-        public static bool HasAttributesOfTypes(this PropertyInfo property, IEnumerable<Type> attributeTypes, bool inherit = false)
+        public static bool HasAttributesOfTypes(this PropertyInfo property, IEnumerable<Type> attributeTypes)
+        {
+            return HasAttributesOfTypes(property, attributeTypes, false);
+        }
+
+        public static bool HasAttributesOfTypes(this PropertyInfo property, IEnumerable<Type> attributeTypes, bool inherit)
         {
             if (attributeTypes == null) throw new ArgumentNullException(nameof(attributeTypes));
 
@@ -31,7 +41,12 @@ namespace Grimware.Extensions
                     .Any();
         }
 
-        public static bool HasName(this PropertyInfo property, string name, bool ignoreCase = false)
+        public static bool HasName(this PropertyInfo property, string name)
+        {
+            return HasName(property, name, false);
+        }
+
+        public static bool HasName(this PropertyInfo property, string name, bool ignoreCase)
         {
             return ignoreCase
                 ? property?.Name.Equals(name, StringComparison.OrdinalIgnoreCase) ?? false

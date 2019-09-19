@@ -55,7 +55,12 @@ namespace Grimware.Extensions
             return (TAttribute) field?.GetSingleAttributeOfTypeIfExists(typeof(TAttribute));
         }
 
-        public static bool HasDeclaredAttributeOfType(this FieldInfo field, Type attributeType, bool inherit = false)
+        public static bool HasDeclaredAttributeOfType(this FieldInfo field, Type attributeType)
+        {
+            return HasDeclaredAttributeOfType(field, attributeType, false);
+        }
+
+        public static bool HasDeclaredAttributeOfType(this FieldInfo field, Type attributeType, bool inherit)
         {
             if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
             return field?.GetCustomAttributes(attributeType, inherit).Any() ?? false;

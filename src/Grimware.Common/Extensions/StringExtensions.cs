@@ -86,7 +86,12 @@ namespace Grimware.Extensions
         }
 
 #if NET46
-        public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options = StringSplitOptions.None)
+        public static IEnumerable<string> Split(this string source, string separator)
+        {
+            return Split(source, separator, StringSplitOptions.None);
+        }
+
+        public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options)
         {
             return source == null
                 ? Array.Empty<string>()
@@ -121,7 +126,12 @@ namespace Grimware.Extensions
                 : null;
         }
 
-        public static DateTime? ToDateTime(this string source, IFormatProvider provider, DateTimeStyles styles = DateTimeStyles.None)
+        public static DateTime? ToDateTime(this string source, IFormatProvider provider)
+        {
+            return ToDateTime(source, provider, DateTimeStyles.None);
+        }
+
+        public static DateTime? ToDateTime(this string source, IFormatProvider provider, DateTimeStyles styles)
         {
             return source != null
                 ? DateTime.TryParse(source, provider, styles, out var result)
@@ -130,24 +140,44 @@ namespace Grimware.Extensions
                 : null;
         }
 
-        public static DateTime? ToDateTime(
-            this string source,
-            string format,
-            IFormatProvider provider,
-            DateTimeStyles style = DateTimeStyles.None,
-            bool adjustCentury = false)
+        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider)
+        {
+            return ToDateTime(source, format, provider, false);
+        }
+
+        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider,bool adjustCentury)
+        {
+            return ToDateTime(source, format, provider, DateTimeStyles.None, adjustCentury);
+        }
+
+        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider,DateTimeStyles style)
+        {
+            return ToDateTime(source, format, provider, style, false);
+        }
+
+        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider,DateTimeStyles style,bool adjustCentury)
         {
             return format != null
                 ? ToDateTime(source, new[] {format}, provider, style, adjustCentury)
                 : throw new ArgumentNullException(nameof(format));
         }
 
-        public static DateTime? ToDateTime(
-            this string source,
-            string[] formats,
-            IFormatProvider provider,
-            DateTimeStyles style = DateTimeStyles.None,
-            bool adjustCentury = false)
+        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider)
+        {
+            return ToDateTime(source, formats, provider, DateTimeStyles.None);
+        }
+
+        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider,DateTimeStyles style)
+        {
+            return ToDateTime(source, formats, provider, style, false);
+        }
+
+        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider,bool adjustCentury)
+        {
+            return ToDateTime(source, formats, provider, DateTimeStyles.None, adjustCentury);
+        }
+
+        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider,DateTimeStyles style,bool adjustCentury)
         {
             if (formats == null)
                 throw new ArgumentNullException(nameof(formats));
@@ -212,7 +242,13 @@ namespace Grimware.Extensions
                 : null;
         }
 
-        public static TEnum? ToEnum<TEnum>(this string value, bool ignoreCase = false)
+        public static TEnum? ToEnum<TEnum>(this string value)
+            where TEnum : struct, Enum
+        {
+            return ToEnum<TEnum>(value, false);
+        }
+
+        public static TEnum? ToEnum<TEnum>(this string value, bool ignoreCase)
             where TEnum : struct, Enum
         {
             return Enum.TryParse(value, ignoreCase, out TEnum result) ? result : (TEnum?) null;

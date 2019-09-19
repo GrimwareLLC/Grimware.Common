@@ -8,7 +8,12 @@ namespace Grimware.Extensions
 {
     public static class XPathNavigableExtensions
     {
-        public static XmlDocument ToXmlDocument(this IXPathNavigable source, XmlResolver xmlResolver = null)
+        public static XmlDocument ToXmlDocument(this IXPathNavigable source)
+        {
+            return ToXmlDocument(source, null);
+        }
+
+        public static XmlDocument ToXmlDocument(this IXPathNavigable source, XmlResolver xmlResolver)
         {
             var nav = source?.CreateNavigator();
 

@@ -24,7 +24,9 @@ namespace Grimware.Extensions
 
         public static int GetDayOfWeekOccurence(this DateTime time, Calendar calendar)
         {
-            return calendar != null ? (time.Day - 1) / 7 + 1 : throw new ArgumentNullException(nameof(calendar));
+            const int DaysInWeek = 7;
+
+            return calendar != null ? (time.Day - 1) / DaysInWeek + 1 : throw new ArgumentNullException(nameof(calendar));
         }
 
         public static int GetWeekOfMonth(this DateTime time)
@@ -39,19 +41,42 @@ namespace Grimware.Extensions
                 : throw new ArgumentNullException(nameof(calendar));
         }
 
-        public static int GetWeekOfYear(
-            this DateTime time,
-            CalendarWeekRule rule = CalendarWeekRule.FirstDay,
-            DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        public static int GetWeekOfYear(this DateTime time)
+        {
+            return GetWeekOfYear(time, DayOfWeek.Sunday);
+        }
+
+        public static int GetWeekOfYear(this DateTime time, DayOfWeek firstDayOfWeek)
+        {
+            return GetWeekOfYear(time, CalendarWeekRule.FirstDay, firstDayOfWeek);
+        }
+
+        public static int GetWeekOfYear(this DateTime time, CalendarWeekRule rule)
+        {
+            return GetWeekOfYear(time, rule, DayOfWeek.Sunday);
+        }
+
+        public static int GetWeekOfYear(this DateTime time, CalendarWeekRule rule, DayOfWeek firstDayOfWeek)
         {
             return GetWeekOfYear(time, DefaultCalendar, rule, firstDayOfWeek);
         }
 
-        public static int GetWeekOfYear(
-            this DateTime time,
-            Calendar calendar,
-            CalendarWeekRule rule = CalendarWeekRule.FirstDay,
-            DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        public static int GetWeekOfYear(this DateTime time, Calendar calendar)
+        {
+            return GetWeekOfYear(time, calendar, CalendarWeekRule.FirstDay);
+        }
+
+        public static int GetWeekOfYear(this DateTime time, Calendar calendar, CalendarWeekRule rule)
+        {
+            return GetWeekOfYear(time, calendar, rule, DayOfWeek.Sunday);
+        }
+
+        public static int GetWeekOfYear(this DateTime time, Calendar calendar, DayOfWeek firstDayOfWeek)
+        {
+            return GetWeekOfYear(time, calendar, CalendarWeekRule.FirstDay, firstDayOfWeek);
+        }
+
+        public static int GetWeekOfYear(this DateTime time, Calendar calendar, CalendarWeekRule rule, DayOfWeek firstDayOfWeek)
         {
             return calendar?.GetWeekOfYear(time, rule, firstDayOfWeek) ?? throw new ArgumentNullException(nameof(calendar));
         }

@@ -33,7 +33,6 @@ namespace Grimware.Common.UnitTests.Extensions
                         </notes>
                     "));
 
-
         [TestMethod]
         public void ToXmlDocument()
         {

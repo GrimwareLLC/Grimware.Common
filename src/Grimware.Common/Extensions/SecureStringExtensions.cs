@@ -11,7 +11,7 @@ namespace Grimware.Extensions
             if (source == null)
                 return null;
 
-            var unmanaged = IntPtr.Zero;
+            IntPtr unmanaged = default;
 
             try
             {

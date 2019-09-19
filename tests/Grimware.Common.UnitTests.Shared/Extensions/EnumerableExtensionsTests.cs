@@ -71,9 +71,7 @@ namespace Grimware.Common.UnitTests.Extensions
                 // Enumerate
                 .ToArray();
 
-
         private static Fixture _Fixture;
-
 
         private IEnumerable<int> _testEnumerable;
 
@@ -139,7 +137,6 @@ namespace Grimware.Common.UnitTests.Extensions
             act.Should().Throw<ArgumentNullException>();
             results.Should().BeNull();
         }
-
 
         [TestMethod]
         public void Diff()

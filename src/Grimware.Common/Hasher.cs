@@ -8,6 +8,7 @@ namespace Grimware
     public static class Hasher
     {
         private const int _HashMixer = 0xBF;
+        private const int _Int32Bytes = 4;
 
         public static int Hash(IEnumerable<string> args)
         {
@@ -69,7 +70,7 @@ namespace Grimware
                 return 0;
 
             return
-                values.Length > 4
+                values.Length > _Int32Bytes
                     ? CalculateLongHash(values)
                     : CalculateShortHash(values);
         }
@@ -79,10 +80,10 @@ namespace Grimware
             var result = values.Length;
 
             var i = 0;
-            for (; i < values.Length - 4; i += 4) result = Hash(result, BitConverter.ToInt32(values, i));
+            for (; i < values.Length - _Int32Bytes; i += _Int32Bytes) result = Hash(result, BitConverter.ToInt32(values, i));
 
             if (i < values.Length)
-                result = Hash(result, BitConverter.ToInt32(values, values.Length - 4));
+                result = Hash(result, BitConverter.ToInt32(values, values.Length - _Int32Bytes));
 
             return result;
         }

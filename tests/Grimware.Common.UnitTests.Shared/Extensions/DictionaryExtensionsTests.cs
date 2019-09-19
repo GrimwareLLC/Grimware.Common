@@ -24,7 +24,7 @@ namespace Grimware.Common.UnitTests.Extensions
                 {"6", "Six"},
                 {"7", "Seven"},
                 {"8", "Eight"},
-                {"9", "Nine"},
+                {"9", "Nine"}
             };
 
         private readonly Lazy<IDictionary<string, string>> _lazyReadOnly =

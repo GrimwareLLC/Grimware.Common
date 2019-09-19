@@ -29,25 +29,23 @@ namespace Grimware.Extensions
         public static T? NullIf<T>(this T? source, Predicate<T> condition)
             where T : struct
         {
-            return condition != null
-                ? source != null
-                    ? condition(source.Value)
-                        ? null
-                        : source
-                    : null
-                : throw new ArgumentNullException(nameof(condition));
+            if (condition != null)
+                if (source != null)
+                    return condition(source.Value) ? null : source;
+                else
+                    return null;
+            throw new ArgumentNullException(nameof(condition));
         }
 
         public static T NullIf<T>(this T source, Predicate<T> condition)
             where T : class
         {
-            return condition != null
-                ? source != null
-                    ? condition(source)
-                        ? null
-                        : source
-                    : null
-                : throw new ArgumentNullException(nameof(condition));
+            if (condition != null)
+                if (source != null)
+                    return condition(source) ? null : source;
+                else
+                    return null;
+            throw new ArgumentNullException(nameof(condition));
         }
 
         public static T? NullIfDefault<T>(this T source)

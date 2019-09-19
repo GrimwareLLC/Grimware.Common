@@ -60,7 +60,6 @@ namespace Grimware.Common.UnitTests.Extensions
             ((decimal?) Int16.MaxValue).ToInt16().Should().Be(Int16.MaxValue);
         }
 
-
         [TestMethod]
         public void ToInt32()
         {
@@ -85,7 +84,6 @@ namespace Grimware.Common.UnitTests.Extensions
             ((decimal?) 101.101M).ToInt32().Should().Be(101);
             ((decimal?) Int32.MaxValue).ToInt32().Should().Be(Int32.MaxValue);
         }
-
 
         [TestMethod]
         public void ToInt64()

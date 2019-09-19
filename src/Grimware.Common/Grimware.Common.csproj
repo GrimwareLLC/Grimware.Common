@@ -4,6 +4,7 @@
   <Import Project="../Shared/nuget.props" />
 
   <PropertyGroup>
+    <ProjectGuid>{52788786-32F1-481D-A62E-A0004AF86D37}</ProjectGuid>
     <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>Grimware.Common</AssemblyName>
     <RootNamespace>Grimware</RootNamespace>
@@ -23,6 +24,7 @@
   <PropertyGroup>
     <PackageReleaseNotes>
       <![CDATA[
+0.5.1-beta - SonarCloud Cleanup
 0.5.0-beta - Trying to get on-track for proper versioning again. The versioning sequence is totally broken at this
              point and this release contains breaking changes.
 0.3.1-beta - Removed ResourceManagerExtensions. Nobody uses resources this way any more.
@@ -36,7 +38,7 @@
 1.0.0 - Initial usable release. Badly versioned.
 ]]>
     </PackageReleaseNotes>
-    <Version>0.5.0-beta</Version>
+    <Version>0.5.1-beta</Version>
     <Description>Lightweight .NET extensions, helpers, and abstractions library</Description>
     <Authors>Toby Herring</Authors>
     <Company>Grimware, LLC</Company>

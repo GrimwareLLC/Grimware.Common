@@ -48,8 +48,6 @@ namespace Grimware
         ~DisposableBase()
         {
             Dispose(false);
-
-            RaiseDisposedEvent();
         }
 
 #pragma warning restore CA1063 // Implement IDisposable Correctly

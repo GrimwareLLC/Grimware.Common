@@ -88,7 +88,6 @@ namespace Grimware.Common.UnitTests.Collections
             lazy[3].Should().Be(1);
             lazy[4].Should().Be(Int32.MaxValue);
 
-
             lazy[2] = 101;
             lazy.Should().NotBeEquivalentTo(_Int32TestData);
 

@@ -218,11 +218,15 @@ namespace Grimware.Common.UnitTests.Extensions
             DateTimeStyles styles)
         {
             if (year == 0 && month == 0 && day == 0)
+            {
                 source.ToDateTime(format, _CurrentCulture).Should().BeNull();
+            }
             else if (styles == DateTimeStyles.None)
+            {
                 source.ToDateTime(format, _CurrentCulture)
                     .Should()
                     .Be(_CurrentCulture.Calendar.ToDateTime(year, month, day, hour, minute, second, 0));
+            }
             else
             {
                 source
@@ -243,7 +247,7 @@ namespace Grimware.Common.UnitTests.Extensions
             DateTime? result = null;
 
             // Arrange
-            Action act1 = () => result = "".ToDateTime((string)null, _CurrentCulture);
+            Action act1 = () => result = "".ToDateTime((string) null, _CurrentCulture);
             Action act2 = () => result = "".ToDateTime((string[]) null, _CurrentCulture);
 
             // Act

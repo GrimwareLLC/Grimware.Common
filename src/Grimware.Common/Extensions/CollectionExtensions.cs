@@ -22,7 +22,7 @@ namespace Grimware.Extensions
 
         public static void AddIfNotExists<T>(this ICollection<T> collection, T item)
         {
-            collection?.AddIf(item, !collection.Contains(item));
+            AddIf(collection, item, !collection?.Contains(item) ?? false);
         }
 
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)

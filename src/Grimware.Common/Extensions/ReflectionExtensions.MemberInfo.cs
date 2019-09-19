@@ -44,11 +44,9 @@ namespace Grimware.Extensions
         public static T FindSingleAttributeOfType<T>(this MemberInfo member, Func<IEnumerable<T>, T> selector)
             where T : Attribute
         {
-            return selector != null
-                ? member == null
-                    ? default
-                    : selector(member.FindAttributesOfType<T>())
-                : throw new ArgumentNullException(nameof(selector));
+            if (selector != null)
+                return member == null ? default : selector(member.FindAttributesOfType<T>());
+            throw new ArgumentNullException(nameof(selector));
         }
 
         public static Attribute FindSingleAttributeOfType(
@@ -56,22 +54,32 @@ namespace Grimware.Extensions
             Type attributeType,
             Func<IEnumerable<Attribute>, Attribute> selector)
         {
-            return attributeType != null
-                ? selector != null
-                    ? member == null
-                        ? null
-                        : selector(member.FindAttributesOfType(attributeType))
-                    : throw new ArgumentNullException(nameof(selector))
-                : throw new ArgumentNullException(nameof(attributeType));
+            if (attributeType != null)
+                if (selector != null)
+                    return member == null ? null : selector(member.FindAttributesOfType(attributeType));
+                else
+                    throw new ArgumentNullException(nameof(selector));
+            throw new ArgumentNullException(nameof(attributeType));
         }
 
-        public static bool HasAttributeOfType<T>(this MemberInfo member, bool inherit = false)
+        public static bool HasAttributeOfType<T>(this MemberInfo member)
+            where T : Attribute
+        {
+            return HasAttributeOfType<T>(member, false);
+        }
+
+        public static bool HasAttributeOfType<T>(this MemberInfo member, bool inherit)
             where T : Attribute
         {
             return member?.GetCustomAttributes(typeof(T), inherit).Any() ?? false;
         }
 
-        public static bool HasAttributeOfType(this MemberInfo member, Type attributeType, bool inherit = false)
+        public static bool HasAttributeOfType(this MemberInfo member, Type attributeType)
+        {
+            return HasAttributeOfType(member, attributeType, false);
+        }
+
+        public static bool HasAttributeOfType(this MemberInfo member, Type attributeType, bool inherit)
         {
             if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
             return member?.GetCustomAttributes(attributeType, inherit).Any() ?? false;

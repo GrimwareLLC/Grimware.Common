@@ -1,7 +1,7 @@
 ﻿using System;
-using Grimware.Extensions;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
+using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Grimware.Common.UnitTests.Extensions

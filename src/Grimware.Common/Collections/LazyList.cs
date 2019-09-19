@@ -20,14 +20,24 @@ namespace Grimware.Collections
         {
         }
 
-        public LazyList(IEnumerable<T> collection, LazyThreadSafetyMode mode = LazyThreadSafetyMode.ExecutionAndPublication)
+        public LazyList(IEnumerable<T> collection)
+            : this(collection, LazyThreadSafetyMode.None)
+        {
+        }
+
+        public LazyList(IEnumerable<T> collection, LazyThreadSafetyMode mode)
             : this(collection != null ? (Func<IList<T>>) collection.ToList : Array.Empty<T>, mode)
         {
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection));
         }
 
-        public LazyList(Func<IList<T>> valueFactory, LazyThreadSafetyMode mode = LazyThreadSafetyMode.ExecutionAndPublication)
+        public LazyList(Func<IList<T>> valueFactory)
+            : this(valueFactory, LazyThreadSafetyMode.None)
+        {
+        }
+
+        public LazyList(Func<IList<T>> valueFactory, LazyThreadSafetyMode mode)
             : base(valueFactory ?? Array.Empty<T>, mode)
         {
             if (valueFactory == null)

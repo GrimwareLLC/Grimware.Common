@@ -1,9 +1,9 @@
-﻿using System;
-// ReSharper disable once RedundantUsingDirective
+﻿// ReSharper disable once RedundantUsingDirective
 // Using directive required for net461 compilation, but not for netstandard2.0
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;

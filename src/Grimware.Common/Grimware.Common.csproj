@@ -66,14 +66,6 @@
     <DefineConstants>X64</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove=".AssemblyAttributes.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include=".AssemblyAttributes.cs" />
-  </ItemGroup>
-
   <!-- common NuGet package references that affect all target frameworks -->
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">

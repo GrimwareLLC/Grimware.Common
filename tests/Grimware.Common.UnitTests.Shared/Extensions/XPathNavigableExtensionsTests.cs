@@ -36,7 +36,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToXmlDocument()
         {
-            ((IXPathNavigable) null).ToXmlDocument().Should().BeNull();
+            ((IXPathNavigable)null).ToXmlDocument().Should().BeNull();
 
             var xml = _TestDocument.ToXmlDocument();
             xml.Should().NotBeNull();
@@ -46,7 +46,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToXPathDocument()
         {
-            ((IXPathNavigable) null).ToXPathDocument().Should().BeNull();
+            ((IXPathNavigable)null).ToXPathDocument().Should().BeNull();
 
             var xpDoc = _TestDocument.ToXPathDocument();
             xpDoc.Should().NotBeNull();
@@ -80,7 +80,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void WriteToStream_Existing()
         {
-            ((IXPathNavigable) null).WriteToStream(null);
+            ((IXPathNavigable)null).WriteToStream(null);
 
             using (var stream = new MemoryStream())
             {
@@ -92,7 +92,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void WriteToStream_New()
         {
-            ((IXPathNavigable) null).WriteToStream().Should().BeNull();
+            ((IXPathNavigable)null).WriteToStream().Should().BeNull();
 
             using (var stream = _TestDocument.WriteToStream())
             {

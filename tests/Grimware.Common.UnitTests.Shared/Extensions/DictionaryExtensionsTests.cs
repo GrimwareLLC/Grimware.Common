@@ -15,16 +15,16 @@ namespace Grimware.Common.UnitTests.Extensions
         private static readonly IDictionary<string, string> _TestDictionary =
             new Dictionary<string, string>
             {
-                {"0", "Zero"},
-                {"1", "One"},
-                {"2", "Two"},
-                {"3", "Three"},
-                {"4", "Four"},
-                {"5", "Five"},
-                {"6", "Six"},
-                {"7", "Seven"},
-                {"8", "Eight"},
-                {"9", "Nine"}
+                { "0", "Zero" },
+                { "1", "One" },
+                { "2", "Two" },
+                { "3", "Three" },
+                { "4", "Four" },
+                { "5", "Five" },
+                { "6", "Six" },
+                { "7", "Seven" },
+                { "8", "Eight" },
+                { "9", "Nine" }
             };
 
         private readonly Lazy<IDictionary<string, string>> _lazyReadOnly =
@@ -48,7 +48,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void AsReadOnly_Null()
         {
             // Act
-            var result = ((IDictionary<string, string>) null).AsReadOnly();
+            var result = ((IDictionary<string, string>)null).AsReadOnly();
 
             // Assert
             result.Should().BeNull();
@@ -190,7 +190,7 @@ namespace Grimware.Common.UnitTests.Extensions
             var list = new List<object>(10);
 
             // Act
-            foreach (var kvp in (IEnumerable) ReadOnlyTarget)
+            foreach (var kvp in (IEnumerable)ReadOnlyTarget)
                 list.Add(kvp);
 
             // Assert

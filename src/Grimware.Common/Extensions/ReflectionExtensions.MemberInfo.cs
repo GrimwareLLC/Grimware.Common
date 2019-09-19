@@ -12,7 +12,7 @@ namespace Grimware.Extensions
         {
             return member != null
                 ? member.GetCustomAttributes(typeof(T), true)
-                    .Cast<T>()
+                        .Cast<T>()
                 : Array.Empty<T>();
         }
 
@@ -22,7 +22,7 @@ namespace Grimware.Extensions
             return
                 member != null
                     ? member.GetCustomAttributes(attributeType, true)
-                        .Cast<Attribute>()
+                            .Cast<Attribute>()
                     : Array.Empty<Attribute>();
         }
 
@@ -46,6 +46,7 @@ namespace Grimware.Extensions
         {
             if (selector != null)
                 return member == null ? default : selector(member.FindAttributesOfType<T>());
+
             throw new ArgumentNullException(nameof(selector));
         }
 
@@ -59,6 +60,7 @@ namespace Grimware.Extensions
                     return member == null ? null : selector(member.FindAttributesOfType(attributeType));
                 else
                     throw new ArgumentNullException(nameof(selector));
+
             throw new ArgumentNullException(nameof(attributeType));
         }
 
@@ -88,7 +90,7 @@ namespace Grimware.Extensions
         public static bool IsNamed(this MemberInfo member, string name)
         {
             return !String.IsNullOrEmpty(name)
-                && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
+                   && (member?.Name.Equals(name, StringComparison.Ordinal) ?? false);
         }
     }
 }

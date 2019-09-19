@@ -16,7 +16,7 @@ namespace Grimware.Extensions
         public static TAttribute GetFirstAttributeOfType<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetFirstAttributeOfType(typeof(TAttribute));
+            return (TAttribute)field?.GetFirstAttributeOfType(typeof(TAttribute));
         }
 
         public static Attribute GetFirstAttributeOfTypeIfExists(this FieldInfo field, Type attributeType)
@@ -28,7 +28,7 @@ namespace Grimware.Extensions
         public static TAttribute GetFirstAttributeOfTypeIfExists<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetFirstAttributeOfTypeIfExists(typeof(TAttribute));
+            return (TAttribute)field?.GetFirstAttributeOfTypeIfExists(typeof(TAttribute));
         }
 
         public static Attribute GetSingleAttributeOfType(this FieldInfo field, Type attributeType)
@@ -40,7 +40,7 @@ namespace Grimware.Extensions
         public static TAttribute GetSingleAttributeOfType<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetSingleAttributeOfType(typeof(TAttribute));
+            return (TAttribute)field?.GetSingleAttributeOfType(typeof(TAttribute));
         }
 
         public static Attribute GetSingleAttributeOfTypeIfExists(this FieldInfo field, Type attributeType)
@@ -52,7 +52,7 @@ namespace Grimware.Extensions
         public static TAttribute GetSingleAttributeOfTypeIfExists<TAttribute>(this FieldInfo field)
             where TAttribute : Attribute
         {
-            return (TAttribute) field?.GetSingleAttributeOfTypeIfExists(typeof(TAttribute));
+            return (TAttribute)field?.GetSingleAttributeOfTypeIfExists(typeof(TAttribute));
         }
 
         public static bool HasDeclaredAttributeOfType(this FieldInfo field, Type attributeType)

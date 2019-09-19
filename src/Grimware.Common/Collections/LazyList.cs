@@ -26,7 +26,7 @@ namespace Grimware.Collections
         }
 
         public LazyList(IEnumerable<T> collection, LazyThreadSafetyMode mode)
-            : this(collection != null ? (Func<IList<T>>) collection.ToList : Array.Empty<T>, mode)
+            : this(collection != null ? (Func<IList<T>>)collection.ToList : Array.Empty<T>, mode)
         {
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection));

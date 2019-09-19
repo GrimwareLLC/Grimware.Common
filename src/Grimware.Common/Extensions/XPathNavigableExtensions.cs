@@ -19,7 +19,7 @@ namespace Grimware.Extensions
 
             if (nav == null) return null;
 
-            var doc = new XmlDocument(nav.NameTable) {XmlResolver = xmlResolver};
+            var doc = new XmlDocument(nav.NameTable) { XmlResolver = xmlResolver };
             doc.Load(nav.ReadSubtree());
 
             return doc;
@@ -68,8 +68,9 @@ namespace Grimware.Extensions
 
 #pragma warning disable CA2000 // Dispose objects before losing scope
 #pragma warning disable IDE0068 // Use recommended dispose pattern
+
             // If we dispose the XmlWriter, it would dispose the underlying stream, which we don't want.
-            var xmlWriter = XmlWriter.Create(new StreamWriter(stream), new XmlWriterSettings {Indent = true, Encoding = Encoding.UTF8});
+            var xmlWriter = XmlWriter.Create(new StreamWriter(stream), new XmlWriterSettings { Indent = true, Encoding = Encoding.UTF8 });
 
             var nav = source.CreateNavigator();
             nav?.WriteSubtree(xmlWriter);

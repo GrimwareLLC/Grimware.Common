@@ -15,7 +15,7 @@ namespace Grimware.Common.UnitTests.Collections
     public class LazyCollectionTests
     {
         private static readonly IEnumerable<int> _Int32TestData =
-            new[] {Int32.MinValue, -1, 0, 1, Int32.MaxValue}
+            new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
                 .AsEnumerable();
 
         [TestMethod]
@@ -55,8 +55,8 @@ namespace Grimware.Common.UnitTests.Collections
             LazyCollection<int> lazy = null;
 
             // Act
-            Action act1 = () => lazy = new LazyCollection<int>((IEnumerable<int>) null);
-            Action act2 = () => lazy = new LazyCollection<int>((Func<ICollection<int>>) null);
+            Action act1 = () => lazy = new LazyCollection<int>((IEnumerable<int>)null);
+            Action act2 = () => lazy = new LazyCollection<int>((Func<ICollection<int>>)null);
 
             // Assert
             act1.Should().Throw<ArgumentNullException>();
@@ -131,7 +131,7 @@ namespace Grimware.Common.UnitTests.Collections
             var lazy = new LazyCollection<int>(_Int32TestData);
             lazy.Should().NotBeNull();
 
-            foreach (var i in (IEnumerable) lazy)
+            foreach (var i in (IEnumerable)lazy)
                 list.Add(i);
 
             list.OfType<int>().Count().Should().Be(5);

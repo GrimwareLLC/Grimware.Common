@@ -117,50 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AliasesMustBeUnique" xml:space="preserve">
-    <value>Aliases must be unique and cannot duplicate argument names.</value>
-  </data>
-  <data name="ArgumentDefinitionsRequired" xml:space="preserve">
-    <value>Argument definitions must be provided.</value>
-  </data>
-  <data name="ArgumentNameRequired" xml:space="preserve">
-    <value>Argument name must be provided.</value>
-  </data>
-  <data name="ArgumentNotSwitched" xml:space="preserve">
-    <value>The provided argument is not switched.</value>
-  </data>
-  <data name="ArgumentRequiresValueFormat" xml:space="preserve">
-    <value>The '{0}' argument requires a value, but no value was supplied.</value>
-  </data>
-  <data name="ArgumentsMustHaveUniqueNames" xml:space="preserve">
-    <value>Arguments must have unique names.</value>
-  </data>
   <data name="DictionaryIsReadOnly" xml:space="preserve">
     <value>This dictionary is read-only.</value>
-  </data>
-  <data name="EnumValueNotAddedFormat" xml:space="preserve">
-    <value>The value could not be appended to the '{0}' enumeration.</value>
-  </data>
-  <data name="EnumValueNotRemovedFormat" xml:space="preserve">
-    <value>The value could not be removed from the '{0}' enumeration.</value>
-  </data>
-  <data name="ErrorOpeningRegistryKeyFormat" xml:space="preserve">
-    <value>Error opening registry key: {0}\{1}</value>
-  </data>
-  <data name="ErrorReadingRegistryValueFormat" xml:space="preserve">
-    <value>Error reading registry value: {0},{1}</value>
-  </data>
-  <data name="NotAnEnumTypeFormat" xml:space="preserve">
-    <value>'{0}' is not an enumeration type.</value>
-  </data>
-  <data name="RegistryHiveUnknown" xml:space="preserve">
-    <value>The hive name is unknown.  Valid hive names are: 'HKCR', 'HKCU', 'HKLM', 'HKU', and 'HKCC'.</value>
-  </data>
-  <data name="RegistryValueIsNotBinaryFormat" xml:space="preserve">
-    <value>The registry value at {0},{1} is not a Binary value.</value>
-  </data>
-  <data name="RegistryValueLocationMalformed" xml:space="preserve">
-    <value>The registry value location must be in the form '[registry:]&lt;hive root&gt;\&lt;key path&gt;,&lt;value name&gt;'.  For example: 'registry:HKLM\Software\CompanyName\AppName\ASPNET_SETREG,userName'.</value>
   </data>
   <data name="SingletonCantBeEnforcedFormat" xml:space="preserve">
     <value>'{0}' has at least one accessible constructor, singleton behavior cannot be enforced.</value>

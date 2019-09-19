@@ -55,7 +55,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void Copy_Null()
         {
-            ((Stream) null).Copy().Should().BeNull();
+            ((Stream)null).Copy().Should().BeNull();
         }
     }
 }

@@ -21,13 +21,13 @@ namespace Grimware.Extensions
 
             var diffContext = new DiffContext<T, TKey>(previous, current, keySelector);
 
-            var modifiedKeys = diffContext.SelectModified(dataSelector).ToArray();
-            var unmodifiedKeys = diffContext.SelectIntersecting().Except(modifiedKeys).ToArray();
+            var modifiedKeys = diffContext.SelectModifiedKeys(dataSelector).ToArray();
+            var unmodifiedKeys = diffContext.SelectIntersectingKeys().Except(modifiedKeys).ToArray();
 
             return new DiffResult<T>
             {
-                Removed = SelectValues(diffContext.Previous, diffContext.SelectRemoved()),
-                Added = SelectValues(diffContext.Current, diffContext.SelectAdded()),
+                Removed = SelectValues(diffContext.Previous, diffContext.SelectRemovedKeys()),
+                Added = SelectValues(diffContext.Current, diffContext.SelectAddedKeys()),
                 Modified = SelectValues(diffContext.Current, modifiedKeys),
                 Unmodified = SelectValues(diffContext.Current, unmodifiedKeys)
             };
@@ -44,7 +44,7 @@ namespace Grimware.Extensions
 
             var diffContext = new DiffContext<T, TKey>(previous, current, keySelector);
 
-            return SelectValues(diffContext.Current, diffContext.SelectAdded());
+            return SelectValues(diffContext.Current, diffContext.SelectAddedKeys());
         }
 
         public static IEnumerable<T> SelectModified<T, TKey, TData>(
@@ -62,7 +62,7 @@ namespace Grimware.Extensions
 
             var diffContext = new DiffContext<T, TKey>(previous, current, keySelector);
 
-            return SelectValues(diffContext.Current, diffContext.SelectModified(dataSelector));
+            return SelectValues(diffContext.Current, diffContext.SelectModifiedKeys(dataSelector));
         }
 
         public static IEnumerable<T> SelectRemoved<T, TKey>(
@@ -76,7 +76,7 @@ namespace Grimware.Extensions
 
             var diffContext = new DiffContext<T, TKey>(previous, current, keySelector);
 
-            return SelectValues(diffContext.Previous, diffContext.SelectRemoved());
+            return SelectValues(diffContext.Previous, diffContext.SelectRemovedKeys());
         }
 
         private static IEnumerable<T> SelectValues<T, TKey>(Dictionary<TKey, T> dictionary, IEnumerable<TKey> keys)
@@ -99,20 +99,20 @@ namespace Grimware.Extensions
 
             public Dictionary<TKey, T> Previous { get; }
 
-            public IEnumerable<TKey> SelectAdded()
+            public IEnumerable<TKey> SelectAddedKeys()
             {
                 return Current.Keys.Except(Previous.Keys);
             }
 
-            public IEnumerable<TKey> SelectIntersecting()
+            public IEnumerable<TKey> SelectIntersectingKeys()
             {
                 return Current.Keys.Intersect(Previous.Keys);
             }
 
-            public IEnumerable<TKey> SelectModified<TData>(Func<T, TData> dataSelector)
+            public IEnumerable<TKey> SelectModifiedKeys<TData>(Func<T, TData> dataSelector)
             {
                 var intersectingValues =
-                    from k in SelectIntersecting()
+                    from k in SelectIntersectingKeys()
                     select new
                     {
                         Key = k,
@@ -127,7 +127,7 @@ namespace Grimware.Extensions
                     select a.Key;
             }
 
-            public IEnumerable<TKey> SelectRemoved()
+            public IEnumerable<TKey> SelectRemovedKeys()
             {
                 return Previous.Keys.Except(Current.Keys);
             }

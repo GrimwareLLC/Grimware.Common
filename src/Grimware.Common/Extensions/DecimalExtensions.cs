@@ -53,35 +53,5 @@ namespace Grimware.Extensions
         {
             return source != null ? Decimal.ToSingle(source.Value) : (float?) null;
         }
-
-        public static ushort ToUInt16(this decimal source)
-        {
-            return Decimal.ToUInt16(source);
-        }
-
-        public static ushort? ToUInt16(this decimal? source)
-        {
-            return source != null ? Decimal.ToUInt16(source.Value) : (ushort?) null;
-        }
-
-        public static uint ToUInt32(this decimal source)
-        {
-            return Decimal.ToUInt32(source);
-        }
-
-        public static uint? ToUInt32(this decimal? source)
-        {
-            return source != null ? Decimal.ToUInt32(source.Value) : (uint?) null;
-        }
-
-        public static ulong ToUInt64(this decimal source)
-        {
-            return Decimal.ToUInt64(source);
-        }
-
-        public static ulong? ToUInt64(this decimal? source)
-        {
-            return source != null ? Decimal.ToUInt64(source.Value) : (ulong?) null;
-        }
     }
 }

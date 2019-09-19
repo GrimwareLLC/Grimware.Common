@@ -13,6 +13,8 @@ trigger:
     include:
     - develop
     - master
+    - release/*
+    - releases/*
 
 pr: none
 

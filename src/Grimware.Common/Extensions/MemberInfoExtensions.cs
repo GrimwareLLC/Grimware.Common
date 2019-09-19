@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Grimware.Extensions
 {
-    partial class ReflectionExtensions
+    public static class MemberInfoExtensions
     {
         public static IEnumerable<T> FindAttributesOfType<T>(this MemberInfo member)
             where T : Attribute

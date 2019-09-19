@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Grimware.Extensions
 {
-    partial class ReflectionExtensions
+    public static class FieldInfoExtensions
     {
         public static Attribute GetFirstAttributeOfType(this FieldInfo field, Type attributeType)
         {

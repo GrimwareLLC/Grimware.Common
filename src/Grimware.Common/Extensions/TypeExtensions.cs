@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Grimware.Extensions
 {
-    partial class ReflectionExtensions
+    public static class TypeExtensions
     {
         public static object ConvertFromString(this Type type, string value, object defaultValue)
         {

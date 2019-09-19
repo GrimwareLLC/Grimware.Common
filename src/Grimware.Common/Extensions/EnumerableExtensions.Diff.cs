@@ -133,7 +133,7 @@ namespace Grimware.Extensions
             }
         }
 
-        private struct DiffResult<T>
+        private class DiffResult<T>
             : IDiffResult<T>
         {
             public IEnumerable<T> Added { get; set; }

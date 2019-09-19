@@ -33,13 +33,13 @@ namespace Grimware.Common.UnitTests.Extensions
 
         private enum AnotherTestEnumeration
         {
-            TranslatableValue = 10,
+            TranslatableValue = 10
         }
 
         private enum TestEnumeration
         {
             DescriptiveText = 1,
-            TranslatableValue = 2,
+            TranslatableValue = 2
         }
     }
 }

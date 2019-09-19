@@ -23,13 +23,13 @@ namespace Grimware.Common.UnitTests.Extensions
             SecureString secured = null;
 
             if (test != null)
-            {
                 unsafe
                 {
                     fixed (char* pChars = test.ToCharArray())
+                    {
                         secured = new SecureString(pChars, test.Length);
+                    }
                 }
-            }
 
             // Act
             var result = secured.ToUnsecuredString();

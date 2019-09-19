@@ -37,13 +37,15 @@ namespace Grimware.Extensions
 
         public static Stream WriteToStream(this IXPathNavigable source)
         {
+            const int InitialStreamSize = 1024 * 4; // 4k bytes
+
             if (source == null)
                 return null;
 
             MemoryStream ms = null;
             try
             {
-                ms = new MemoryStream(1024 * 4);
+                ms = new MemoryStream(InitialStreamSize);
                 WriteToStream(source, ms);
 
                 ms.Seek(0, SeekOrigin.Begin);

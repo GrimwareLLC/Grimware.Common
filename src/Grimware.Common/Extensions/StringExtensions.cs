@@ -1,5 +1,7 @@
 ﻿// ReSharper disable once RedundantUsingDirective
 // Using directive required for net461 compilation, but not for netstandard2.0
+
+
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -15,13 +17,18 @@ namespace Grimware.Extensions
         private const string _CasingSymbols = "{~_`:=@ \"&'(+,-./\t\r\n";
         private const RegexOptions _StandardRegexOptions = RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
-        private const string _ValidGuidExpression =
+        private const string _UnusualGuidRegexExpression =
+            @"\{0x[\da-f]{8},0x[\da-f]{4},0x[\da-f]{4},"
+            + @"\{0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2}\}"
+            + @"\}";
+
+        private const string _ValidGuidRegexExpression =
             @"\A(?i)(?:"
             + @"[\da-f]{32}"
             + @"|[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}"
             + @"|\{[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\}"
             + @"|\([\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\)"
-            + @"|\{0x[\da-f]{8},0x[\da-f]{4},0x[\da-f]{4},\{0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2},0x[\da-f]{2}\}\}"
+            + @"|" + _UnusualGuidRegexExpression
             + @")\Z";
 
         private static readonly Regex _NonAlphaNumericRegex =
@@ -36,7 +43,7 @@ namespace Grimware.Extensions
         private static readonly Regex _ToPhraseRegex =
             new Regex("([a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))", _StandardRegexOptions);
 
-        private static readonly Regex _ValidGuidRegex = new Regex(_ValidGuidExpression, _StandardRegexOptions | RegexOptions.IgnoreCase);
+        private static readonly Regex _ValidGuidRegex = new Regex(_ValidGuidRegexExpression, _StandardRegexOptions | RegexOptions.IgnoreCase);
 
         /// <summary>
         ///     Converts the specified text to an object
@@ -85,20 +92,6 @@ namespace Grimware.Extensions
             return source.NullIf(String.IsNullOrWhiteSpace);
         }
 
-#if NET46
-        public static IEnumerable<string> Split(this string source, string separator)
-        {
-            return Split(source, separator, StringSplitOptions.None);
-        }
-
-        public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options)
-        {
-            return source == null
-                ? Array.Empty<string>()
-                : source.Split(separator == null ? null : new[] {separator}, options);
-        }
-#endif
-
         public static string StripNonAlphaCharacters(this string source)
         {
             return source == null ? null : _NonAlphaRegex.Replace(source, String.Empty);
@@ -116,12 +109,17 @@ namespace Grimware.Extensions
 
         public static string TitleCase(this string source)
         {
+            return TitleCase(source, CultureInfo.InvariantCulture);
+        }
+
+        public static string TitleCase(this string source, CultureInfo culture)
+        {
             return source != null
                 ? new string(
                     source
-                        .ToUpperInvariant()
+                        .ToUpper(culture)
                         .ToCharArray()
-                        .Select((c, i) => i > 0 && _CasingSymbols.IndexOf(source[i - 1]) == -1 ? Char.ToLowerInvariant(c) : c)
+                        .Select((c, i) => i > 0 && _CasingSymbols.IndexOf(source[i - 1]) == -1 ? Char.ToLower(c, culture) : c)
                         .ToArray())
                 : null;
         }
@@ -140,45 +138,49 @@ namespace Grimware.Extensions
                 : null;
         }
 
-        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider)
+        public static DateTime? ToDateTime(this string source, string format, IFormatProvider provider)
         {
             return ToDateTime(source, format, provider, false);
         }
 
-        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider,bool adjustCentury)
+        public static DateTime? ToDateTime(this string source, string format, IFormatProvider provider, bool adjustCentury)
         {
             return ToDateTime(source, format, provider, DateTimeStyles.None, adjustCentury);
         }
 
-        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider,DateTimeStyles style)
+        public static DateTime? ToDateTime(this string source, string format, IFormatProvider provider, DateTimeStyles style)
         {
             return ToDateTime(source, format, provider, style, false);
         }
 
-        public static DateTime? ToDateTime(this string source,string format,IFormatProvider provider,DateTimeStyles style,bool adjustCentury)
+        public static DateTime? ToDateTime(this string source, string format, IFormatProvider provider, DateTimeStyles style, bool adjustCentury)
         {
             return format != null
                 ? ToDateTime(source, new[] {format}, provider, style, adjustCentury)
                 : throw new ArgumentNullException(nameof(format));
         }
 
-        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider)
+        public static DateTime? ToDateTime(this string source, string[] formats, IFormatProvider provider)
         {
             return ToDateTime(source, formats, provider, DateTimeStyles.None);
         }
 
-        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider,DateTimeStyles style)
+        public static DateTime? ToDateTime(this string source, string[] formats, IFormatProvider provider, DateTimeStyles style)
         {
             return ToDateTime(source, formats, provider, style, false);
         }
 
-        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider,bool adjustCentury)
+        public static DateTime? ToDateTime(this string source, string[] formats, IFormatProvider provider, bool adjustCentury)
         {
             return ToDateTime(source, formats, provider, DateTimeStyles.None, adjustCentury);
         }
 
-        public static DateTime? ToDateTime(this string source,string[] formats,IFormatProvider provider,DateTimeStyles style,bool adjustCentury)
+        public static DateTime? ToDateTime(this string source, string[] formats, IFormatProvider provider, DateTimeStyles style, bool adjustCentury)
         {
+            const int AdjustWindowStart = 1900;
+            const int AdjustWindowEnd = 1950;
+            const int YearsInCentury = 100;
+
             if (formats == null)
                 throw new ArgumentNullException(nameof(formats));
 
@@ -187,8 +189,7 @@ namespace Grimware.Extensions
 
             if (DateTime.TryParseExact(source, formats, provider, style, out var result))
             {
-                if (adjustCentury && result.Year >= 1900 && result.Year <= 1950)
-                    result = result.AddYears(100);
+                if (adjustCentury && result.Year >= AdjustWindowStart && result.Year <= AdjustWindowEnd) result = result.AddYears(YearsInCentury);
 
                 return result;
             }
@@ -354,8 +355,13 @@ namespace Grimware.Extensions
 
         public static TimeSpan? ToTimeSpan(this string source)
         {
+            return ToTimeSpan(source, CultureInfo.InvariantCulture);
+        }
+
+        public static TimeSpan? ToTimeSpan(this string source, IFormatProvider formatProvider)
+        {
             return source != null
-                ? TimeSpan.TryParse(source, out var result)
+                ? TimeSpan.TryParse(source, formatProvider, out var result)
                     ? (TimeSpan?) result
                     : null
                 : null;
@@ -366,7 +372,8 @@ namespace Grimware.Extensions
             if (String.IsNullOrEmpty(source) || String.IsNullOrEmpty(from))
                 return source;
 
-            to = to ?? String.Empty;
+            if (to == null)
+                to = String.Empty;
 
             var sb = new StringBuilder(source);
 
@@ -398,5 +405,19 @@ namespace Grimware.Extensions
         {
             return source?.NullIf(s => s.In(comparison, values));
         }
+
+#if NET46
+        public static IEnumerable<string> Split(this string source, string separator)
+        {
+            return Split(source, separator, StringSplitOptions.None);
+        }
+
+        public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options)
+        {
+            return source == null
+                ? Array.Empty<string>()
+                : source.Split(separator == null ? null : new[] {separator}, options);
+        }
+#endif
     }
 }

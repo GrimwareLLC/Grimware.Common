@@ -36,7 +36,6 @@ namespace Grimware.Extensions
                 return condition(source.Value) ? null : source;
 
             return null;
-
         }
 
         public static T NullIf<T>(this T source, Predicate<T> condition)
@@ -49,7 +48,6 @@ namespace Grimware.Extensions
                 return condition(source) ? null : source;
 
             return null;
-
         }
 
         public static T? NullIfDefault<T>(this T source)

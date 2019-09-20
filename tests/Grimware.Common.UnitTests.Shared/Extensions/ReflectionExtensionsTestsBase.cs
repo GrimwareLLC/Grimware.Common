@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable UnusedMember.Local
 
 namespace Grimware.Common.UnitTests.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public class ReflectionExtensionsTestsBase
     {
         protected static readonly Type NullType = null;

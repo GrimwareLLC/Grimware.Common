@@ -29,25 +29,27 @@ namespace Grimware.Extensions
         public static T? NullIf<T>(this T? source, Predicate<T> condition)
             where T : struct
         {
-            if (condition != null)
-                if (source != null)
-                    return condition(source.Value) ? null : source;
-                else
-                    return null;
+            if (condition == null)
+                throw new ArgumentNullException(nameof(condition));
 
-            throw new ArgumentNullException(nameof(condition));
+            if (source != null)
+                return condition(source.Value) ? null : source;
+
+            return null;
+
         }
 
         public static T NullIf<T>(this T source, Predicate<T> condition)
             where T : class
         {
-            if (condition != null)
-                if (source != null)
-                    return condition(source) ? null : source;
-                else
-                    return null;
+            if (condition == null)
+                throw new ArgumentNullException(nameof(condition));
 
-            throw new ArgumentNullException(nameof(condition));
+            if (source != null)
+                return condition(source) ? null : source;
+
+            return null;
+
         }
 
         public static T? NullIfDefault<T>(this T source)
@@ -81,10 +83,12 @@ namespace Grimware.Extensions
 
         public static string TrySerializeAsXml<T>(this T source)
         {
+            const int InitialCapacity = 1024 * 4;
+
             if (source == null)
                 return null;
 
-            var sb = new StringBuilder(1024 * 4);
+            var sb = new StringBuilder(InitialCapacity);
             using (var xmlWriter = XmlWriter.Create(new StringWriter(sb), new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true }))
             {
                 var serializer = new XmlSerializer(source.GetType());

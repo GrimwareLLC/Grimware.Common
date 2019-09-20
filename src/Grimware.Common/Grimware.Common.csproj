@@ -24,22 +24,14 @@
   <PropertyGroup>
     <PackageReleaseNotes>
       <![CDATA[
+
+0.6.1-beta - Unit Tests, Code Coverage, Code Improvement, Code Cleanup
 0.6.0-beta - Restructured some extension methods into a different class structure
 0.5.1-beta - SonarCloud Cleanup
-0.5.0-beta - Trying to get on-track for proper versioning again. The versioning sequence is totally broken at this
-             point and this release contains breaking changes.
-0.3.1-beta - Removed ResourceManagerExtensions. Nobody uses resources this way any more.
-           - Removed ExceptionExtensions. Exception.ToString() implementation has improved and made this obsolete over the years.
-           - Removed Split method from StringExtensions. Method has been implemented in the core framework.
-           - Removed dependency on System.Drawing.Common, since it was only required for ResourceManagerExtensions.
-           - Disable auto-package on build, switching to pipeline builds.
-2.0.0-alpha - Maintenance release, trying to get build pipelines working right
-1.1.0-RC1 - Code cleanup and unit testing
-0.4.0 - Aborted release trying to get aligned for SemVer. Realized it would break upgrade pathing for anyone already using the previews.
-1.0.0 - Initial usable release. Badly versioned.
+0.5.0-beta - Initial version from SemVer-compliant versioning changes.
 ]]>
     </PackageReleaseNotes>
-    <Version>0.6.0-beta</Version>
+    <Version>0.6.1-beta</Version>
     <Description>Lightweight .NET extensions, helpers, and abstractions library</Description>
     <Authors>Toby Herring</Authors>
     <Company>Grimware, LLC</Company>

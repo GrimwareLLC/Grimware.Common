@@ -5,6 +5,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Security;
 using System.Text;
@@ -56,7 +57,7 @@ namespace Grimware.Extensions
         /// <exception cref="ArgumentNullException">type is null</exception>
         public static T ConvertTo<T>(this string source, T defaultValue)
         {
-            return (T)typeof(T).ConvertFromString(source, defaultValue);
+            return TryConvertTo<T>(source, out var result) ? result : defaultValue;
         }
 
         public static bool In(this string source, params string[] values)
@@ -390,21 +391,49 @@ namespace Grimware.Extensions
             return sb.ToString();
         }
 
-        public static bool TryConvertTo<T>(this string value, out T returnValue)
+        public static bool TryConvertTo<T>(this string source, out T returnValue)
         {
-            if (typeof(T).TryConvertFromString(value, out var convertedValue))
-            {
-                returnValue = (T)convertedValue;
-                return true;
-            }
+            var type = typeof(T);
 
-            returnValue = default;
-            return false;
+            var successful = true;
+            object convertedValue = null;
+
+            try
+            {
+                if (source == null)
+                {
+                    if (type.IsValueType)
+                        successful = false;
+                }
+                else
+                {
+                    convertedValue = type.IsInstanceOfType(source) ? source : TryConvertFromStringInternal(type, source);
+                }
+            }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch
+            {
+                successful = false;
+            }
+#pragma warning restore CA1031 // Do not catch general exception types
+
+            returnValue = successful ? (T)convertedValue : default;
+            return successful;
         }
 
         private static string NullIfIn(this string source, StringComparison comparison, params string[] values)
         {
             return source?.NullIf(s => s.In(comparison, values));
+        }
+
+        private static object TryConvertFromStringInternal(Type type, string value)
+        {
+            if (type.IsEnum) return Enum.Parse(type, value, true);
+
+            var typeConverter = TypeDescriptor.GetConverter(type);
+            return typeConverter.CanConvertFrom(typeof(string))
+                ? typeConverter.ConvertFromString(value)
+                : null;
         }
 
 #if NET46

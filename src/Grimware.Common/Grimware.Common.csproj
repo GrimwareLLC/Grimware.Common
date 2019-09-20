@@ -24,6 +24,7 @@
   <PropertyGroup>
     <PackageReleaseNotes>
       <![CDATA[
+0.6.0-beta - Restructured some extension methods into a different class structure
 0.5.1-beta - SonarCloud Cleanup
 0.5.0-beta - Trying to get on-track for proper versioning again. The versioning sequence is totally broken at this
              point and this release contains breaking changes.
@@ -38,7 +39,7 @@
 1.0.0 - Initial usable release. Badly versioned.
 ]]>
     </PackageReleaseNotes>
-    <Version>0.5.1-beta</Version>
+    <Version>0.6.0-beta</Version>
     <Description>Lightweight .NET extensions, helpers, and abstractions library</Description>
     <Authors>Toby Herring</Authors>
     <Company>Grimware, LLC</Company>
@@ -109,21 +110,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\LogMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LogMessages.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\ExceptionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\LogMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LogMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

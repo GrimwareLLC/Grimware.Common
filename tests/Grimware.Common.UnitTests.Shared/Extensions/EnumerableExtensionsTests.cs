@@ -20,22 +20,22 @@ namespace Grimware.Common.UnitTests.Extensions
     public class EnumerableExtensionsTests
     {
         private static readonly IEnumerable<int> _Int32TestData =
-            new[] {Int32.MinValue, -1, 0, 1, Int32.MaxValue}
+            new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
                 .AsEnumerable();
 
         private static readonly IEnumerable<TestClass> _TestClassesBefore =
             new[]
             {
-                new TestClass {Data = 0},
-                new TestClass {Data = 1},
-                new TestClass {Data = 2},
-                new TestClass {Data = 3},
-                new TestClass {Data = 4},
-                new TestClass {Data = 5},
-                new TestClass {Data = 6},
-                new TestClass {Data = 7},
-                new TestClass {Data = 8},
-                new TestClass {Data = 9}
+                new TestClass { Data = 0 },
+                new TestClass { Data = 1 },
+                new TestClass { Data = 2 },
+                new TestClass { Data = 3 },
+                new TestClass { Data = 4 },
+                new TestClass { Data = 5 },
+                new TestClass { Data = 6 },
+                new TestClass { Data = 7 },
+                new TestClass { Data = 8 },
+                new TestClass { Data = 9 }
             };
 
         private static readonly IEnumerable<TestClass> _TestClassesAfter =
@@ -48,11 +48,11 @@ namespace Grimware.Common.UnitTests.Extensions
                 .Concat(
                     new[]
                     {
-                        new TestClass {Data = 101},
-                        new TestClass {Data = 102},
-                        new TestClass {Data = 103},
-                        new TestClass {Data = 104},
-                        new TestClass {Data = 105}
+                        new TestClass { Data = 101 },
+                        new TestClass { Data = 102 },
+                        new TestClass { Data = 103 },
+                        new TestClass { Data = 104 },
+                        new TestClass { Data = 105 }
                     })
 
                 // Modify some
@@ -94,7 +94,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Assert
             indexes.Should().NotBeNull();
             indexes.Count().Should().Be(2);
-            indexes.Should().BeEquivalentTo(new[] {0, 1});
+            indexes.Should().BeEquivalentTo(new[] { 0, 1 });
         }
 
         [TestMethod]
@@ -103,9 +103,9 @@ namespace Grimware.Common.UnitTests.Extensions
             // Arrange
 
             // Act
-            ((IEnumerable<int>) null).Concat(101).Should().BeEquivalentTo(new[] {101});
+            ((IEnumerable<int>)null).Concat(101).Should().BeEquivalentTo(new[] { 101 });
 
-            _Int32TestData.Concat(101).Should().BeEquivalentTo(new[] {Int32.MinValue, -1, 0, 1, Int32.MaxValue, 101});
+            _Int32TestData.Concat(101).Should().BeEquivalentTo(new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue, 101 });
 
             // Assert
         }
@@ -117,11 +117,11 @@ namespace Grimware.Common.UnitTests.Extensions
             IEnumerable<long> results;
 
             // Act
-            results = _Int32TestData.Convert(i => (long) i);
+            results = _Int32TestData.Convert(i => (long)i);
 
             // Assert
             results.Should().NotBeNull();
-            results.Should().BeEquivalentTo(_Int32TestData.Select(i => (long) i));
+            results.Should().BeEquivalentTo(_Int32TestData.Select(i => (long)i));
         }
 
         [TestMethod]
@@ -152,22 +152,22 @@ namespace Grimware.Common.UnitTests.Extensions
             var added = diff.Added;
             added.Should().NotBeNull();
             added.Count().Should().Be(3);
-            added.Select(x => x.Data).Should().BeEquivalentTo(new[] {113, 104, 115});
+            added.Select(x => x.Data).Should().BeEquivalentTo(new[] { 113, 104, 115 });
 
             var removed = diff.Removed;
             removed.Should().NotBeNull();
             removed.Count().Should().Be(3);
-            removed.Select(x => x.Data).Should().BeEquivalentTo(new[] {0, 5, 6});
+            removed.Select(x => x.Data).Should().BeEquivalentTo(new[] { 0, 5, 6 });
 
             var modified = diff.Modified;
             modified.Should().NotBeNull();
             modified.Count().Should().Be(4);
-            modified.Select(x => x.Data).Should().BeEquivalentTo(new[] {11, 13, 17, 19});
+            modified.Select(x => x.Data).Should().BeEquivalentTo(new[] { 11, 13, 17, 19 });
 
             var unmodified = diff.Unmodified;
             unmodified.Should().NotBeNull();
             unmodified.Count().Should().Be(3);
-            unmodified.Select(x => x.Data).Should().BeEquivalentTo(new[] {2, 4, 8});
+            unmodified.Select(x => x.Data).Should().BeEquivalentTo(new[] { 2, 4, 8 });
         }
 
         [TestMethod]
@@ -199,7 +199,7 @@ namespace Grimware.Common.UnitTests.Extensions
             results = _Int32TestData.Distinct(i => i);
 
             // Assert
-            ((IEnumerable<int>) null).Distinct(i => i).Should().BeNull();
+            ((IEnumerable<int>)null).Distinct(i => i).Should().BeNull();
 
             results.Should().NotBeNull();
             results.Should().NotBeSameAs(_Int32TestData);
@@ -216,7 +216,7 @@ namespace Grimware.Common.UnitTests.Extensions
             results = _Int32TestData.Distinct((i, j) => i == j, i => i.GetHashCode());
 
             // Assert
-            ((IEnumerable<int>) null).Distinct((i, j) => i == j, i => i.GetHashCode()).Should().BeNull();
+            ((IEnumerable<int>)null).Distinct((i, j) => i == j, i => i.GetHashCode()).Should().BeNull();
 
             results.Should().NotBeNull();
             results.Should().NotBeSameAs(_Int32TestData);
@@ -232,7 +232,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Act
             Action act1 = () => results = _testEnumerable.Distinct(null, i => i.GetHashCode());
             Action act2 = () => results = _testEnumerable.Distinct((i, j) => i == j, null);
-            Action act3 = () => results = _testEnumerable.Distinct((Func<int, int>) null);
+            Action act3 = () => results = _testEnumerable.Distinct((Func<int, int>)null);
 
             // Assert
             act1.Should().Throw<ArgumentNullException>().Where(ex => "equalityComparison".Equals(ex.ParamName));
@@ -256,7 +256,7 @@ namespace Grimware.Common.UnitTests.Extensions
 
             // Assert
             results.Should().NotBeNull();
-            results.Should().BeEquivalentTo(new[] {Int32.MinValue, -1, 1, Int32.MaxValue});
+            results.Should().BeEquivalentTo(new[] { Int32.MinValue, -1, 1, Int32.MaxValue });
         }
 
         [TestMethod]
@@ -265,7 +265,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Arrange
 
             // Act
-            ((IEnumerable<int>) null).FirstIndexWhere(i => i == 0).Should().BeNull();
+            ((IEnumerable<int>)null).FirstIndexWhere(i => i == 0).Should().BeNull();
             _Int32TestData.FirstIndexWhere(i => i == 101).Should().BeNull();
 
             _Int32TestData.FirstIndexWhere(i => i == Int32.MinValue).Should().Be(0);
@@ -284,7 +284,7 @@ namespace Grimware.Common.UnitTests.Extensions
             var list = new List<int>(8);
 
             // Act
-            ((IEnumerable<int>) null).ForEach(i => i++);
+            ((IEnumerable<int>)null).ForEach(i => i++);
             _testEnumerable.ForEach(null);
 
             _Int32TestData.ForEach(i => list.Add(i));
@@ -301,8 +301,8 @@ namespace Grimware.Common.UnitTests.Extensions
             // Act
 
             // Assert
-            _Int32TestData.Last(2).Should().BeEquivalentTo(new[] {1, Int32.MaxValue});
-            _Int32TestData.Last(i => i <= 0, 2).Should().BeEquivalentTo(new[] {-1, 0});
+            _Int32TestData.Last(2).Should().BeEquivalentTo(new[] { 1, Int32.MaxValue });
+            _Int32TestData.Last(i => i <= 0, 2).Should().BeEquivalentTo(new[] { -1, 0 });
         }
 
         [TestMethod]
@@ -313,8 +313,8 @@ namespace Grimware.Common.UnitTests.Extensions
             // Act
 
             // Assert
-            ((IEnumerable<int>) null).None().Should().BeTrue();
-            ((IEnumerable<int>) null).None().Should().BeTrue();
+            ((IEnumerable<int>)null).None().Should().BeTrue();
+            ((IEnumerable<int>)null).None().Should().BeTrue();
 
             _Int32TestData.None().Should().BeFalse();
             _Int32TestData.Where(i => i == 101).None().Should().BeTrue();
@@ -339,8 +339,8 @@ namespace Grimware.Common.UnitTests.Extensions
 
             random.Select((t, i) => testData[i] == t ? 0 : 1).Sum().Should().BeGreaterThan(0);
 
-            ((IEnumerable<int>) null).OrderRandom().Should().NotBeNull();
-            ((IEnumerable<int>) null).OrderRandom().Should().BeEquivalentTo(Enumerable.Empty<int>());
+            ((IEnumerable<int>)null).OrderRandom().Should().NotBeNull();
+            ((IEnumerable<int>)null).OrderRandom().Should().BeEquivalentTo(Enumerable.Empty<int>());
         }
 
         [TestMethod]
@@ -354,7 +354,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Assert
             added.Should().NotBeNull();
             added.Count().Should().Be(3);
-            added.Select(x => x.Data).Should().BeEquivalentTo(new[] {113, 104, 115});
+            added.Select(x => x.Data).Should().BeEquivalentTo(new[] { 113, 104, 115 });
         }
 
         [TestMethod]
@@ -382,7 +382,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Assert
             modified.Should().NotBeNull();
             modified.Count().Should().Be(4);
-            modified.Select(x => x.Data).Should().BeEquivalentTo(new[] {11, 13, 17, 19});
+            modified.Select(x => x.Data).Should().BeEquivalentTo(new[] { 11, 13, 17, 19 });
         }
 
         [TestMethod]
@@ -414,7 +414,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Assert
             removed.Should().NotBeNull();
             removed.Count().Should().Be(3);
-            removed.Select(x => x.Data).Should().BeEquivalentTo(new[] {0, 5, 6});
+            removed.Select(x => x.Data).Should().BeEquivalentTo(new[] { 0, 5, 6 });
         }
 
         [TestMethod]
@@ -447,13 +447,13 @@ namespace Grimware.Common.UnitTests.Extensions
 
             random.Select((t, i) => testData[i] == t ? 0 : 1).Sum().Should().BeGreaterThan(0);
 
-            ((IEnumerable<TestClass>) null).TakeRandom().Should().BeNull();
-            ((IEnumerable<int>) null).TakeRandom().Should().Be(0);
+            ((IEnumerable<TestClass>)null).TakeRandom().Should().BeNull();
+            ((IEnumerable<int>)null).TakeRandom().Should().Be(0);
 
-            ((IEnumerable<TestClass>) null).TakeRandom(1).Should().NotBeNull();
-            ((IEnumerable<TestClass>) null).TakeRandom(1).Should().BeEquivalentTo(Enumerable.Empty<TestClass>());
-            ((IEnumerable<int>) null).TakeRandom(1).Should().NotBeNull();
-            ((IEnumerable<int>) null).TakeRandom(1).Should().BeEquivalentTo(Enumerable.Empty<int>());
+            ((IEnumerable<TestClass>)null).TakeRandom(1).Should().NotBeNull();
+            ((IEnumerable<TestClass>)null).TakeRandom(1).Should().BeEquivalentTo(Enumerable.Empty<TestClass>());
+            ((IEnumerable<int>)null).TakeRandom(1).Should().NotBeNull();
+            ((IEnumerable<int>)null).TakeRandom(1).Should().BeEquivalentTo(Enumerable.Empty<int>());
         }
 
         private class TestClass
@@ -463,7 +463,7 @@ namespace Grimware.Common.UnitTests.Extensions
 
             public TestClass Clone()
             {
-                return new TestClass {Key = Key, Data = Data};
+                return new TestClass { Key = Key, Data = Data };
             }
         }
     }

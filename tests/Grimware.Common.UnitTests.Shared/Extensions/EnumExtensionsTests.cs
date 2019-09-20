@@ -15,7 +15,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Assert
             TestEnumeration.DescriptiveText.ToDescription().Should().Be("Descriptive Text");
 
-            ((TestEnumeration?) TestEnumeration.DescriptiveText).ToDescription().Should().Be("Descriptive Text");
+            ((TestEnumeration?)TestEnumeration.DescriptiveText).ToDescription().Should().Be("Descriptive Text");
         }
 
         [TestMethod]

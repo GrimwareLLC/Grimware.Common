@@ -16,7 +16,7 @@ namespace Grimware.Common.UnitTests.Extensions
     public class CollectionsExtensionsTests
     {
         private static readonly IEnumerable<int> _Int32TestData =
-            new[] {Int32.MinValue, -1, 0, 1, Int32.MaxValue}
+            new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
                 .AsEnumerable();
 
         private ICollection<int> _testCollection;
@@ -60,7 +60,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void AddIfNotExists()
         {
             // Arrange
-            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int) c[0] > 0);
+            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int)c[0] > 0);
 
             // Act
             foreach (var i in _Int32TestData)
@@ -77,7 +77,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Arrange
 
             // Act
-            ((ICollection<int>) null).AddRange(_Int32TestData);
+            ((ICollection<int>)null).AddRange(_Int32TestData);
             _testCollection.AddRange(null);
 
             _testCollection.AddRange(_Int32TestData);
@@ -90,10 +90,10 @@ namespace Grimware.Common.UnitTests.Extensions
         public void AddRangeIfNotExists()
         {
             // Arrange
-            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int) c[0] > 0);
+            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int)c[0] > 0);
 
             // Act
-            ((ICollection<int>) null).AddRangeIfNotExists(_Int32TestData);
+            ((ICollection<int>)null).AddRangeIfNotExists(_Int32TestData);
             _testCollection.AddRangeIfNotExists(null);
 
             _testCollection.AddRangeIfNotExists(_Int32TestData);
@@ -134,7 +134,7 @@ namespace Grimware.Common.UnitTests.Extensions
         public void RemoveIfExists()
         {
             // Arrange
-            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int) c[0] < 0);
+            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int)c[0] < 0);
 
             // Act
             foreach (var i in _Int32TestData)
@@ -151,7 +151,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Arrange
 
             // Act
-            ((ICollection<int>) null).RemoveRange(_Int32TestData);
+            ((ICollection<int>)null).RemoveRange(_Int32TestData);
             _testCollection.RemoveRange(null);
 
             _testCollection.RemoveRange(_Int32TestData);
@@ -164,10 +164,10 @@ namespace Grimware.Common.UnitTests.Extensions
         public void RemoveRangeIfExists()
         {
             // Arrange
-            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int) c[0] > 0);
+            _testCollection.Contains(Arg.Any<int>()).Returns(c => (int)c[0] > 0);
 
             // Act
-            ((ICollection<int>) null).RemoveRangeIfExists(_Int32TestData);
+            ((ICollection<int>)null).RemoveRangeIfExists(_Int32TestData);
             _testCollection.RemoveRangeIfExists(null);
 
             _testCollection.RemoveRangeIfExists(_Int32TestData);

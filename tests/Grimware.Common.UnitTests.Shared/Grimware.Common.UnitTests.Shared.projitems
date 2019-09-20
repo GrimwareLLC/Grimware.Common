@@ -28,9 +28,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\GenericExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Int32ExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ReflectionExtensionsTestsBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SecureStringExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StreamExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TypeExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\XPathNavigableExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HasherTests.cs" />

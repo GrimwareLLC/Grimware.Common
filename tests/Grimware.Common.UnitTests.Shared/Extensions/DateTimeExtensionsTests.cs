@@ -27,9 +27,9 @@ namespace Grimware.Common.UnitTests.Extensions
         {
             var dateTime = DateTime.Now;
 
-            ((DateTime?) null).Add(null).Should().BeNull();
-            ((DateTime?) null).Add(TimeSpan.Zero).Should().BeNull();
-            ((DateTime?) dateTime).Add(null).Should().Be(dateTime);
+            ((DateTime?)null).Add(null).Should().BeNull();
+            ((DateTime?)null).Add(TimeSpan.Zero).Should().BeNull();
+            ((DateTime?)dateTime).Add(null).Should().Be(dateTime);
         }
 
         [DataTestMethod]
@@ -75,6 +75,9 @@ namespace Grimware.Common.UnitTests.Extensions
         public void GetWeekOfYear(int year, int month, int day, int result)
         {
             new DateTime(year, month, day).GetWeekOfYear().Should().Be(result);
+            new DateTime(year, month, day).GetWeekOfYear(CalendarWeekRule.FirstDay).Should().Be(result);
+            new DateTime(year, month, day).GetWeekOfYear(DayOfWeek.Sunday).Should().Be(result);
+            new DateTime(year, month, day).GetWeekOfYear(CalendarWeekRule.FirstDay, DayOfWeek.Sunday).Should().Be(result);
         }
 
         [DataTestMethod]
@@ -84,6 +87,9 @@ namespace Grimware.Common.UnitTests.Extensions
         public void GetWeekOfYear_AlternateCalendar(int year, int month, int day, int result)
         {
             new DateTime(year, month, day).GetWeekOfYear(TestCalendar).Should().Be(result);
+            new DateTime(year, month, day).GetWeekOfYear(TestCalendar, CalendarWeekRule.FirstDay).Should().Be(result);
+            new DateTime(year, month, day).GetWeekOfYear(TestCalendar, DayOfWeek.Sunday).Should().Be(result);
+            new DateTime(year, month, day).GetWeekOfYear(TestCalendar, CalendarWeekRule.FirstDay, DayOfWeek.Sunday).Should().Be(result);
         }
     }
 }

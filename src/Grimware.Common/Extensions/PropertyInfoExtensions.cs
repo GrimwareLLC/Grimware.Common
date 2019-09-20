@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Grimware.Extensions
 {
-    partial class ReflectionExtensions
+    public static class PropertyInfoExtensions
     {
         public static Attribute GetSingleAttributeOfTypeIfExists(this PropertyInfo property, Type attributeType)
         {

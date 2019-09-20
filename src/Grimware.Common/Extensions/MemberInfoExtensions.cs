@@ -7,25 +7,6 @@ namespace Grimware.Extensions
 {
     public static class MemberInfoExtensions
     {
-        public static IEnumerable<T> FindAttributesOfType<T>(this MemberInfo member)
-            where T : Attribute
-        {
-            return member != null
-                ? member.GetCustomAttributes(typeof(T), true)
-                        .Cast<T>()
-                : Array.Empty<T>();
-        }
-
-        public static IEnumerable<Attribute> FindAttributesOfType(this MemberInfo member, Type attributeType)
-        {
-            if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));
-            return
-                member != null
-                    ? member.GetCustomAttributes(attributeType, true)
-                            .Cast<Attribute>()
-                    : Array.Empty<Attribute>();
-        }
-
         public static T FindSingleAttributeOfType<T>(this MemberInfo member)
             where T : Attribute
         {

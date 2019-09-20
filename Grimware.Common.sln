@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grimware.Common", "src\Grimware.Common\Grimware.Common.csproj", "{81609817-6E44-4B44-96D8-507643ADE77F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grimware.Common", "src\Grimware.Common\Grimware.Common.csproj", "{52788786-32F1-481D-A62E-A0004AF86D37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1F2E2BC1-9DF8-483D-B61D-B4011BC1CCCC}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Grimware.Common.sln.DotSettings = Grimware.Common.sln.DotSettings
 		Grimware.Common.snk = Grimware.Common.snk
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C1D2373E-4240-4C02-9EB6-67A6C67552F7}"
@@ -25,10 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C961FCE2
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{506F4ED8-1F42-4140-B8AC-DF8BFBAB7857}"
-	ProjectSection(SolutionItems) = preProject
-		LICENSE = LICENSE
-		README.md = README.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A8FA3E76-E615-42BB-A439-C85773ECD24D}"
 EndProject
@@ -53,18 +51,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Debug|x64.ActiveCfg = Debug|x64
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Debug|x64.Build.0 = Debug|x64
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Debug|x86.Build.0 = Debug|Any CPU
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Release|x64.ActiveCfg = Release|x64
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Release|x64.Build.0 = Release|x64
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Release|x86.ActiveCfg = Release|Any CPU
-		{81609817-6E44-4B44-96D8-507643ADE77F}.Release|x86.Build.0 = Release|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Debug|x64.ActiveCfg = Debug|x64
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Debug|x64.Build.0 = Debug|x64
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Debug|x86.Build.0 = Debug|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Release|x64.ActiveCfg = Release|x64
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Release|x64.Build.0 = Release|x64
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Release|x86.ActiveCfg = Release|Any CPU
+		{52788786-32F1-481D-A62E-A0004AF86D37}.Release|x86.Build.0 = Release|Any CPU
 		{0038D2A7-7828-45CD-94A9-1DA891361257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0038D2A7-7828-45CD-94A9-1DA891361257}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0038D2A7-7828-45CD-94A9-1DA891361257}.Debug|x64.ActiveCfg = Debug|x64
@@ -94,7 +92,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{81609817-6E44-4B44-96D8-507643ADE77F} = {A8FA3E76-E615-42BB-A439-C85773ECD24D}
+		{52788786-32F1-481D-A62E-A0004AF86D37} = {A8FA3E76-E615-42BB-A439-C85773ECD24D}
 		{C1D2373E-4240-4C02-9EB6-67A6C67552F7} = {A8FA3E76-E615-42BB-A439-C85773ECD24D}
 		{D5B64700-789A-46D5-9D15-C7A2EC8E3DB2} = {6F7E38E0-DA33-472B-B491-FCC028FDEDE9}
 		{0038D2A7-7828-45CD-94A9-1DA891361257} = {6F7E38E0-DA33-472B-B491-FCC028FDEDE9}

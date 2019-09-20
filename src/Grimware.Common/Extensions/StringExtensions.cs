@@ -116,14 +116,15 @@ namespace Grimware.Extensions
 
         public static string TitleCase(this string source, CultureInfo culture)
         {
-            return source != null
-                ? new string(
+            if (source != null)
+                return new string(
                     source
                         .ToUpper(culture)
                         .ToCharArray()
                         .Select((c, i) => i > 0 && _CasingSymbols.IndexOf(source[i - 1]) == -1 ? Char.ToLower(c, culture) : c)
-                        .ToArray())
-                : null;
+                        .ToArray());
+
+            return null;
         }
 
         public static DateTime? ToDateTime(this string source, IFormatProvider provider)
@@ -133,11 +134,12 @@ namespace Grimware.Extensions
 
         public static DateTime? ToDateTime(this string source, IFormatProvider provider, DateTimeStyles styles)
         {
-            return source != null
-                ? DateTime.TryParse(source, provider, styles, out var result)
+            if (source != null)
+                return DateTime.TryParse(source, provider, styles, out var result)
                     ? (DateTime?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static DateTime? ToDateTime(this string source, string format, IFormatProvider provider)
@@ -211,38 +213,42 @@ namespace Grimware.Extensions
 
         public static decimal? ToDecimal(this string source)
         {
-            return source != null
-                ? Decimal.TryParse(source, out var result)
+            if (source != null)
+                return Decimal.TryParse(source, out var result)
                     ? (decimal?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static decimal? ToDecimal(this string source, NumberStyles style, IFormatProvider provider)
         {
-            return source != null
-                ? Decimal.TryParse(source, style, provider, out var result)
+            if (source != null)
+                return Decimal.TryParse(source, style, provider, out var result)
                     ? (decimal?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static double? ToDouble(this string source)
         {
-            return source != null
-                ? Double.TryParse(source, out var result)
+            if (source != null)
+                return Double.TryParse(source, out var result)
                     ? (double?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static double? ToDouble(this string source, NumberStyles style, IFormatProvider provider)
         {
-            return source != null
-                ? Double.TryParse(source, style, provider, out var result)
+            if (source != null)
+                return Double.TryParse(source, style, provider, out var result)
                     ? (double?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static TEnum? ToEnum<TEnum>(this string value)
@@ -259,65 +265,72 @@ namespace Grimware.Extensions
 
         public static Guid? ToGuid(this string source)
         {
-            return source != null
-                ? _ValidGuidRegex.IsMatch(source)
+            if (source != null)
+                return _ValidGuidRegex.IsMatch(source)
                     ? (Guid?)new Guid(source)
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static short? ToInt16(this string source)
         {
-            return source != null
-                ? Int16.TryParse(source, out var result)
+            if (source != null)
+                return Int16.TryParse(source, out var result)
                     ? (short?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static short? ToInt16(this string source, NumberStyles style, IFormatProvider provider)
         {
-            return source != null
-                ? Int16.TryParse(source, style, provider, out var result)
+            if (source != null)
+                return Int16.TryParse(source, style, provider, out var result)
                     ? (short?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static int? ToInt32(this string source)
         {
-            return source != null
-                ? Int32.TryParse(source, out var result)
+            if (source != null)
+                return Int32.TryParse(source, out var result)
                     ? (int?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static int? ToInt32(this string source, NumberStyles style, IFormatProvider provider)
         {
-            return source != null
-                ? Int32.TryParse(source, style, provider, out var result)
+            if (source != null)
+                return Int32.TryParse(source, style, provider, out var result)
                     ? (int?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static long? ToInt64(this string source)
         {
-            return source != null
-                ? Int64.TryParse(source, out var result)
+            if (source != null)
+                return Int64.TryParse(source, out var result)
                     ? (long?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static long? ToInt64(this string source, NumberStyles style, IFormatProvider provider)
         {
-            return source != null
-                ? Int64.TryParse(source, style, provider, out var result)
+            if (source != null)
+                return Int64.TryParse(source, style, provider, out var result)
                     ? (long?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static string ToPhrase(this string source)
@@ -339,20 +352,22 @@ namespace Grimware.Extensions
 
         public static float? ToSingle(this string source)
         {
-            return source != null
-                ? Single.TryParse(source, out var result)
+            if (source != null)
+                return Single.TryParse(source, out var result)
                     ? (float?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static float? ToSingle(this string source, NumberStyles style, IFormatProvider provider)
         {
-            return source != null
-                ? Single.TryParse(source, style, provider, out var result)
+            if (source != null)
+                return Single.TryParse(source, style, provider, out var result)
                     ? (float?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static TimeSpan? ToTimeSpan(this string source)
@@ -362,11 +377,12 @@ namespace Grimware.Extensions
 
         public static TimeSpan? ToTimeSpan(this string source, IFormatProvider formatProvider)
         {
-            return source != null
-                ? TimeSpan.TryParse(source, formatProvider, out var result)
+            if (source != null)
+                return TimeSpan.TryParse(source, formatProvider, out var result)
                     ? (TimeSpan?)result
-                    : null
-                : null;
+                    : null;
+
+            return null;
         }
 
         public static string Translate(this string source, string from, string to)
@@ -444,9 +460,10 @@ namespace Grimware.Extensions
 
         public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options)
         {
-            return source == null
-                ? Array.Empty<string>()
-                : source.Split(separator == null ? null : new[] { separator }, options);
+            if (source != null)
+                return source.Split(separator == null ? null : new[] { separator }, options);
+
+            return Array.Empty<string>();
         }
 #endif
     }

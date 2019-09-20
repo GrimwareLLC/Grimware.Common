@@ -14,9 +14,9 @@ namespace Grimware.Common.UnitTests.Extensions
     public class StringExtensionsTests
     {
         private const NumberStyles _CurrencyNumberStyles = NumberStyles.AllowCurrencySymbol
-            | NumberStyles.AllowDecimalPoint
-            | NumberStyles.AllowLeadingSign
-            | NumberStyles.AllowThousands;
+                                                           | NumberStyles.AllowDecimalPoint
+                                                           | NumberStyles.AllowLeadingSign
+                                                           | NumberStyles.AllowThousands;
 
         private const string _NullString = null;
 
@@ -189,7 +189,17 @@ namespace Grimware.Common.UnitTests.Extensions
         public void ToDateTime_AdjustCentury()
         {
             "45/12/31"
+                .ToDateTime(new[] { "yy/MM/dd" }, _CurrentCulture, true)
+                .Should()
+                .Be(_CurrentCulture.Calendar.ToDateTime(2045, 12, 31, 0, 0, 0, 0));
+
+            "45/12/31"
                 .ToDateTime("yy/MM/dd", _CurrentCulture, DateTimeStyles.None, true)
+                .Should()
+                .Be(_CurrentCulture.Calendar.ToDateTime(2045, 12, 31, 0, 0, 0, 0));
+
+            "45/12/31"
+                .ToDateTime(new[] { "yy/MM/dd" }, _CurrentCulture, DateTimeStyles.None, true)
                 .Should()
                 .Be(_CurrentCulture.Calendar.ToDateTime(2045, 12, 31, 0, 0, 0, 0));
         }
@@ -220,10 +230,16 @@ namespace Grimware.Common.UnitTests.Extensions
             if (year == 0 && month == 0 && day == 0)
             {
                 source.ToDateTime(format, _CurrentCulture).Should().BeNull();
+                source.ToDateTime(new[] { format }, _CurrentCulture).Should().BeNull();
             }
             else if (styles == DateTimeStyles.None)
             {
                 source.ToDateTime(format, _CurrentCulture)
+                      .Should()
+                      .Be(_CurrentCulture.Calendar.ToDateTime(year, month, day, hour, minute, second, 0));
+
+                source
+                    .ToDateTime(new[] { format }, _CurrentCulture)
                     .Should()
                     .Be(_CurrentCulture.Calendar.ToDateTime(year, month, day, hour, minute, second, 0));
             }
@@ -235,7 +251,7 @@ namespace Grimware.Common.UnitTests.Extensions
                     .Be(_CurrentCulture.Calendar.ToDateTime(year, month, day, hour, minute, second, 0));
 
                 source
-                    .ToDateTime(new[] {format}, _CurrentCulture, styles)
+                    .ToDateTime(new[] { format }, _CurrentCulture, styles)
                     .Should()
                     .Be(_CurrentCulture.Calendar.ToDateTime(year, month, day, hour, minute, second, 0));
             }
@@ -247,8 +263,8 @@ namespace Grimware.Common.UnitTests.Extensions
             DateTime? result = null;
 
             // Arrange
-            Action act1 = () => result = "".ToDateTime((string) null, _CurrentCulture);
-            Action act2 = () => result = "".ToDateTime((string[]) null, _CurrentCulture);
+            Action act1 = () => result = "".ToDateTime((string)null, _CurrentCulture);
+            Action act2 = () => result = "".ToDateTime((string[])null, _CurrentCulture);
 
             // Act
 
@@ -295,8 +311,8 @@ namespace Grimware.Common.UnitTests.Extensions
                 source.ToDateTimeInvariant(format).Should().BeNull();
             else
                 source.ToDateTimeInvariant(format)
-                    .Should()
-                    .Be(_InvariantCulture.Calendar.ToDateTime(year, month, day, hour, minute, second, 0));
+                      .Should()
+                      .Be(_InvariantCulture.Calendar.ToDateTime(year, month, day, hour, minute, second, 0));
         }
 
         [TestMethod]
@@ -317,7 +333,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToDecimal()
         {
-            ((string) null).ToDecimal().Should().BeNull();
+            ((string)null).ToDecimal().Should().BeNull();
             "".ToDecimal().Should().BeNull();
 
             "0".ToDecimal().Should().Be(0M);
@@ -332,7 +348,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToDouble()
         {
-            ((string) null).ToDouble().Should().BeNull();
+            ((string)null).ToDouble().Should().BeNull();
             "".ToDouble().Should().BeNull();
 
             "0".ToDouble().Should().Be(0D);
@@ -347,7 +363,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToEnum()
         {
-            ((string) null).ToEnum<Digit>().Should().BeNull();
+            ((string)null).ToEnum<Digit>().Should().BeNull();
             "".ToEnum<Digit>().Should().BeNull();
             "Test".ToEnum<Digit>().Should().BeNull();
 
@@ -363,7 +379,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Arrange
             var guid = Guid.NewGuid();
 
-            ((string) null).ToGuid().Should().BeNull();
+            ((string)null).ToGuid().Should().BeNull();
             "".ToGuid().Should().BeNull();
             "Test".ToGuid().Should().BeNull();
 
@@ -379,13 +395,13 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToInt16()
         {
-            ((string) null).ToInt16().Should().BeNull();
+            ((string)null).ToInt16().Should().BeNull();
             "".ToInt16().Should().BeNull();
             "Test".ToInt16().Should().BeNull();
             "Test0".ToInt16().Should().BeNull();
             "101.101".ToInt16().Should().BeNull();
 
-            ((string) null).ToInt16(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
+            ((string)null).ToInt16(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "".ToInt16(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test".ToInt16(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test0".ToInt16(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
@@ -406,13 +422,13 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToInt32()
         {
-            ((string) null).ToInt32().Should().BeNull();
+            ((string)null).ToInt32().Should().BeNull();
             "".ToInt32().Should().BeNull();
             "Test".ToInt32().Should().BeNull();
             "Test0".ToInt32().Should().BeNull();
             "101.101".ToInt32().Should().BeNull();
 
-            ((string) null).ToInt32(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
+            ((string)null).ToInt32(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "".ToInt32(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test".ToInt32(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test0".ToInt32(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
@@ -433,13 +449,13 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToInt64()
         {
-            ((string) null).ToInt64().Should().BeNull();
+            ((string)null).ToInt64().Should().BeNull();
             "".ToInt64().Should().BeNull();
             "Test".ToInt64().Should().BeNull();
             "Test0".ToInt64().Should().BeNull();
             "101.101".ToInt64().Should().BeNull();
 
-            ((string) null).ToInt64(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
+            ((string)null).ToInt64(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "".ToInt64(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test".ToInt64(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test0".ToInt64(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
@@ -491,12 +507,12 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToSingle()
         {
-            ((string) null).ToSingle().Should().BeNull();
+            ((string)null).ToSingle().Should().BeNull();
             "".ToSingle().Should().BeNull();
             "Test".ToSingle().Should().BeNull();
             "Test0".ToSingle().Should().BeNull();
 
-            ((string) null).ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
+            ((string)null).ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
             "Test0".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().BeNull();
@@ -505,21 +521,21 @@ namespace Grimware.Common.UnitTests.Extensions
             "0".ToSingle().Should().Be(0);
             "1".ToSingle().Should().Be(1);
             "101".ToSingle().Should().Be(101);
-            "101.101".ToSingle().Should().Be((float) 101.101);
+            "101.101".ToSingle().Should().Be((float)101.101);
 
             "-1".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be(-1);
             "0".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be(0);
             "1".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be(1);
             "101".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be(101);
-            "101.101".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be((float) 101.101);
+            "101.101".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be((float)101.101);
             "$-1,001".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be(-1001);
-            "$101.1234".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be((float) 101.1234);
+            "$101.1234".ToSingle(_CurrencyNumberStyles, _CurrentCulture).Should().Be((float)101.1234);
         }
 
         [TestMethod]
         public void ToTimespan()
         {
-            ((string) null).ToTimeSpan().Should().BeNull();
+            ((string)null).ToTimeSpan().Should().BeNull();
             "".ToTimeSpan().Should().BeNull();
             "Test".ToTimeSpan().Should().BeNull();
 
@@ -531,9 +547,11 @@ namespace Grimware.Common.UnitTests.Extensions
         {
             const string InvalidFilenameCharacters = "<>:\"/\\|?*";
 
-            ((string) null).Translate(null, null).Should().BeNull();
+            ((string)null).Translate(null, null).Should().BeNull();
             "".Translate(null, null).Should().Be("");
+            "".Translate("", null).Should().Be("");
             " ".Translate("", "").Should().Be(" ");
+            " ".Translate(" ", null).Should().Be("");
             " ".Translate(" ", "").Should().Be("");
 
             "5*[2+6]/{9-3}".Translate("[]{}", "()()").Should().Be("5*(2+6)/(9-3)");
@@ -548,7 +566,7 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void TryConvertTo()
         {
-            ((string) null).TryConvertTo<int>(out var int32).Should().BeFalse();
+            ((string)null).TryConvertTo<int>(out var int32).Should().BeFalse();
             int32.Should().Be(default);
             "32".TryConvertTo(out int32).Should().BeTrue();
             int32.Should().Be(32);

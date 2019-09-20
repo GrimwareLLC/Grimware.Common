@@ -21,11 +21,11 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void ToDecimalInvariantNullable()
         {
-            ((double?) null).ToDecimalInvariant().Should().BeNull();
-            ((double?) -101.101D).ToDecimalInvariant().Should().Be(-101.101M);
-            ((double?) 0D).ToDecimalInvariant().Should().Be(0M);
-            ((double?) 101D).ToDecimalInvariant().Should().Be(101M);
-            ((double?) 101.101D).ToDecimalInvariant().Should().Be(101.101M);
+            ((double?)null).ToDecimalInvariant().Should().BeNull();
+            ((double?)-101.101D).ToDecimalInvariant().Should().Be(-101.101M);
+            ((double?)0D).ToDecimalInvariant().Should().Be(0M);
+            ((double?)101D).ToDecimalInvariant().Should().Be(101M);
+            ((double?)101.101D).ToDecimalInvariant().Should().Be(101.101M);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Grimware.Extensions
 {
-    partial class ReflectionExtensions
+    public static class MethodInfoExtensions
     {
         public static bool HasReturnType<T>(this MethodInfo method)
             where T : Attribute

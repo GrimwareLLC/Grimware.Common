@@ -20,6 +20,9 @@ namespace Grimware.Common.UnitTests.Extensions
 
             // Act & Assert
             calendar.GetWeekOfYear(target).Should().Be(53);
+            calendar.GetWeekOfYear(target, CalendarWeekRule.FirstDay).Should().Be(53);
+            calendar.GetWeekOfYear(target, DayOfWeek.Sunday).Should().Be(53);
+            calendar.GetWeekOfYear(target, CalendarWeekRule.FirstDay, DayOfWeek.Sunday).Should().Be(53);
         }
 
         [TestMethod]
@@ -27,7 +30,7 @@ namespace Grimware.Common.UnitTests.Extensions
         {
             var week = 0;
 
-            Action act = () => week = ((Calendar) null).GetWeekOfYear(DateTime.Now);
+            Action act = () => week = ((Calendar)null).GetWeekOfYear(DateTime.Now);
 
             act.Should().Throw<ArgumentNullException>();
             week.Should().Be(0);

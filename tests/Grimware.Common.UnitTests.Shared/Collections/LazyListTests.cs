@@ -14,7 +14,7 @@ namespace Grimware.Common.UnitTests.Collections
     public class LazyListTests
     {
         private static readonly IEnumerable<int> _Int32TestData =
-            new[] {Int32.MinValue, -1, 0, 1, Int32.MaxValue}
+            new[] { Int32.MinValue, -1, 0, 1, Int32.MaxValue }
                 .AsEnumerable();
 
         [TestMethod]
@@ -34,8 +34,8 @@ namespace Grimware.Common.UnitTests.Collections
             LazyList<int> lazy = null;
 
             // Act
-            Action act1 = () => lazy = new LazyList<int>((IEnumerable<int>) null);
-            Action act2 = () => lazy = new LazyList<int>((Func<IList<int>>) null);
+            Action act1 = () => lazy = new LazyList<int>((IEnumerable<int>)null);
+            Action act2 = () => lazy = new LazyList<int>((Func<IList<int>>)null);
 
             // Assert
             act1.Should().Throw<ArgumentNullException>();

@@ -7,6 +7,13 @@ namespace Grimware.Extensions
 {
     public static class PropertyInfoExtensions
     {
+        public static Attribute GetSingleAttributeOfTypeIfExists<T>(this PropertyInfo property)
+        {
+            var attributeType = typeof(T);
+
+            return property?.TryGetSingleAttributeOfType(attributeType, attributes => attributes.SingleOrDefault());
+        }
+
         public static Attribute GetSingleAttributeOfTypeIfExists(this PropertyInfo property, Type attributeType)
         {
             if (attributeType == null) throw new ArgumentNullException(nameof(attributeType));

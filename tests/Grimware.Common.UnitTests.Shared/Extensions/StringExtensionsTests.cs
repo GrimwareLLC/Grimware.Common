@@ -341,6 +341,7 @@ namespace Grimware.Common.UnitTests.Extensions
             "101.101".ToDecimal().Should().Be(101.101M);
             "-101.101".ToDecimal().Should().Be(-101.101M);
 
+            ((string)null).ToDecimal(_CurrencyNumberStyles, _English_Us_Culture).Should().BeNull();
             "$1,001.1234".ToDecimal(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(1001.1234M);
             "$-1,001.1234".ToDecimal(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(-1001.1234M);
         }
@@ -356,6 +357,7 @@ namespace Grimware.Common.UnitTests.Extensions
             "101.101".ToDouble().Should().Be(101.101D);
             "-101.101".ToDouble().Should().Be(-101.101D);
 
+            ((string)null).ToDouble(_CurrencyNumberStyles, _English_Us_Culture).Should().BeNull();
             "$1,001.1234".ToDouble(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(1001.1234D);
             "$-1,001.1234".ToDouble(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(-1001.1234D);
         }

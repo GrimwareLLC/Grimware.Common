@@ -34,6 +34,7 @@ namespace Grimware.Common.UnitTests.Extensions
             // Assert
             act.Should().Throw<ArgumentNullException>().Where(ex => "attributeType".Equals(ex.ParamName));
         }
+
         // Arrange
 
         // Act

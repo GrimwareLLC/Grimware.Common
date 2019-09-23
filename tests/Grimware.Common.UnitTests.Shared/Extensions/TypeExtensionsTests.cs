@@ -49,6 +49,7 @@ namespace Grimware.Common.UnitTests.Extensions
             NullType.FindPropertiesWithAttributeOfType<ReflectionTestAttribute>(false, BindingFlags.Instance | BindingFlags.NonPublic)
                     .Should()
                     .BeEmpty();
+
             NullType.FindPropertiesWithAttributeOfType(typeof(ReflectionTestAttribute), false, BindingFlags.Instance | BindingFlags.NonPublic)
                     .Should()
                     .BeEmpty();
@@ -59,10 +60,10 @@ namespace Grimware.Common.UnitTests.Extensions
             TestType.FindPropertiesWithAttributeOfType<ReflectionTestAttribute>(false, BindingFlags.Instance | BindingFlags.NonPublic)
                     .Should()
                     .HaveCount(3);
+
             TestType.FindPropertiesWithAttributeOfType(typeof(ReflectionTestAttribute), false, BindingFlags.Instance | BindingFlags.NonPublic)
                     .Should()
                     .HaveCount(3);
-
         }
 
         [TestMethod]

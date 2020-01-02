@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Globalization;
-
-#if NETCORE
 using System.Diagnostics.CodeAnalysis;
-
-#endif
+using System.Globalization;
 
 namespace Grimware
 {
@@ -36,21 +32,17 @@ namespace Grimware
         /// </value>
         public bool IsDisposed { get; private set; }
 
-#pragma warning disable CA1063 // Implement IDisposable Correctly
         /// <summary>
         ///     Releases unmanaged resources and performs other cleanup operations
         ///     before the <see cref="DisposableBase" /> is reclaimed by garbage
         ///     collection.
         /// </summary>
-#if NETCORE
         [ExcludeFromCodeCoverage] // Finalizers can't be tested properly in netcore
-#endif
         ~DisposableBase()
         {
             Dispose(false);
         }
 
-#pragma warning restore CA1063 // Implement IDisposable Correctly
         /// <summary>
         ///     Raised after this instance has been disposed or finalized.
         /// </summary>

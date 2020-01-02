@@ -13,7 +13,6 @@ trigger:
   batch: true
   branches:
     include:
-    - develop
     - master
 
 pr: none

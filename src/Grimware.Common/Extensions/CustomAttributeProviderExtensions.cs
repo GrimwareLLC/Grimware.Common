@@ -28,7 +28,9 @@ namespace Grimware.Extensions
         public static T FindSingleAttributeOfType<T>(this ICustomAttributeProvider attributeProvider)
             where T : Attribute
         {
-            return attributeProvider?.FindSingleAttributeOfType<T>(attributes => attributes.SingleOrDefault());
+            return attributeProvider != null
+                ? attributeProvider.FindSingleAttributeOfType<T>(attributes => attributes.SingleOrDefault())
+                : default;
         }
 
         public static Attribute FindSingleAttributeOfType(this ICustomAttributeProvider attributeProvider, Type attributeType)

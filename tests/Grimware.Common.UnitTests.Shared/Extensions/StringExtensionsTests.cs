@@ -72,11 +72,22 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void NullIf()
         {
-            _NullString.NullIf(true, null).Should().BeNull();
-            "".NullIf(true, "").Should().BeNull();
-            "".NullIf(true, null).Should().Be("");
-            "Test".NullIf(true, "test").Should().BeNull();
-            "Test".NullIf(false, "test").Should().Be("Test");
+            _NullString.NullIf((string)null).Should().BeNull();
+            "".NullIf("").Should().BeNull();
+            "".NullIf((string)null).Should().Be("");
+            "Test".NullIf("test").Should().Be("Test");
+
+            _NullString.NullIf(null, true).Should().BeNull();
+            "".NullIf("", true).Should().BeNull();
+            "".NullIf(null, true).Should().Be("");
+            "Test".NullIf("test", true).Should().BeNull();
+            "Test".NullIf("test", false).Should().Be("Test");
+
+            _NullString.NullIf(null, StringComparison.OrdinalIgnoreCase).Should().BeNull();
+            "".NullIf("", StringComparison.OrdinalIgnoreCase).Should().BeNull();
+            "".NullIf(null, StringComparison.OrdinalIgnoreCase).Should().Be("");
+            "Test".NullIf("test", StringComparison.OrdinalIgnoreCase).Should().BeNull();
+            "Test".NullIf("test", StringComparison.Ordinal).Should().Be("Test");
         }
 
         [TestMethod]
@@ -91,7 +102,11 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void NullIfIn()
         {
-            _NullString.NullIfIn(false, "Lorem", "ipsum", "dolor", "sit", "amet", null).Should().BeNull();
+            _NullString.NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
+            "".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().NotBeNull();
+            "Lorem".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
+            "Ipsum".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().NotBeNull();
+            "dolor".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
 
             _NullString.NullIfIn(false, "Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
             "".NullIfIn(false, "Lorem", "ipsum", "dolor", "sit", "amet").Should().NotBeNull();

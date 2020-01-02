@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using FluentAssertions;
 using Grimware.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,6 +13,8 @@ namespace Grimware.Common.UnitTests.Extensions
     public class CustomAttributeProviderExtensionsTests
         : ReflectionExtensionsTestsBase
     {
+        private static ICustomAttributeProvider CustomAttributeProvider => TestType;
+
         [TestMethod]
         public void FindAttributesOfType()
         {
@@ -20,13 +23,13 @@ namespace Grimware.Common.UnitTests.Extensions
             // Act
 
             // Assert
-            TestType.FindAttributesOfType<SerializableAttribute>().Should().HaveCount(0);
-            TestType.FindAttributesOfType(typeof(SerializableAttribute)).Should().HaveCount(0);
+            CustomAttributeProvider.FindAttributesOfType<SerializableAttribute>().Should().HaveCount(0);
+            CustomAttributeProvider.FindAttributesOfType(typeof(SerializableAttribute)).Should().HaveCount(0);
 
-            TestType.FindAttributesOfType<ReflectionTestAttribute>().Should().HaveCount(1);
-            TestType.FindAttributesOfType(typeof(ReflectionTestAttribute)).Should().HaveCount(1);
+            CustomAttributeProvider.FindAttributesOfType<ReflectionTestAttribute>().Should().HaveCount(1);
+            CustomAttributeProvider.FindAttributesOfType(typeof(ReflectionTestAttribute)).Should().HaveCount(1);
 
-            var attribute = TestType.FindAttributesOfType<ReflectionTestAttribute>().Single();
+            var attribute = CustomAttributeProvider.FindAttributesOfType<ReflectionTestAttribute>().Single();
             attribute.Should().NotBeNull();
             attribute.State.Should().Be("class");
         }
@@ -36,9 +39,9 @@ namespace Grimware.Common.UnitTests.Extensions
         {
             // Arrange
             object result = null;
-            
+
             // Act
-            Action act = () => result = TestType.FindAttributesOfType(null);
+            Action act = () => result = CustomAttributeProvider.FindAttributesOfType(null);
 
             // Assert
             act.Should().Throw<ArgumentNullException>().Where(ex => "attributeType".Equals(ex.ParamName));

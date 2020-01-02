@@ -21,16 +21,15 @@ namespace Grimware.Common.UnitTests.Extensions
         [ReflectionTest(State = "class")]
         public class ReflectionTestType
         {
+            [ReflectionTest(State = "yyyy-MM-dd")]
+            public DateTime BirthDate { get; set; }
             [ReflectionTest(State = "Given Name")]
-            public string FirstName { get;set; }
+            public string FirstName { get; set; }
+
+            public Gender Gender { get; set; }
 
             [ReflectionTest(State = "Surname")]
             public string LastName { get; set; }
-
-            [ReflectionTest(State = "yyyy-MM-dd")]
-            public DateTime BirthDate { get; set; }
-
-            public Gender Gender { get; set; }
 
 #pragma warning disable IDE0051 // Remove unused private members
             [ReflectionTest(State = "private")]
@@ -50,7 +49,7 @@ namespace Grimware.Common.UnitTests.Extensions
             Unknown = 0,
 
             Female,
-            Male,
+            Male
         }
     }
 }

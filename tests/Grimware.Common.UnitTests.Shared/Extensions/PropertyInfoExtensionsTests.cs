@@ -29,11 +29,13 @@ namespace Grimware.Common.UnitTests.Extensions
             object result = null;
 
             // Act
-            Action act = () => TestType.FindProperty("LastName", typeof(string)).GetSingleAttributeOfTypeIfExists(null);
+            Action act = () => result = TestType.FindProperty("LastName", typeof(string)).GetSingleAttributeOfTypeIfExists(null);
 
             // Assert
+            result.Should().BeNull();
             act.Should().Throw<ArgumentNullException>().Where(ex => "attributeType".Equals(ex.ParamName));
         }
+
         // Arrange
 
         // Act

@@ -54,7 +54,6 @@ namespace Grimware.Extensions
         /// <param name="source">specified text</param>
         /// <param name="defaultValue">default value if conversion fails</param>
         /// <returns>An Object that represents the converted text.</returns>
-        /// <exception cref="ArgumentNullException">type is null</exception>
         public static T ConvertTo<T>(this string source, T defaultValue)
         {
             return TryConvertTo<T>(source, out var result) ? result : defaultValue;
@@ -72,9 +71,19 @@ namespace Grimware.Extensions
                 : values.Any(s => source.Equals(s, comparisonType));
         }
 
-        public static string NullIf(this string source, bool ignoreCase, string value)
+        public static string NullIf(this string source, string value)
+        {
+            return NullIf(source, value, false);
+        }
+
+        public static string NullIf(this string source, string value, bool ignoreCase)
         {
             return source?.NullIfIn(ignoreCase, value);
+        }
+
+        public static string NullIf(this string source, string value, StringComparison comparisonType)
+        {
+            return source.NullIfIn(comparisonType, value);
         }
 
         public static string NullIfEmpty(this string source)
@@ -82,11 +91,21 @@ namespace Grimware.Extensions
             return source?.NullIf(String.IsNullOrEmpty);
         }
 
+        public static string NullIfIn(this string source, params string[] values)
+        {
+            return NullIfIn(source, false, values);
+        }
+
         public static string NullIfIn(this string source, bool ignoreCase, params string[] values)
         {
             return source?.NullIfIn(
                 ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal,
                 values);
+        }
+
+        public static string NullIfIn(this string source, StringComparison comparison, params string[] values)
+        {
+            return source?.NullIf(s => s.In(comparison, values));
         }
 
         public static string NullIfWhitespace(this string source)
@@ -160,7 +179,7 @@ namespace Grimware.Extensions
         public static DateTime? ToDateTime(this string source, string format, IFormatProvider provider, DateTimeStyles style, bool adjustCentury)
         {
             return format != null
-                ? ToDateTime(source, new[] { format }, provider, style, adjustCentury)
+                ? ToDateTime(source, new[] {format}, provider, style, adjustCentury)
                 : throw new ArgumentNullException(nameof(format));
         }
 
@@ -395,7 +414,7 @@ namespace Grimware.Extensions
 
             var sb = new StringBuilder(source);
 
-            for (var i = 0 ; i < sb.Length ; i++)
+            for (var i = 0; i < sb.Length; i++)
             {
                 var j = from.IndexOf(sb[i]);
                 if (j >= 0 && j < to.Length)
@@ -437,11 +456,6 @@ namespace Grimware.Extensions
             return successful;
         }
 
-        private static string NullIfIn(this string source, StringComparison comparison, params string[] values)
-        {
-            return source?.NullIf(s => s.In(comparison, values));
-        }
-
         private static object TryConvertFromStringInternal(Type type, string value)
         {
             if (type.IsEnum) return Enum.Parse(type, value, true);
@@ -460,10 +474,10 @@ namespace Grimware.Extensions
 
         public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options)
         {
-            if (source != null)
-                return source.Split(separator == null ? null : new[] { separator }, options);
-
-            return Array.Empty<string>();
+            return
+                source != null
+                    ? source.Split(separator == null ? null : new[] {separator}, options)
+                    : Array.Empty<string>();
         }
 #endif
     }

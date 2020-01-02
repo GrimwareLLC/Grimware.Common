@@ -474,10 +474,9 @@ namespace Grimware.Extensions
 
         public static IEnumerable<string> Split(this string source, string separator, StringSplitOptions options)
         {
-            return
-                source != null
-                    ? source.Split(separator == null ? null : new[] {separator}, options)
-                    : Array.Empty<string>();
+            var separatorList = separator == null ? null : new[] {separator};
+
+            return source != null ? source.Split(separatorList, options) : Array.Empty<string>();
         }
 #endif
     }

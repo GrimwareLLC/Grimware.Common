@@ -2,6 +2,8 @@
 # Build and test .NET projects.
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 
+name: $(BuildId)
+
 variables:
 - group: 'Grimware.Common-Variable-Group'
 - name: Solution

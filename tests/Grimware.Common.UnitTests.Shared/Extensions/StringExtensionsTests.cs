@@ -72,11 +72,22 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void NullIf()
         {
-            _NullString.NullIf(true, null).Should().BeNull();
-            "".NullIf(true, "").Should().BeNull();
-            "".NullIf(true, null).Should().Be("");
-            "Test".NullIf(true, "test").Should().BeNull();
-            "Test".NullIf(false, "test").Should().Be("Test");
+            _NullString.NullIf((string)null).Should().BeNull();
+            "".NullIf("").Should().BeNull();
+            "".NullIf((string)null).Should().Be("");
+            "Test".NullIf("test").Should().Be("Test");
+
+            _NullString.NullIf(null, true).Should().BeNull();
+            "".NullIf("", true).Should().BeNull();
+            "".NullIf(null, true).Should().Be("");
+            "Test".NullIf("test", true).Should().BeNull();
+            "Test".NullIf("test", false).Should().Be("Test");
+
+            _NullString.NullIf(null, StringComparison.OrdinalIgnoreCase).Should().BeNull();
+            "".NullIf("", StringComparison.OrdinalIgnoreCase).Should().BeNull();
+            "".NullIf(null, StringComparison.OrdinalIgnoreCase).Should().Be("");
+            "Test".NullIf("test", StringComparison.OrdinalIgnoreCase).Should().BeNull();
+            "Test".NullIf("test", StringComparison.Ordinal).Should().Be("Test");
         }
 
         [TestMethod]
@@ -91,7 +102,11 @@ namespace Grimware.Common.UnitTests.Extensions
         [TestMethod]
         public void NullIfIn()
         {
-            _NullString.NullIfIn(false, "Lorem", "ipsum", "dolor", "sit", "amet", null).Should().BeNull();
+            _NullString.NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
+            "".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().NotBeNull();
+            "Lorem".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
+            "Ipsum".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().NotBeNull();
+            "dolor".NullIfIn("Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
 
             _NullString.NullIfIn(false, "Lorem", "ipsum", "dolor", "sit", "amet").Should().BeNull();
             "".NullIfIn(false, "Lorem", "ipsum", "dolor", "sit", "amet").Should().NotBeNull();
@@ -341,6 +356,7 @@ namespace Grimware.Common.UnitTests.Extensions
             "101.101".ToDecimal().Should().Be(101.101M);
             "-101.101".ToDecimal().Should().Be(-101.101M);
 
+            ((string)null).ToDecimal(_CurrencyNumberStyles, _English_Us_Culture).Should().BeNull();
             "$1,001.1234".ToDecimal(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(1001.1234M);
             "$-1,001.1234".ToDecimal(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(-1001.1234M);
         }
@@ -356,6 +372,7 @@ namespace Grimware.Common.UnitTests.Extensions
             "101.101".ToDouble().Should().Be(101.101D);
             "-101.101".ToDouble().Should().Be(-101.101D);
 
+            ((string)null).ToDouble(_CurrencyNumberStyles, _English_Us_Culture).Should().BeNull();
             "$1,001.1234".ToDouble(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(1001.1234D);
             "$-1,001.1234".ToDouble(_CurrencyNumberStyles, _English_Us_Culture).Should().Be(-1001.1234D);
         }

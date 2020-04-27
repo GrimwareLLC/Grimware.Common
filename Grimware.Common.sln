@@ -40,6 +40,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grimware.Common.UnitTests.N
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		tests\Grimware.Common.UnitTests.Shared\Grimware.Common.UnitTests.Shared.projitems*{0038d2a7-7828-45cd-94a9-1da891361257}*SharedItemsImports = 5
+		tests\Grimware.Common.UnitTests.Shared\Grimware.Common.UnitTests.Shared.projitems*{879aaf4e-3b8b-4c5c-bb59-f4535602784f}*SharedItemsImports = 5
 		tests\Grimware.Common.UnitTests.Shared\Grimware.Common.UnitTests.Shared.projitems*{d5b64700-789a-46d5-9d15-c7a2ec8e3db2}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

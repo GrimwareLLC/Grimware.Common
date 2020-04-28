@@ -27,9 +27,10 @@ jobs:
     clean: all
   steps:
   - task: UseDotNet@2
+    displayName: Use DotNet Core 2.1.x
     inputs:
       packageType: 'sdk'
-      version: '2.x'
+      version: '2.1.x'
       installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - task: DotNetCoreCLI@2
@@ -41,6 +42,7 @@ jobs:
       restoreDirectory: '$(System.DefaultWorkingDirectory)'
 
   - task: SonarCloudPrepare@1
+    displayName: Prepare SonarCloud Analysis
     inputs:
       SonarCloud: 'SonarCloud - SteelGadget'
       organization: 'grimware'

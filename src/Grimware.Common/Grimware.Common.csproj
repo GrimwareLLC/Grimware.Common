@@ -22,9 +22,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <PackageReleaseNotes>
       <![CDATA[
+1.1.1 - Added Chunk() extension method to EnumerableExtensions
 1.1.0 - Initial release
 1.0.0 - Defunct release from old versioning system
 ]]>

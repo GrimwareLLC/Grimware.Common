@@ -15,7 +15,7 @@ namespace Grimware.Extensions
         }
         
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int maxChunkSize){
-            if (maxChunkSize) < 1)
+            if (maxChunkSize < 1)
                 throw new ArgumentOutOfRangeException(nameof(maxChunkSize), @"Chunk size must be > 0.");
             
             if (source == null) return Enumerable.Empty<IEnumerable<T>>();

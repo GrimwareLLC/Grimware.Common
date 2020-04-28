@@ -13,6 +13,20 @@ namespace Grimware.Extensions
                    .Where(a => a.IsMatch)
                    .Select(a => a.Index);
         }
+        
+        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int maxChunkSize){
+            if (maxChunkSize) < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxChunkSize), @"Chunk size must be > 0.");
+            
+            if (source == null) return Enumerable.Empty<IEnumerable<T>>();
+            
+            return
+                source
+                    .Select((t, i) => new {Index = i, Value = t})
+                    .GroupBy(a => a.Index / maxChunkSize)
+                    .Select(a => a.Select(v => v.Value).AsEnumerable())
+                    .AsEnumerable();
+        }
 
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
         {

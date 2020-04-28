@@ -26,9 +26,6 @@
     <PackageReleaseNotes>
       <![CDATA[
 2.0.0 - Update version to be higher than all previously-registered versions on nuget.org
-1.1.1 - Added Chunk() extension method to EnumerableExtensions
-1.1.0 - Initial release
-1.0.0 - Defunct release from old versioning system
 ]]>
     </PackageReleaseNotes>
     <Description>Lightweight .NET extensions, helpers, and abstractions library</Description>

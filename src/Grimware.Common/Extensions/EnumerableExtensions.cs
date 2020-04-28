@@ -14,7 +14,8 @@ namespace Grimware.Extensions
                    .Select(a => a.Index);
         }
         
-        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int maxChunkSize){
+        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int maxChunkSize)
+        {
             if (maxChunkSize < 1)
                 throw new ArgumentOutOfRangeException(nameof(maxChunkSize), @"Chunk size must be > 0.");
             

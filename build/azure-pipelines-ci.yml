@@ -14,8 +14,6 @@ trigger:
   branches:
     include:
     - master
-    - release/*
-    - releases/*
 
 pr: none
 

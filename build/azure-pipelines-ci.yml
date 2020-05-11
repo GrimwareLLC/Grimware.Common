@@ -28,10 +28,10 @@ jobs:
     clean: all
   steps:
   - task: UseDotNet@2
-    displayName: Use DotNet Core 2.1.x
+    displayName: Use DotNet Core 2.x
     inputs:
       packageType: 'sdk'
-      version: '2.1.x'
+      version: '2.x'
       installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - task: DotNetCoreCLI@2

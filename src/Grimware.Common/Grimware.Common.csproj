@@ -12,6 +12,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NeutralLanguage>en-US</NeutralLanguage>
     <LangVersion>Latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RestorePackages Condition="'$(RestorePackages)' == ''">true</RestorePackages>
   </PropertyGroup>
 
@@ -22,9 +23,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.0</Version>
+    <Version>2.0.1-preview01</Version>
     <PackageReleaseNotes>
       <![CDATA[
+2.0.1 - Add SourceLink support to NuGet package
+        Generate documentation files for library.  (Also causes R# to warn when docs are missing or broken.)
 2.0.0 - Update version to be higher than all previously-registered versions on nuget.org
 ]]>
     </PackageReleaseNotes>
@@ -33,7 +36,6 @@
     <Company>Grimware, LLC</Company>
     <PackageTags>Common Utility Extensions ExtensionMethods Library</PackageTags>
     <Copyright>© 2007-2020, Grimware, LLC</Copyright>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -47,7 +49,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <DebugType>pdbonly</DebugType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Optimize>true</Optimize>
   </PropertyGroup>
 
@@ -57,6 +62,7 @@
 
   <!-- common NuGet package references that affect all target frameworks -->
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
